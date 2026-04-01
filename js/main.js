@@ -4,11 +4,7 @@ const siteData = {
     currentPage: 'home',
     activePhoto: null,
     pageContent: {}, // Cache for loaded HTML content
-    newsItems: [], // Store parsed news items
-    galleryItems: {
-        recent: [],
-        archive: []
-    } // Store parsed gallery items
+    newsItems: [] // Store parsed news items
 };
 
 // Navigation handler
@@ -30,18 +26,18 @@ function updateActiveNav() {
     });
 }
 
-// Modal functions
+// Modal functions (kept for any future modals, but not actively used)
 function openModal(photo) {
     siteData.activePhoto = photo;
     const modal = document.getElementById('modal');
-    modal.classList.add('active');
+    if (modal) modal.classList.add('active');
     renderModal();
 }
 
 function closeModal() {
     siteData.activePhoto = null;
     const modal = document.getElementById('modal');
-    modal.classList.remove('active');
+    if (modal) modal.classList.remove('active');
 }
 
 function renderModal() {
@@ -83,53 +79,6 @@ function parseNewsItems(html) {
     return newsItems;
 }
 
-// Parse gallery HTML to extract photos
-function parseGalleryItems(html) {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-    const recent = [];
-    const archive = [];
-    let photoId = 1;
-    
-    // Find all photo cards
-    const photoCards = doc.querySelectorAll('.photo-card');
-    photoCards.forEach(card => {
-        const img = card.querySelector('img');
-        const titleElem = card.querySelector('.photo-title');
-        const dateElem = card.querySelector('.photo-date');
-        const descElem = card.querySelector('.photo-description');
-        
-        // Determine category based on section heading or default to recent
-        let category = 'recent';
-        const parentSection = card.closest('.gallery-section');
-        if (parentSection) {
-            const heading = parentSection.querySelector('h2');
-            if (heading && heading.textContent.includes('Archive')) {
-                category = 'archive';
-            }
-        }
-        
-        if (img && titleElem && dateElem && descElem) {
-            const photo = {
-                id: photoId++,
-                title: titleElem.textContent.trim(),
-                date: dateElem.textContent.trim(),
-                description: descElem.textContent.trim(),
-                imageUrl: img.getAttribute('src'),
-                category: category
-            };
-            
-            if (category === 'recent') {
-                recent.push(photo);
-            } else {
-                archive.push(photo);
-            }
-        }
-    });
-    
-    return { recent, archive };
-}
-
 // Load HTML content from external files
 async function loadPageContent(page) {
     // Check if content is already cached
@@ -148,13 +97,6 @@ async function loadPageContent(page) {
             siteData.newsItems = parseNewsItems(content);
         }
         
-        // If loading gallery page, parse and store gallery items
-        if (page === 'gallery') {
-            const { recent, archive } = parseGalleryItems(content);
-            siteData.galleryItems.recent = recent;
-            siteData.galleryItems.archive = archive;
-        }
-        
         return content;
     } catch (error) {
         console.error(error);
@@ -162,13 +104,10 @@ async function loadPageContent(page) {
     }
 }
 
-// Render home page with top 3 news items and recent photos
+// Render home page with top 3 news items
 function renderHome() {
     // Get top 3 news items
     const topNews = siteData.newsItems.slice(0, 3);
-    
-    // Get top 3 recent photos
-    const topPhotos = siteData.galleryItems.recent.slice(0, 3);
     
     return `
         <div class="hero">
@@ -201,69 +140,6 @@ function renderHome() {
                 <button class="btn" onclick="navigateTo('news')">View All News →</button>
             </div>
         </div>
-        
-        <div class="gallery-section">
-            <h2 class="section-title">Recent Photos</h2>
-            <div class="gallery-grid">
-                ${topPhotos.map(photo => `
-                    <div class="photo-card" onclick="openModal(${JSON.stringify(photo).replace(/"/g, '&quot;')})">
-                        <img src="${photo.imageUrl}" alt="${photo.title}" class="photo-image" onerror="this.src='https://via.placeholder.com/300x200?text=Image+Not+Found'">
-                        <div class="photo-info">
-                            <div class="photo-title">${photo.title}</div>
-                            <div class="photo-date">${photo.date}</div>
-                            <div class="photo-description">${photo.description}</div>
-                        </div>
-                    </div>
-                `).join('')}
-            </div>
-            <div style="text-align: center; margin-top: 2rem;">
-                <button class="btn" onclick="navigateTo('gallery')">View Full Gallery →</button>
-            </div>
-        </div>
-    `;
-}
-
-function renderGallery() {
-    const recentPhotos = siteData.galleryItems.recent;
-    const archivePhotos = siteData.galleryItems.archive;
-    
-    return `
-        <h1 class="section-title">Lab Gallery</h1>
-        <p>Explore moments from our lab activities, field work, and team events.</p>
-        
-        <div class="gallery-section">
-            <h2 class="section-title">Recent Photos</h2>
-            <div class="gallery-grid">
-                ${recentPhotos.map(photo => `
-                    <div class="photo-card" onclick="openModal(${JSON.stringify(photo).replace(/"/g, '&quot;')})">
-                        <img src="${photo.imageUrl}" alt="${photo.title}" class="photo-image" onerror="this.src='https://via.placeholder.com/300x200?text=Image+Not+Found'">
-                        <div class="photo-info">
-                            <div class="photo-title">${photo.title}</div>
-                            <div class="photo-date">${photo.date}</div>
-                            <div class="photo-description">${photo.description}</div>
-                        </div>
-                    </div>
-                `).join('')}
-            </div>
-        </div>
-        
-        ${archivePhotos.length > 0 ? `
-            <div class="gallery-section">
-                <h2 class="section-title">Archive Photos</h2>
-                <div class="gallery-grid">
-                    ${archivePhotos.map(photo => `
-                        <div class="photo-card" onclick="openModal(${JSON.stringify(photo).replace(/"/g, '&quot;')})">
-                            <img src="${photo.imageUrl}" alt="${photo.title}" class="photo-image" onerror="this.src='https://via.placeholder.com/300x200?text=Image+Not+Found'">
-                            <div class="photo-info">
-                                <div class="photo-title">${photo.title}</div>
-                                <div class="photo-date">${photo.date}</div>
-                                <div class="photo-description">${photo.description}</div>
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-        ` : ''}
     `;
 }
 
@@ -283,7 +159,6 @@ async function render() {
                     <li><a href="#" data-page="team" onclick="navigateTo('team'); return false;">Team</a></li>
                     <li><a href="#" data-page="news" onclick="navigateTo('news'); return false;">News</a></li>
                     <li><a href="#" data-page="publications" onclick="navigateTo('publications'); return false;">Publications</a></li>
-                    <li><a href="#" data-page="gallery" onclick="navigateTo('gallery'); return false;">Gallery</a></li>
                 </ul>
             </div>
         </nav>
@@ -304,12 +179,9 @@ async function render() {
     
     app.innerHTML = navigation;
     
-    // Pre-load news and gallery content to get data for home page
+    // Pre-load news content to get news items for home page
     if (!siteData.newsItems.length) {
         await loadPageContent('news');
-    }
-    if (!siteData.galleryItems.recent.length) {
-        await loadPageContent('gallery');
     }
     
     // Load content for current page
@@ -318,8 +190,6 @@ async function render() {
     
     if (siteData.currentPage === 'home') {
         content = renderHome();
-    } else if (siteData.currentPage === 'gallery') {
-        content = renderGallery();
     } else {
         // Load from external HTML files for research, team, news, publications
         content = await loadPageContent(siteData.currentPage);
