@@ -1,0 +1,42 @@
+<!-- news.html -->
+<!-- This content is meant to be rendered by the renderNews() function in main.js -->
+<h1 class="section-title">News & Updates</h1>
+<p>Stay updated with the latest from Capo Lab.</p>
+
+<div style="margin-top: 2rem;">
+    <div class="news-item">
+        <div class="news-date">March 2025</div>
+        <div class="news-title">New Paper in Nature Water</div>
+        <div class="news-summary">Our study "Climate-driven deoxygenation promoted potential mercury methylators in the past Black Sea water column" led by Mingye Zhong and Eric Capo has been published in Nature Water.</div>
+    </div>
+    
+    <div class="news-item">
+        <div class="news-date">January 2025</div>
+        <div class="news-title">Global Impact Research Featured in Nature</div>
+        <div class="news-summary">The lab contributed to "The global human impact on biodiversity" led by François Keck, published in Nature, highlighting worldwide biodiversity patterns.</div>
+    </div>
+    
+    <div class="news-item">
+        <div class="news-date">October 2024</div>
+        <div class="news-title">New Publication in PNAS</div>
+        <div class="news-summary">Our collaborative work "Transient social-ecological dynamics reveal signals of decoupling in a highly disturbed Anthropocene landscape" led by Q. Lin is now out in Proceedings of the National Academy of Sciences.</div>
+    </div>
+    
+    <div class="news-item">
+        <div class="news-date">September 2024</div>
+        <div class="news-title">Sedimentary DNA Book Published</div>
+        <div class="news-summary">Eric Capo co-edited "Tracking Environmental Change Using Lake Sediments: Volume 6 - Sedimentary DNA" published by Springer.</div>
+    </div>
+    
+    <div class="news-item">
+        <div class="news-date">August 2023</div>
+        <div class="news-title">ERC Grant Awarded</div>
+        <div class="news-summary">Capo Lab receives funding to advance research on microbial mercury methylation and deoxygenation in aquatic ecosystems.</div>
+    </div>
+    
+    <div class="news-item">
+        <div class="news-date">June 2023</div>
+        <div class="news-title">New Protocol for Mercury Methylation Genes</div>
+        <div class="news-summary">The lab published a consensus protocol for the recovery of mercury methylation genes from metagenomes in Molecular Ecology Resources.</div>
+    </div>
+</div>
