@@ -38,6 +38,7 @@ body::before {
 
 /* Navigation */
 nav {
+    position: relative
     background-image: url('../images/back.jpg');
     background-size: cover;
     background-position: center;
@@ -48,6 +49,17 @@ nav {
     z-index: 1000;
 }
 
+    nav::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);  /* Adjust opacity for desired darkness */
+    z-index: 0;
+}
+
 .nav-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -55,7 +67,9 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 1;
+    background-color: transparent;
 }
 
 .logo {
