@@ -90,13 +90,13 @@ function renderHome() {
     return `
         <div class="hero">
             <h1>Welcome to Capo Lab</h1>
-            <p>Exploring microbial ecology across time and space</p>
+            <p>We explore the life of microorganisms in marine and freshwater systems</p>
         </div>
         
         <div class="lab-intro">
             <div class="lab-intro-text">
                 <h2>Our Research</h2>
-                <p>We explore the ecology of marine and freshwater systems with a focus on aquatic microorganisms i.e., bacteria, archaea and protists. Our focus lies in understanding the temporal dynamics of microbial communities and their functional responses to environmental change, such as climate change, eutrophication, mercury pollution or coral bleaching. Specifically our main research lines are centered on investigating the consequences of deoxygenation of water columns on microbial processes and related ecosystem services. We apply molecular ecology methods, such as metabarcoding, (ancient) metagenomics, MAGs-based analysis and metatranscriptomics. We rely on molecular paleoecology approaches, based on sedimentary DNA sequencing to reconstruct past changes in aquatic ecosystems. By combining genetic information from past and modern environments, we strive to shed light on the intricate relationships between microbial communities and their environment.</p>
+                <p>Our focus lies in understanding the temporal dynamics of microbial communities and their functional responses to environmental change, such as climate change, eutrophication, mercury pollution or coral bleaching. Specifically our main research lines are centered on investigating the consequences of deoxygenation of water columns on microbial processes and related ecosystem services. We apply molecular ecology methods, such as metabarcoding, (ancient) metagenomics, MAGs-based analysis and metatranscriptomics. We rely on molecular paleoecology approaches, based on sedimentary DNA sequencing to reconstruct past changes in aquatic ecosystems. By combining genetic information from past and modern environments, we strive to shed light on the intricate relationships between microbial communities and their environment.</p>
             </div>
             <div class="lab-intro-image">
                 <img src="images/team2025.png" alt="Capo Lab Team 2025" onerror="this.src='https://via.placeholder.com/400x300?text=Team+Photo+2025'">
