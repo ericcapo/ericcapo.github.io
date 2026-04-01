@@ -61,7 +61,7 @@ function parseNewsItems(html) {
     const newsItems = [];
     
     // Find all news-item divs (looking for the structured news items)
-    const items = doc.querySelectorAll('.news-item');
+    const items = doc.querySelectorAll('.news-cards');
     items.forEach(item => {
         const dateElem = item.querySelector('.news-date');
         const titleElem = item.querySelector('.news-title');
@@ -120,7 +120,7 @@ function renderHome() {
                 <p>We study the spatio-temporal dynamics of aquatic microbial communities and their functional responses to environmental change, such as climate change, eutrophication, deoxygenation or mercury pollution. We apply molecular ecology methods, such as metabarcoding, (ancient) metagenomics, MAGs-based analysis and metatranscriptomics. By combining genetic information from past (sediment archives) and modern (water) environments, we strive to shed light on the intricate relationships between microbial communities and their environment.</p>
             </div>
             <div class="lab-intro-image">
-                <img src="images/team2025.png" alt="Capo Lab Team 2025" onerror="this.src='https://via.placeholder.com/400x300?text=Team+Photo+2025'">
+                <img src="images/team2025.png" alt="Capo Lab Team 2025" onerror="this.src='https://via.placeholder.com/400x200?text=News'">
             </div>
         </div>
         
