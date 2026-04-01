@@ -117,7 +117,7 @@ function renderHome() {
         
         <div class="lab-intro">
             <div class="lab-intro-text">
-                <p>We study the spatio-temporal dynamics of microbial communities and their functional responses to environmental change, such as climate change, eutrophication, mercury pollution or coral bleaching. One of our research lines is about the consequences of deoxygenation of water columns on microbial processes and related ecosystem services. We apply molecular ecology methods, such as metabarcoding, (ancient) metagenomics, MAGs-based analysis and metatranscriptomics. We rely on molecular paleoecology approaches, based on sedimentary DNA sequencing to reconstruct past changes in aquatic ecosystems. By combining genetic information from past and modern environments, we strive to shed light on the intricate relationships between microbial communities and their environment.</p>
+                <p>We study the spatio-temporal dynamics of aquatic microbial communities and their functional responses to environmental change, such as climate change, eutrophication, deoxygenation or mercury pollution. We apply molecular ecology methods, such as metabarcoding, (ancient) metagenomics, MAGs-based analysis and metatranscriptomics. By combining genetic information from past (sediment archives) and modern (water) environments, we strive to shed light on the intricate relationships between microbial communities and their environment.</p>
             </div>
             <div class="lab-intro-image">
                 <img src="images/team2025.png" alt="Capo Lab Team 2025" onerror="this.src='https://via.placeholder.com/400x300?text=Team+Photo+2025'">
@@ -172,7 +172,7 @@ async function render() {
         
         <footer>
             <p>Contact: <a href="mailto:eric.capo@umu.se">eric.capo@umu.se</a></p>
-            <p style="margin-top: 0.5rem; font-size: 0.85rem;">Department of Ecology, Environment and Geoscience, Umeå University (Umeå, Sweden)</p>
+            <p style="margin-top: 0.5rem; font-size: 0.85rem;">Department of Ecology, Environment and Geoscience, Umeå University, Sweden</p>
         </footer>
         
         <div id="modal" class="modal">
