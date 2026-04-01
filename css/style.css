@@ -23,20 +23,20 @@ body::before {
     display: none;
 }
 
-/* Container - More transparent white box */
+/* Container - NO background box, completely transparent */
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem;
-    background-color: rgba(255, 255, 255, 0.6); /* More transparent - 60% opacity */
-    backdrop-filter: blur(8px);
-    border-radius: 12px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    background-color: transparent;
+    backdrop-filter: none;
+    border-radius: 0;
+    box-shadow: none;
     margin-top: 2rem;
     margin-bottom: 2rem;
 }
 
-/* Navigation - No gray box, transparent */
+/* Navigation */
 nav {
     background-image: url('../images/back.jpg');
     background-size: cover;
@@ -55,7 +55,7 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.3); /* Subtle dark overlay for text readability */
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 .logo {
@@ -92,7 +92,7 @@ nav {
     border-bottom: 2px solid #6ab0d6;
 }
 
-/* Footer - No gray box */
+/* Footer */
 footer {
     text-align: center;
     padding: 2rem;
@@ -133,12 +133,12 @@ footer a:hover {
     text-decoration: underline;
 }
 
-/* Hero Section */
+/* Hero Section - NO background box */
 .hero {
     text-align: center;
     padding: 3rem 2rem;
-    background: linear-gradient(135deg, rgba(44, 125, 160, 0.85), rgba(31, 59, 76, 0.85));
-    border-radius: 12px;
+    background: transparent;
+    border-radius: 0;
     color: white;
     margin-bottom: 2rem;
 }
@@ -146,33 +146,41 @@ footer a:hover {
 .hero h1 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .hero p {
     font-size: 1.2rem;
     opacity: 0.95;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
-/* Lab Intro Section - More transparent */
+/* Lab Intro Section - NO background box */
 .lab-intro {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
     margin-bottom: 3rem;
-    background: rgba(255, 255, 255, 0.5); /* More transparent */
-    border-radius: 12px;
+    background: transparent;
+    border-radius: 0;
     padding: 2rem;
-    backdrop-filter: blur(4px);
+    backdrop-filter: none;
     align-items: center;
 }
 
 .lab-intro-text {
     text-align: justify;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 2rem;
+    border-radius: 12px;
+    backdrop-filter: blur(4px);
 }
 
 .lab-intro-text p {
     text-align: justify;
     line-height: 1.6;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .lab-intro-image {
@@ -185,7 +193,7 @@ footer a:hover {
     width: 100%;
     max-width: 400px;
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* News Section */
@@ -195,10 +203,10 @@ footer a:hover {
 
 .section-title {
     font-size: 2rem;
-    color: #1f3b4c;
+    color: white;
     margin-bottom: 1.5rem;
     text-align: center;
-    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .news-grid {
@@ -209,19 +217,19 @@ footer a:hover {
 }
 
 .news-card {
-    background: rgba(255, 255, 255, 0.65); /* More transparent */
+    background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(4px);
     border-radius: 12px;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     cursor: pointer;
 }
 
 .news-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.6);
 }
 
 .news-image {
@@ -236,7 +244,7 @@ footer a:hover {
 }
 
 .news-date {
-    color: #2c7da0;
+    color: #6ab0d6;
     font-size: 0.85rem;
     font-weight: 600;
     margin-bottom: 0.75rem;
@@ -247,20 +255,21 @@ footer a:hover {
 .news-title {
     font-size: 1.25rem;
     font-weight: 600;
-    color: #1f3b4c;
+    color: white;
     margin-bottom: 0.75rem;
     line-height: 1.4;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .news-summary {
-    color: #555;
+    color: #f0f0f0;
     line-height: 1.6;
     font-size: 0.95rem;
     margin-bottom: 1rem;
 }
 
 .read-more {
-    color: #2c7da0;
+    color: #6ab0d6;
     font-weight: 600;
     font-size: 0.9rem;
     text-decoration: none;
@@ -272,7 +281,7 @@ footer a:hover {
 
 .read-more:hover {
     gap: 0.75rem;
-    color: #1f5e7a;
+    color: #8bcbff;
 }
 
 /* Button */
@@ -335,23 +344,28 @@ footer a:hover {
 }
 
 .research-card {
-    background: rgba(255, 255, 255, 0.65);
+    background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(4px);
     border-radius: 12px;
     padding: 1.5rem;
     transition: transform 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .research-card:hover {
     transform: translateY(-3px);
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(0, 0, 0, 0.6);
 }
 
 .research-card h3 {
-    color: #2c7da0;
+    color: #6ab0d6;
     margin-bottom: 1rem;
     font-size: 1.3rem;
+}
+
+.research-card p {
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 /* Team Grid */
@@ -363,18 +377,18 @@ footer a:hover {
 }
 
 .team-card {
-    background: rgba(255, 255, 255, 0.65);
+    background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(4px);
     border-radius: 12px;
     overflow: hidden;
     text-align: center;
     transition: transform 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .team-card:hover {
     transform: translateY(-5px);
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(0, 0, 0, 0.6);
 }
 
 .team-image {
@@ -390,18 +404,19 @@ footer a:hover {
 .team-name {
     font-size: 1.25rem;
     font-weight: 600;
-    color: #1f3b4c;
+    color: white;
     margin-bottom: 0.5rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .team-role {
-    color: #2c7da0;
+    color: #6ab0d6;
     font-weight: 500;
     margin-bottom: 0.75rem;
 }
 
 .team-bio {
-    color: #555;
+    color: #f0f0f0;
     font-size: 0.9rem;
     line-height: 1.5;
 }
@@ -415,14 +430,14 @@ footer a:hover {
 .publication-year {
     margin: 2rem 0 1rem 0;
     padding-bottom: 0.5rem;
-    border-bottom: 2px solid rgba(44, 125, 160, 0.3);
+    border-bottom: 2px solid rgba(106, 176, 214, 0.5);
 }
 
 .publication-year h3 {
     font-size: 1.8rem;
-    color: #1f3b4c;
+    color: white;
     margin: 0;
-    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .publication-list {
@@ -432,44 +447,45 @@ footer a:hover {
 }
 
 .publication-item {
-    background-color: rgba(255, 255, 255, 0.65);
-    backdrop-filter: blur(2px);
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
     border-radius: 10px;
     padding: 1.5rem;
     transition: all 0.3s ease;
-    border-left: 4px solid #2c7da0;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border-left: 4px solid #6ab0d6;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .publication-item:hover {
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(0, 0, 0, 0.6);
     transform: translateX(5px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .publication-authors {
     font-size: 0.95rem;
-    color: #2c7da0;
+    color: #6ab0d6;
     margin-bottom: 0.5rem;
     font-weight: 500;
 }
 
 .publication-authors b {
-    color: #1f3b4c;
+    color: white;
     font-weight: 700;
 }
 
 .publication-title {
     font-size: 1.1rem;
     font-weight: 600;
-    color: #1f3b4c;
+    color: white;
     margin-bottom: 0.75rem;
     line-height: 1.4;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .publication-journal {
     font-size: 0.9rem;
-    color: #666;
+    color: #ccc;
     font-style: italic;
     margin-bottom: 0.5rem;
 }
@@ -479,7 +495,7 @@ footer a:hover {
 }
 
 .publication-doi a {
-    color: #2c7da0;
+    color: #6ab0d6;
     text-decoration: none;
     font-family: monospace;
     font-size: 0.85rem;
@@ -487,7 +503,7 @@ footer a:hover {
 
 .publication-doi a:hover {
     text-decoration: underline;
-    color: #1f5e7a;
+    color: #8bcbff;
 }
 
 /* Responsive Design */
@@ -511,6 +527,10 @@ footer a:hover {
     
     .lab-intro {
         grid-template-columns: 1fr;
+        padding: 1rem;
+    }
+    
+    .lab-intro-text {
         padding: 1rem;
     }
     
