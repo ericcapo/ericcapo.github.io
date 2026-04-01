@@ -90,11 +90,21 @@ function renderHome() {
     return `
         <div class="hero">
             <h1>Welcome to Capo Lab</h1>
-            <p>Advancing marine science through innovative research and collaboration</p>
+            <p>Exploring microbial ecology across time and space</p>
+        </div>
+        
+        <div class="lab-intro">
+            <div class="lab-intro-text">
+                <h2>Our Research</h2>
+                <p>We explore the ecology of marine and freshwater systems with a focus on aquatic microorganisms i.e., bacteria, archaea and protists. Our focus lies in understanding the temporal dynamics of microbial communities and their functional responses to environmental change, such as climate change, eutrophication, mercury pollution or coral bleaching. Specifically our main research lines are centered on investigating the consequences of deoxygenation of water columns on microbial processes and related ecosystem services. We apply molecular ecology methods, such as metabarcoding, (ancient) metagenomics, MAGs-based analysis and metatranscriptomics. We rely on molecular paleoecology approaches, based on sedimentary DNA sequencing to reconstruct past changes in aquatic ecosystems. By combining genetic information from past and modern environments, we strive to shed light on the intricate relationships between microbial communities and their environment.</p>
+            </div>
+            <div class="lab-intro-image">
+                <img src="images/team2025.png" alt="Capo Lab Team 2025" onerror="this.src='https://via.placeholder.com/400x300?text=Team+Photo+2025'">
+            </div>
         </div>
         
         <div class="gallery-section">
-            <h2 class="section-title">Recent Gallery Highlights</h2>
+            <h2 class="section-title">Lab News</h2>
             <div class="gallery-grid">
                 ${siteData.photos.filter(p => p.category === 'recent').slice(0, 3).map(photo => `
                     <div class="photo-card" onclick="openModal(${JSON.stringify(photo).replace(/"/g, '&quot;')})">
@@ -117,37 +127,37 @@ function renderHome() {
 function renderResearch() {
     return `
         <h1 class="section-title">Research</h1>
-        <p>Our research focuses on understanding marine ecosystems through cutting-edge molecular and ecological approaches.</p>
+        <p>Our research focuses on understanding aquatic microbial ecosystems through cutting-edge molecular and ecological approaches.</p>
         
         <div class="research-grid">
             <div class="research-card">
-                <h3>Sedimentary DNA (sedDNA)</h3>
-                <p>Using ancient and modern DNA preserved in sediments to reconstruct past biodiversity and ecosystem changes over centuries to millennia.</p>
+                <h3>Molecular Paleoecology</h3>
+                <p>Using sedimentary DNA (sedDNA) to reconstruct past changes in aquatic ecosystems over centuries to millennia.</p>
             </div>
             
             <div class="research-card">
-                <h3>Marine Ecosystem Dynamics</h3>
-                <p>Investigating how marine communities respond to environmental changes, climate variability, and human impacts.</p>
+                <h3>Microbial Community Dynamics</h3>
+                <p>Understanding temporal dynamics of bacteria, archaea, and protists in response to environmental change.</p>
             </div>
             
             <div class="research-card">
-                <h3>Paleoecology</h3>
-                <p>Reconstructing historical ecosystem states to understand natural variability and human-induced changes.</p>
+                <h3>Deoxygenation Impacts</h3>
+                <p>Investigating consequences of water column deoxygenation on microbial processes and ecosystem services.</p>
             </div>
             
             <div class="research-card">
-                <h3>Environmental Monitoring</h3>
-                <p>Developing novel molecular tools for monitoring biodiversity and ecosystem health in coastal zones.</p>
+                <h3>Environmental Stressors</h3>
+                <p>Studying microbial responses to climate change, eutrophication, mercury pollution, and coral bleaching.</p>
             </div>
             
             <div class="research-card">
-                <h3>Climate Change Impacts</h3>
-                <p>Assessing how warming temperatures, ocean acidification, and other climate stressors affect marine life.</p>
+                <h3>Metagenomics & Metatranscriptomics</h3>
+                <p>Applying advanced molecular methods including metabarcoding, ancient metagenomics, and MAGs-based analysis.</p>
             </div>
             
             <div class="research-card">
-                <h3>Biodiversity Conservation</h3>
-                <p>Applying our research to inform conservation strategies and protect vulnerable marine species.</p>
+                <h3>Ecosystem Services</h3>
+                <p>Linking microbial functional responses to ecosystem services in changing environments.</p>
             </div>
         </div>
     `;
@@ -164,7 +174,7 @@ function renderTeam() {
                 <div class="team-info">
                     <div class="team-name">Dr. Eric Capo</div>
                     <div class="team-role">Principal Investigator</div>
-                    <div class="team-bio">Leading research on sedDNA and marine ecosystem dynamics. Passionate about understanding long-term ecological changes.</div>
+                    <div class="team-bio">Leading research on microbial ecology, sedDNA, and ecosystem dynamics. Passionate about understanding long-term environmental changes.</div>
                 </div>
             </div>
             
@@ -173,7 +183,7 @@ function renderTeam() {
                 <div class="team-info">
                     <div class="team-name">Dr. Anna Johnson</div>
                     <div class="team-role">Postdoctoral Researcher</div>
-                    <div class="team-bio">Specializing in molecular ecology and bioinformatics. Working on sedDNA time-series analyses.</div>
+                    <div class="team-bio">Specializing in molecular ecology and bioinformatics. Working on sedDNA time-series analyses and metagenomics.</div>
                 </div>
             </div>
             
@@ -207,13 +217,13 @@ function renderNews() {
             <div class="news-item">
                 <div class="news-date">March 15, 2024</div>
                 <div class="news-title">New Paper Published in Nature Communications</div>
-                <div class="news-summary">Our latest research on sedimentary DNA reveals unprecedented details about historical marine ecosystem changes over the past 10,000 years.</div>
+                <div class="news-summary">Our latest research on sedimentary DNA reveals unprecedented details about historical microbial community changes over the past 10,000 years.</div>
             </div>
             
             <div class="news-item">
                 <div class="news-date">February 10, 2024</div>
                 <div class="news-title">Capo Lab Awarded €2M ERC Grant</div>
-                <div class="news-summary">The lab receives funding to advance sedDNA techniques for reconstructing marine biodiversity across millennia.</div>
+                <div class="news-summary">The lab receives funding to advance sedDNA techniques for reconstructing aquatic biodiversity across millennia.</div>
             </div>
             
             <div class="news-item">
@@ -225,7 +235,7 @@ function renderNews() {
             <div class="news-item">
                 <div class="news-date">December 5, 2023</div>
                 <div class="news-title">Capo Lab Welcomes New PhD Students</div>
-                <div class="news-summary">We're excited to welcome two new PhD students who will be working on marine conservation paleobiology projects.</div>
+                <div class="news-summary">We're excited to welcome two new PhD students who will be working on marine microbial ecology and paleoecology projects.</div>
             </div>
         </div>
     `;
@@ -351,8 +361,8 @@ function render() {
         </div>
         
         <footer>
-            <p>© 2024 Capo Lab. All rights reserved.</p>
-            <p style="margin-top: 0.5rem; font-size: 0.85rem;">Department of Marine Sciences | University of Gothenburg</p>
+            <p>Contact: <a href="mailto:eric.capo@umu.se">eric.capo@umu.se</a></p>
+            <p style="margin-top: 0.5rem; font-size: 0.85rem;">Department of Ecology, Environment and Geoscience, Umeå University (Umeå, Sweden)</p>
         </footer>
         
         <div id="modal" class="modal">
