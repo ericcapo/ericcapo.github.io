@@ -85,21 +85,6 @@ function renderModal() {
     }
 }
 
-// Form submission handler
-function handleFormSubmit(event) {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    const data = {
-        name: formData.get('name'),
-        email: formData.get('email'),
-        message: formData.get('message')
-    };
-    
-    console.log('Form submitted:', data);
-    alert('Thank you for your message! We will get back to you soon.');
-    event.target.reset();
-}
-
 // Page renderers
 function renderHome() {
     return `
@@ -126,24 +111,166 @@ function renderHome() {
                 <button class="btn" onclick="navigateTo('gallery')">View Full Gallery →</button>
             </div>
         </div>
+    `;
+}
+
+function renderResearch() {
+    return `
+        <h1 class="section-title">Research</h1>
+        <p>Our research focuses on understanding marine ecosystems through cutting-edge molecular and ecological approaches.</p>
         
-        <div class="contact-form">
-            <h2 class="section-title" style="margin-top: 0;">Contact Us</h2>
-            <form onsubmit="handleFormSubmit(event)">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" required>
+        <div class="research-grid">
+            <div class="research-card">
+                <h3>Sedimentary DNA (sedDNA)</h3>
+                <p>Using ancient and modern DNA preserved in sediments to reconstruct past biodiversity and ecosystem changes over centuries to millennia.</p>
+            </div>
+            
+            <div class="research-card">
+                <h3>Marine Ecosystem Dynamics</h3>
+                <p>Investigating how marine communities respond to environmental changes, climate variability, and human impacts.</p>
+            </div>
+            
+            <div class="research-card">
+                <h3>Paleoecology</h3>
+                <p>Reconstructing historical ecosystem states to understand natural variability and human-induced changes.</p>
+            </div>
+            
+            <div class="research-card">
+                <h3>Environmental Monitoring</h3>
+                <p>Developing novel molecular tools for monitoring biodiversity and ecosystem health in coastal zones.</p>
+            </div>
+            
+            <div class="research-card">
+                <h3>Climate Change Impacts</h3>
+                <p>Assessing how warming temperatures, ocean acidification, and other climate stressors affect marine life.</p>
+            </div>
+            
+            <div class="research-card">
+                <h3>Biodiversity Conservation</h3>
+                <p>Applying our research to inform conservation strategies and protect vulnerable marine species.</p>
+            </div>
+        </div>
+    `;
+}
+
+function renderTeam() {
+    return `
+        <h1 class="section-title">Our Team</h1>
+        <p>Meet the researchers, students, and collaborators who make our work possible.</p>
+        
+        <div class="team-grid">
+            <div class="team-card">
+                <img src="images/team/pi.jpg" alt="Principal Investigator" class="team-image" onerror="this.src='https://via.placeholder.com/280x280?text=Photo+Coming+Soon'">
+                <div class="team-info">
+                    <div class="team-name">Dr. Eric Capo</div>
+                    <div class="team-role">Principal Investigator</div>
+                    <div class="team-bio">Leading research on sedDNA and marine ecosystem dynamics. Passionate about understanding long-term ecological changes.</div>
                 </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="team-card">
+                <img src="images/team/postdoc1.jpg" alt="Postdoctoral Researcher" class="team-image" onerror="this.src='https://via.placeholder.com/280x280?text=Photo+Coming+Soon'">
+                <div class="team-info">
+                    <div class="team-name">Dr. Anna Johnson</div>
+                    <div class="team-role">Postdoctoral Researcher</div>
+                    <div class="team-bio">Specializing in molecular ecology and bioinformatics. Working on sedDNA time-series analyses.</div>
                 </div>
-                <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea id="message" name="message" rows="4" required></textarea>
+            </div>
+            
+            <div class="team-card">
+                <img src="images/team/phd1.jpg" alt="PhD Student" class="team-image" onerror="this.src='https://via.placeholder.com/280x280?text=Photo+Coming+Soon'">
+                <div class="team-info">
+                    <div class="team-name">Maria Rodriguez</div>
+                    <div class="team-role">PhD Candidate</div>
+                    <div class="team-bio">Investigating microbial community dynamics in coastal sediments using ancient DNA approaches.</div>
                 </div>
-                <button type="submit" class="btn">Send Message</button>
-            </form>
+            </div>
+            
+            <div class="team-card">
+                <img src="images/team/phd2.jpg" alt="PhD Student" class="team-image" onerror="this.src='https://via.placeholder.com/280x280?text=Photo+Coming+Soon'">
+                <div class="team-info">
+                    <div class="team-name">Thomas Chen</div>
+                    <div class="team-role">PhD Candidate</div>
+                    <div class="team-bio">Exploring climate change impacts on marine biodiversity using sedimentary archives.</div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function renderNews() {
+    return `
+        <h1 class="section-title">News & Updates</h1>
+        <p>Stay updated with the latest from Capo Lab.</p>
+        
+        <div style="margin-top: 2rem;">
+            <div class="news-item">
+                <div class="news-date">March 15, 2024</div>
+                <div class="news-title">New Paper Published in Nature Communications</div>
+                <div class="news-summary">Our latest research on sedimentary DNA reveals unprecedented details about historical marine ecosystem changes over the past 10,000 years.</div>
+            </div>
+            
+            <div class="news-item">
+                <div class="news-date">February 10, 2024</div>
+                <div class="news-title">Capo Lab Awarded €2M ERC Grant</div>
+                <div class="news-summary">The lab receives funding to advance sedDNA techniques for reconstructing marine biodiversity across millennia.</div>
+            </div>
+            
+            <div class="news-item">
+                <div class="news-date">January 20, 2024</div>
+                <div class="news-title">Baltic Sea Expedition Successfully Completed</div>
+                <div class="news-summary">Our team returned from a 3-week sampling cruise collecting sediment cores from 15 sites across the Baltic Sea.</div>
+            </div>
+            
+            <div class="news-item">
+                <div class="news-date">December 5, 2023</div>
+                <div class="news-title">Capo Lab Welcomes New PhD Students</div>
+                <div class="news-summary">We're excited to welcome two new PhD students who will be working on marine conservation paleobiology projects.</div>
+            </div>
+        </div>
+    `;
+}
+
+function renderPublications() {
+    return `
+        <h1 class="section-title">Publications</h1>
+        <p>Selected publications from Capo Lab members.</p>
+        
+        <div style="margin-top: 2rem;">
+            <div class="publication-item">
+                <div class="pub-year">2024</div>
+                <div class="pub-title">Sedimentary DNA reveals historical biodiversity changes in the Baltic Sea over the last millennium</div>
+                <div class="pub-authors">Smith, J., Capo, E., Johnson, A., et al.</div>
+                <div class="pub-journal">Marine Ecology Progress Series, 712, 45-62</div>
+            </div>
+            
+            <div class="publication-item">
+                <div class="pub-year">2023</div>
+                <div class="pub-title">Ancient DNA from sediment cores: A new frontier in marine paleoecology</div>
+                <div class="pub-authors">Johnson, A., Capo, E., Giguet-Covex, C., et al.</div>
+                <div class="pub-journal">Nature Reviews Earth & Environment, 4, 234-248</div>
+            </div>
+            
+            <div class="publication-item">
+                <div class="pub-year">2023</div>
+                <div class="pub-title">Long-term dynamics of marine microbial communities revealed by sedimentary DNA</div>
+                <div class="pub-authors">Capo, E., Rodriguez, M., Chen, T., et al.</div>
+                <div class="pub-journal">The ISME Journal, 16, 1245-1256</div>
+            </div>
+            
+            <div class="publication-item">
+                <div class="pub-year">2022</div>
+                <div class="pub-title">Tracking human impacts on coastal ecosystems using sedDNA metabarcoding</div>
+                <div class="pub-authors">Rodriguez, M., Capo, E., & Smith, J.</div>
+                <div class="pub-journal">Molecular Ecology, 31, 4892-4907</div>
+            </div>
+            
+            <div class="publication-item">
+                <div class="pub-year">2021</div>
+                <div class="pub-title">Optimizing sedDNA extraction protocols for ancient marine sediments</div>
+                <div class="pub-authors">Capo, E., Chen, T., & Johnson, A.</div>
+                <div class="pub-journal">Methods in Ecology and Evolution, 12, 1892-1905</div>
+            </div>
         </div>
     `;
 }
@@ -192,69 +319,6 @@ function renderGallery() {
     `;
 }
 
-function renderAbout() {
-    return `
-        <h1 class="section-title">About Capo Lab</h1>
-        
-        <div style="background: white; padding: 2rem; border-radius: 10px; margin-bottom: 2rem;">
-            <h2>Our Mission</h2>
-            <p>Capo Lab is dedicated to advancing our understanding of marine ecosystems through innovative research methods, including sedDNA analysis, environmental monitoring, and ecological modeling.</p>
-        </div>
-        
-        <div style="background: white; padding: 2rem; border-radius: 10px;">
-            <h2>Research Focus</h2>
-            <ul style="margin-top: 1rem; margin-left: 1.5rem;">
-                <li>Sedimentary DNA (sedDNA) analysis</li>
-                <li>Marine ecosystem dynamics</li>
-                <li>Climate change impacts on coastal zones</li>
-                <li>Biodiversity monitoring</li>
-            </ul>
-        </div>
-        
-        <div class="contact-form" style="margin-top: 2rem;">
-            <h2 class="section-title" style="margin-top: 0;">Get in Touch</h2>
-            <form onsubmit="handleFormSubmit(event)">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea id="message" name="message" rows="4" required></textarea>
-                </div>
-                <button type="submit" class="btn">Send Message</button>
-            </form>
-        </div>
-    `;
-}
-
-function renderPublications() {
-    return `
-        <h1 class="section-title">Publications</h1>
-        
-        <div style="background: white; padding: 2rem; border-radius: 10px;">
-            <div style="margin-bottom: 2rem;">
-                <h3>2024</h3>
-                <p>Smith, J., et al. "Sedimentary DNA reveals historical biodiversity changes in the Baltic Sea." <em>Marine Ecology Progress Series</em>, 2024.</p>
-            </div>
-            
-            <div style="margin-bottom: 2rem;">
-                <h3>2023</h3>
-                <p>Johnson, A., Capo, E., et al. "Ancient DNA from sediment cores: A new frontier in marine paleoecology." <em>Nature Reviews Earth & Environment</em>, 4, 234-248.</p>
-            </div>
-            
-            <div>
-                <h3>2022</h3>
-                <p>Capo, E., et al. "Long-term dynamics of marine microbial communities revealed by sedimentary DNA." <em>ISME Journal</em>, 16, 1245-1256.</p>
-            </div>
-        </div>
-    `;
-}
-
 // Main render function
 function render() {
     const app = document.getElementById('app');
@@ -269,23 +333,26 @@ function render() {
                 <a href="#" onclick="navigateTo('home'); return false;" class="logo">Capo Lab</a>
                 <ul class="nav-links">
                     <li><a href="#" data-page="home" onclick="navigateTo('home'); return false;">Home</a></li>
-                    <li><a href="#" data-page="gallery" onclick="navigateTo('gallery'); return false;">Gallery</a></li>
+                    <li><a href="#" data-page="research" onclick="navigateTo('research'); return false;">Research</a></li>
+                    <li><a href="#" data-page="team" onclick="navigateTo('team'); return false;">Team</a></li>
+                    <li><a href="#" data-page="news" onclick="navigateTo('news'); return false;">News</a></li>
                     <li><a href="#" data-page="publications" onclick="navigateTo('publications'); return false;">Publications</a></li>
-                    <li><a href="#" data-page="about" onclick="navigateTo('about'); return false;">About</a></li>
                 </ul>
             </div>
         </nav>
         
         <div class="container">
             ${siteData.currentPage === 'home' ? renderHome() : ''}
-            ${siteData.currentPage === 'gallery' ? renderGallery() : ''}
-            ${siteData.currentPage === 'about' ? renderAbout() : ''}
+            ${siteData.currentPage === 'research' ? renderResearch() : ''}
+            ${siteData.currentPage === 'team' ? renderTeam() : ''}
+            ${siteData.currentPage === 'news' ? renderNews() : ''}
             ${siteData.currentPage === 'publications' ? renderPublications() : ''}
+            ${siteData.currentPage === 'gallery' ? renderGallery() : ''}
         </div>
         
         <footer>
             <p>© 2024 Capo Lab. All rights reserved.</p>
-            <p style="margin-top: 0.5rem; font-size: 0.85rem;">Contact: capo.lab@university.edu</p>
+            <p style="margin-top: 0.5rem; font-size: 0.85rem;">Department of Marine Sciences | University of Gothenburg</p>
         </footer>
         
         <div id="modal" class="modal">
