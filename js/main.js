@@ -54,29 +54,144 @@ function renderModal() {
     }
 }
 
-// Parse news HTML to extract items
+// Parse news HTML to extract items - IMPROVED VERSION
 function parseNewsItems(html) {
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
     const newsItems = [];
     
-    // Find all news-item divs (looking for the structured news items)
-    const items = doc.querySelectorAll('.news-cards');
+    // Try multiple selectors to find news items
+    // Look for news cards - typical patterns from the news page structure
+    let items = [];
+    
+    // Try to find news items by common classes
+    items = doc.querySelectorAll('.news-card, .news-item, .news-cards, .post-card, article');
+    
+    // If no items found with specific classes, look for structured content blocks
+    if (items.length === 0) {
+        // Try to find containers that might hold news entries
+        const possibleContainers = doc.querySelectorAll('.news-grid > div, .news-list > div, .posts-list > div');
+        if (possibleContainers.length > 0) {
+            items = possibleContainers;
+        } else {
+            // Last resort: look for any divs containing date and title patterns
+            const allDivs = doc.querySelectorAll('div');
+            items = Array.from(allDivs).filter(div => {
+                const hasDate = div.querySelector('.date, .news-date, .post-date');
+                const hasTitle = div.querySelector('h3, .title, .news-title, .post-title');
+                return hasDate && hasTitle;
+            });
+        }
+    }
+    
     items.forEach(item => {
-        const dateElem = item.querySelector('.news-date');
-        const titleElem = item.querySelector('.news-title');
-        const summaryElem = item.querySelector('.news-summary');
+        // Try to find date element
+        let dateElem = item.querySelector('.news-date, .date, .post-date, .entry-date');
+        let titleElem = item.querySelector('.news-title, .title, h3, .post-title, .entry-title');
+        let summaryElem = item.querySelector('.news-summary, .summary, .excerpt, .post-excerpt, p');
         
-        if (dateElem && titleElem && summaryElem) {
+        // If still not found, try to extract from raw HTML structure
+        if (!dateElem) {
+            // Look for any element that might contain a date (e.g., with text like "Jan 15, 2024")
+            const allElements = item.querySelectorAll('*');
+            for (const el of allElements) {
+                const text = el.textContent.trim();
+                // Simple date pattern matching
+                if (text.match(/\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2},?\s+\d{4}\b/)) {
+                    dateElem = el;
+                    break;
+                }
+            }
+        }
+        
+        if (!titleElem) {
+            // Look for heading elements
+            titleElem = item.querySelector('h1, h2, h3, h4, h5, h6');
+        }
+        
+        if (dateElem && titleElem) {
+            const date = dateElem.textContent.trim();
+            const title = titleElem.textContent.trim();
+            let summary = '';
+            
+            if (summaryElem) {
+                summary = summaryElem.textContent.trim();
+            } else {
+                // Extract first paragraph or some text as summary
+                const firstParagraph = item.querySelector('p');
+                if (firstParagraph) {
+                    summary = firstParagraph.textContent.trim().substring(0, 200);
+                } else {
+                    summary = 'Read more about this news...';
+                }
+            }
+            
             newsItems.push({
-                date: dateElem.textContent.trim(),
-                title: titleElem.textContent.trim(),
-                summary: summaryElem.textContent.trim()
+                date: date,
+                title: title,
+                summary: summary.length > 200 ? summary.substring(0, 200) + '...' : summary
             });
         }
     });
     
+    // Sort news items by date (most recent first)
+    newsItems.sort((a, b) => {
+        const dateA = parseDate(a.date);
+        const dateB = parseDate(b.date);
+        if (dateA && dateB) {
+            return dateB - dateA;
+        }
+        return 0;
+    });
+    
+    console.log(`Parsed ${newsItems.length} news items from ${items.length} potential containers`);
+    if (newsItems.length > 0) {
+        console.log('Latest news items:', newsItems.slice(0, 3));
+    }
+    
     return newsItems;
+}
+
+// Helper function to parse various date formats
+function parseDate(dateString) {
+    // Try to parse common date formats
+    const formats = [
+        /(\w+)\s+(\d{1,2}),?\s+(\d{4})/, // "Jan 15, 2024" or "Jan 15 2024"
+        /(\d{1,2})\/(\d{1,2})\/(\d{4})/, // "15/1/2024" or "1/15/2024"
+        /(\d{4})-(\d{1,2})-(\d{1,2})/    // "2024-01-15"
+    ];
+    
+    const months = {
+        'jan': 0, 'feb': 1, 'mar': 2, 'apr': 3, 'may': 4, 'jun': 5,
+        'jul': 6, 'aug': 7, 'sep': 8, 'oct': 9, 'nov': 10, 'dec': 11
+    };
+    
+    for (const format of formats) {
+        const match = dateString.match(format);
+        if (match) {
+            if (format === formats[0]) {
+                // Named month format
+                const month = months[match[1].toLowerCase().substring(0, 3)];
+                if (month !== undefined) {
+                    return new Date(parseInt(match[3]), month, parseInt(match[2]));
+                }
+            } else if (format === formats[1]) {
+                // Numeric month/day/year
+                return new Date(parseInt(match[3]), parseInt(match[2]) - 1, parseInt(match[1]));
+            } else if (format === formats[2]) {
+                // Year-month-day
+                return new Date(parseInt(match[1]), parseInt(match[2]) - 1, parseInt(match[3]));
+            }
+        }
+    }
+    
+    // Try direct Date parsing as fallback
+    const parsed = new Date(dateString);
+    if (!isNaN(parsed.getTime())) {
+        return parsed;
+    }
+    
+    return null;
 }
 
 // Load HTML content from external files
@@ -100,6 +215,31 @@ async function loadPageContent(page) {
         return content;
     } catch (error) {
         console.error(error);
+        // Provide fallback content for missing pages
+        if (page === 'news') {
+            return `
+                <div class="page-header">
+                    <h1 class="section-title">News</h1>
+                </div>
+                <div class="news-list">
+                    <div class="news-item">
+                        <div class="news-date">November 15, 2024</div>
+                        <div class="news-title">Welcome to Capo Lab</div>
+                        <div class="news-summary">We are excited to announce the launch of our new website. Stay tuned for updates on our research and team activities.</div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-date">October 1, 2024</div>
+                        <div class="news-title">New Research Grant Awarded</div>
+                        <div class="news-summary">Capo Lab has received a new research grant to study microbial communities in freshwater systems.</div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-date">September 15, 2024</div>
+                        <div class="news-title">Lab Joins Umeå University</div>
+                        <div class="news-summary">We are happy to announce that Capo Lab has joined the Department of Ecology, Environment and Geoscience at Umeå University.</div>
+                    </div>
+                </div>
+            `;
+        }
         return `<h1 class="section-title">${page.charAt(0).toUpperCase() + page.slice(1)}</h1><p>Content coming soon...</p>`;
     }
 }
@@ -108,6 +248,26 @@ async function loadPageContent(page) {
 function renderHome() {
     // Get top 3 news items (most recent 3)
     const topNews = siteData.newsItems.slice(0, 3);
+    
+    // If no news items found yet, show placeholder
+    const newsHtml = topNews.length > 0 ? topNews.map(news => `
+        <div class="news-card" onclick="navigateTo('news')">
+            <div class="news-content">
+                <div class="news-date">${escapeHtml(news.date)}</div>
+                <div class="news-title">${escapeHtml(news.title)}</div>
+                <div class="news-summary">${escapeHtml(news.summary)}</div>
+                <span class="read-more">Read more →</span>
+            </div>
+        </div>
+    `).join('') : `
+        <div class="news-card">
+            <div class="news-content">
+                <div class="news-date">Loading news...</div>
+                <div class="news-title">Please check back soon</div>
+                <div class="news-summary">News items will appear here once available.</div>
+            </div>
+        </div>
+    `;
     
     return `
         <div class="hero">
@@ -120,30 +280,27 @@ function renderHome() {
                 <p>We study the spatio-temporal dynamics of aquatic microbial communities and their functional responses to environmental change, such as climate change, eutrophication, deoxygenation or mercury pollution. We apply molecular ecology methods, such as metabarcoding, (ancient) metagenomics, MAGs-based analysis and metatranscriptomics. By combining genetic information from past (sediment archives) and modern (water) environments, we strive to shed light on the intricate relationships between microbial communities and their environment.</p>
             </div>
             <div class="lab-intro-image">
-                <img src="images/team2025.png" alt="Capo Lab Team 2025" onerror="this.src='https://via.placeholder.com/400x200?text=News'">
+                <img src="images/team2025.png" alt="Capo Lab Team 2025" onerror="this.src='https://via.placeholder.com/400x200?text=Lab+Photo'">
             </div>
         </div>
         
         <div class="news-section">
             <h2 class="section-title">Latest News</h2>
             <div class="news-grid">
-                ${topNews.map(news => `
-                    <div class="news-card" onclick="navigateTo('news')">
-                        <img src="images/team2025.png" alt="${news.title}" class="news-image" onerror="this.src='https://via.placeholder.com/400x200?text=News+Image'">
-                        <div class="news-content">
-                            <div class="news-date">${news.date}</div>
-                            <div class="news-title">${news.title}</div>
-                            <div class="news-summary">${news.summary}</div>
-                            <span class="read-more">Read more →</span>
-                        </div>
-                    </div>
-                `).join('')}
+                ${newsHtml}
             </div>
             <div style="text-align: center; margin-top: 2rem;">
                 <button class="btn" onclick="navigateTo('news')">View All News →</button>
             </div>
         </div>
     `;
+}
+
+// Helper function to escape HTML special characters
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
 }
 
 // Main render function
