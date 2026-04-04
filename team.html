@@ -1,5 +1,7 @@
 <!-- team.html -->
 <!-- Team page content for Capo Lab - includes group leader, postdocs, PhD students, undergraduates, alumni, and collaborators -->
+<!-- Added: Font Awesome 6 for logos, plus Google Scholar & ResearchGate icons next to group leader name -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style>
     /* Additional styles for team page organization - complements main style.css */
     .team-section {
@@ -55,6 +57,10 @@
         font-weight: bold;
         margin-bottom: 8px;
         color: #6ab0d6;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
     }
     
     .group-leader-name a {
@@ -64,6 +70,25 @@
     
     .group-leader-name a:hover {
         text-decoration: underline;
+    }
+    
+    /* Academic icon links style */
+    .academic-icons {
+        display: inline-flex;
+        gap: 10px;
+        margin-left: 8px;
+    }
+    
+    .academic-icons a {
+        color: white;
+        font-size: 1.2rem;
+        transition: color 0.2s ease, transform 0.1s;
+        display: inline-block;
+    }
+    
+    .academic-icons a:hover {
+        color: #6ab0d6;
+        transform: scale(1.05);
     }
     
     .group-leader-role {
@@ -120,6 +145,10 @@
         font-size: 1.2rem;
         font-weight: 600;
         margin-bottom: 5px;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
     }
     
     .team-name a {
@@ -203,6 +232,10 @@
         .team-image {
             height: 200px;
         }
+        
+        .group-leader-name {
+            gap: 8px;
+        }
     }
     
     /* Section titles underline effect matching main style */
@@ -223,14 +256,21 @@
 <h1 class="section-title">Our Team</h1>
 <p>Meet the researchers, students, and collaborators who make our work possible.</p>
 
-<!-- Group leader -->
+<!-- Group leader (with Google Scholar & ResearchGate logos) -->
 <div class="team-section">
     <h3 class="section-title underline">Group leader</h3> 	
     <div class="group-leader-section">
         <div class="group-leader-content">
            	<img src="images/team/team_eric.jpg" alt="Eric Capo" class="group-leader-image" onerror="this.src='https://via.placeholder.com/250x250?text=Eric+Capo'">
             <div class="group-leader-info">
-                <div class="group-leader-name"><a href="images/others/CV_Eric_Capo_260401.pdf" target="_blank">Eric Capo</a></div>
+                <div class="group-leader-name">
+                    <a href="images/others/CV_Eric_Capo_260401.pdf" target="_blank">Eric Capo</a>
+                    <!-- Two academic logo links (Google Scholar & ResearchGate) – replace # with actual profile URLs -->
+                    <span class="academic-icons">
+                        <a href="https://scholar.google.fr/citations?user=l3-kwOgAAAAJ&hl=fr&oi=ao" target="_blank" title="Google Scholar"><i class="fab fa-google-scholar"></i></a>
+                        <a href="https://www.researchgate.net/profile/Eric-Capo" target="_blank" title="ResearchGate"><i class="fab fa-researchgate"></i></a>
+                    </span>
+                </div>
                 <div class="group-leader-role">Assistant Professor, Umeå University</div>
                 <div class="group-leader-description">Aquatic microbial ecologist with expertise in molecular (paleo)ecology.</div>
                 <div class="group-leader-contact">📧 eric.capo@umu.se</div>
@@ -420,4 +460,3 @@
     <li>Anthony Khairallah (Master student, 2024)</li>
     <li><a href="https://gr.linkedin.com/in/panagiota-xanthopoulou-95044a87" target="_blank">Panagiota Xhantopoulou</a> (visiting PhD student, 2024)</li>
 </ul>
-
