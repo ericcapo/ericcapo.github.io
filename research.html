@@ -1,34 +1,277 @@
-<h1 class="section-title">Research</h1>
-<p>Our research focuses on understanding aquatic microbial ecosystems through cutting-edge molecular and ecological approaches.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Capo Lab | Research</title>
+    <style>
+        /* ===== ADDITIONAL STYLES FOR THE THREE FULL-PAGE VIDEO BOXES ===== */
+        /* These styles integrate seamlessly with the existing site theme (background, blur, glassmorphism) */
+        .research-video-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
 
-<div class="research-grid">
-    <div class="research-card">
-        <h3>Molecular Paleoecology</h3>
-        <p>Using sedimentary DNA (sedDNA) to reconstruct past changes in aquatic ecosystems over centuries to millennia.</p>
+        /* Each box = a "full page" card with generous min-height and consistent design */
+        .research-video-card {
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(6px);
+            border-radius: 28px;
+            padding: 2rem 2rem;
+            transition: transform 0.25s ease, box-shadow 0.3s ease;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(106, 176, 214, 0.25);
+            min-height: 460px;      /* ensures substantial "full page" visual presence */
+            display: flex;
+            align-items: center;
+        }
+
+        .research-video-card:hover {
+            transform: translateY(-6px);
+            background: rgba(0, 0, 0, 0.65);
+            box-shadow: 0 22px 38px rgba(0, 0, 0, 0.4);
+            border-color: rgba(106, 176, 214, 0.5);
+        }
+
+        /* Two-column flexible grid for text/video layout */
+        .video-text-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.2rem;
+            width: 100%;
+            align-items: center;
+        }
+
+        /* Text container styling */
+        .box-text {
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+        }
+
+        .box-text h2 {
+            font-size: 1.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #8bcbff;
+            letter-spacing: -0.2px;
+            border-left: 5px solid #6ab0d6;
+            padding-left: 1rem;
+        }
+
+        .box-text p {
+            font-size: 1.05rem;
+            line-height: 1.55;
+            margin-bottom: 0.75rem;
+            text-align: justify;
+            color: #f5f5f5;
+        }
+
+        /* Video wrapper: responsive 16:9 with rounded corners */
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+            background: #000;
+            transition: transform 0.2s ease, box-shadow 0.2s;
+        }
+
+        .video-wrapper:hover {
+            transform: scale(1.01);
+            box-shadow: 0 18px 32px rgba(0, 0, 0, 0.45);
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            border-radius: 20px;
+        }
+
+        /* Special modifier: reverse order (video left, text right) for second box */
+        .reverse-layout {
+            direction: ltr; /* keep normal text flow */
+        }
+
+        .reverse-layout .video-text-grid {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        /* For the reverse layout we need video column first, text column second */
+        /* the DOM order already places video first then text, so grid automatically works.
+           but to ensure no unexpected order, we rely on markup structure. 
+           Additional responsiveness: on small screens we force column direction */
+        
+        /* Responsive: on tablets & phones, each box becomes a stacked column (full width) */
+        @media (max-width: 860px) {
+            .research-video-card {
+                padding: 1.5rem;
+                min-height: auto;
+            }
+            
+            .video-text-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            /* For reverse layout on mobile: we want video above text OR keep natural flow? */
+            /* natural order in HTML: for box2 (reverse) video appears above text, that's fine */
+            .box-text h2 {
+                font-size: 1.6rem;
+            }
+            
+            .box-text p {
+                font-size: 0.98rem;
+            }
+            
+            .video-wrapper {
+                margin-top: 0.5rem;
+            }
+        }
+
+        /* Additional subtle separator between boxes */
+        .research-video-card:not(:last-child)::after {
+            content: '';
+            display: none; /* no extra line, spacing from gap is enough */
+        }
+
+        /* Keep the intro paragraph and main title consistent with the original lab style */
+        .research-intro-text {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(4px);
+            padding: 1.2rem 2rem;
+            border-radius: 24px;
+            margin-bottom: 2rem;
+            text-align: center;
+            border-left: 4px solid #6ab0d6;
+            border-right: 4px solid #6ab0d6;
+        }
+        
+        .research-intro-text p {
+            font-size: 1.1rem;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* keep global section-title style */
+        .section-title {
+            font-size: 2.3rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        /* small improvements for video accessibility */
+        .video-wrapper iframe {
+            pointer-events: auto;
+        }
+
+        /* make links or any extras consistent */
+        .box-text a {
+            color: #8bcbff;
+            text-decoration: none;
+            border-bottom: 1px dotted #6ab0d6;
+        }
+        .box-text a:hover {
+            color: #c2e2ff;
+            border-bottom: 1px solid #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <!-- The following content will be injected into #page-container by main.js -->
+    <!-- All structural elements follow the existing design system (transparent cards, blur, etc) -->
+    <div class="research-page-container">
+        <!-- Keep original research header: section title + intro paragraph (consistent with old style) -->
+        <h1 class="section-title">🔬 Research</h1>
+        <div class="research-intro-text">
+            <p>Our research focuses on understanding aquatic microbial ecosystems through cutting-edge molecular and ecological approaches. We integrate paleogenomics, multi-omics, and experimental biology to decipher microbial responses to global change.</p>
+        </div>
+
+        <!-- THREE FULL-PAGE BOXES stacked vertically -->
+        <div class="research-video-stack">
+            
+            <!-- BOX 1: TITLE + PARAGRAPH (LEFT) | VIDEO (RIGHT) -->
+            <div class="research-video-card">
+                <div class="video-text-grid">
+                    <!-- Left column: text block -->
+                    <div class="box-text">
+                        <h2>📜 Molecular Paleoecology<br><span style="font-size: 1rem; color: #cfe6f0;">Sedimentary DNA archives</span></h2>
+                        <p>We use sedimentary ancient DNA (sedDNA) to reconstruct past changes in aquatic microbial communities over centuries to millennia. By analyzing genetic records preserved in lake and marine sediments, we uncover how microbial assemblages responded to climate shifts, eutrophication, and other environmental stressors. This long-term perspective is essential to predict future trajectories under ongoing anthropogenic pressures.</p>
+                        <p>🔬 <strong>Approaches:</strong> ancient metagenomics, hybridization capture, shotgun sequencing of sediment cores.</p>
+                    </div>
+                    <!-- Right column: YouTube embed -->
+                    <div class="video-wrapper">
+                        <iframe 
+                            src="https://www.youtube.com/embed/dNsyfW5JZag" 
+                            title="YouTube video player - Aquatic Microbial Ecology" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            referrerpolicy="strict-origin-when-cross-origin" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BOX 2: VIDEO ON LEFT | TITLE + PARAGRAPH ON RIGHT (reverse layout) -->
+            <div class="research-video-card">
+                <div class="video-text-grid">
+                    <!-- Left column: video (first in DOM = left side) -->
+                    <div class="video-wrapper">
+                        <iframe 
+                            src="https://www.youtube.com/embed/dNsyfW5JZag" 
+                            title="YouTube video player - Microbial Community Dynamics" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            referrerpolicy="strict-origin-when-cross-origin" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <!-- Right column: text block -->
+                    <div class="box-text">
+                        <h2>🌊 Microbial Community Dynamics<br><span style="font-size: 1rem; color: #cfe6f0;">Responses to deoxygenation & climate change</span></h2>
+                        <p>Aquatic oxygen minimum zones are expanding due to warming and nutrient pollution. Our lab investigates how microbial communities — bacteria, archaea, and protists — respond to deoxygenation gradients. Using high-resolution time-series and multi-omics (metatranscriptomics + metabolomics), we decipher functional shifts, metabolic adaptations, and cascading effects on biogeochemical cycles (nitrogen, sulfur, carbon).</p>
+                        <p>🌍 <strong>Key focus:</strong> Baltic Sea deoxygenation, fjord systems, and high-resolution genomic surveillance.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BOX 3: same layout as BOX 1: title + paragraph on left | video on right -->
+            <div class="research-video-card">
+                <div class="video-text-grid">
+                    <div class="box-text">
+                        <h2>🧬 Metagenomics & Metatranscriptomics<br><span style="font-size: 1rem; color: #cfe6f0;">From genes to ecosystem services</span></h2>
+                        <p>We apply advanced molecular methods including MAGs-based analysis, metatranscriptomics, and population genomics to link microbial functional potential to real-time ecosystem processes. Our goal is to understand how microbial communities maintain essential services — nutrient recycling, carbon sequestration, and pathogen suppression — under environmental pressure. We combine field sampling, controlled microcosms, and bioinformatic pipelines to reveal mechanistic drivers.</p>
+                        <p>📊 <strong>Techniques:</strong> long-read sequencing (Nanopore/PacBio), genome-resolved metagenomics, and ecological network inference.</p>
+                    </div>
+                    <div class="video-wrapper">
+                        <iframe 
+                            src="https://www.youtube.com/embed/dNsyfW5JZag" 
+                            title="YouTube video player - Aquatic Metagenomics" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            referrerpolicy="strict-origin-when-cross-origin" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Optional footnote: research emphasis / collaboration note (transparent styling) -->
+        <div style="margin-top: 2rem; text-align: center; background: rgba(0,0,0,0.35); backdrop-filter: blur(3px); padding: 1rem; border-radius: 40px; width: fit-content; margin-left: auto; margin-right: auto;">
+            <p style="color: #eef4ff; font-size: 0.85rem;">🔗 Integrating paleoecology, multi-omics & experimental approaches — <a href="#" style="color:#6ab0d6;">Learn more about ongoing projects →</a></p>
+        </div>
     </div>
-    
-    <div class="research-card">
-        <h3>Microbial Community Dynamics</h3>
-        <p>Understanding temporal dynamics of bacteria, archaea, and protists in response to environmental change.</p>
-    </div>
-    
-    <div class="research-card">
-        <h3>Deoxygenation Impacts</h3>
-        <p>Investigating consequences of water column deoxygenation on microbial processes and ecosystem services.</p>
-    </div>
-    
-    <div class="research-card">
-        <h3>Environmental Stressors</h3>
-        <p>Studying microbial responses to climate change, eutrophication, mercury pollution, and coral bleaching.</p>
-    </div>
-    
-    <div class="research-card">
-        <h3>Metagenomics & Metatranscriptomics</h3>
-        <p>Applying advanced molecular methods including metabarcoding, ancient metagenomics, and MAGs-based analysis.</p>
-    </div>
-    
-    <div class="research-card">
-        <h3>Ecosystem Services</h3>
-        <p>Linking microbial functional responses to ecosystem services in changing environments.</p>
-    </div>
-</div>
+</body>
+</html>
