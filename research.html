@@ -1,145 +1,130 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <style>
-        .research-video-card {
-            max-width: 1200px;
-            margin: 2rem auto;
-            background: #f9fbfd;
-            border-radius: 1rem;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-            overflow: hidden;
-            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-        }
-
-        /* Main title styling – top of the box, color #6ab0d6 */
-        .research-video-card > h2 {
-            color: #6ab0d6;
-            font-size: 1.8rem;
-            font-weight: 600;
-            margin: 0;
-            padding: 1.5rem 2rem 0.5rem 2rem;
-            border-bottom: 2px solid #e0f0f7;
-        }
-
-        .video-text-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            padding: 2rem;
-        }
-
-        .box-text {
-            flex: 1;
-            min-width: 240px;
-        }
-
-        .box-text p {
-            line-height: 1.5;
-            color: #2c3e4f;
-            margin-bottom: 1rem;
-        }
-
-        .box-text p strong {
-            color: #1f6e8c;
-        }
-
-        .video-wrapper {
-            flex: 1;
-            min-width: 280px;
-            aspect-ratio: 16 / 9;
-        }
-
-        .video-wrapper iframe {
-            width: 100%;
-            height: 100%;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-
-        /* Optional: add a subtle hover effect */
-        .research-video-card:hover {
-            box-shadow: 0 12px 28px rgba(0,0,0,0.1);
-            transition: 0.2s;
-        }
-
-        /* Responsive */
-        @media (max-width: 700px) {
-            .video-text-grid {
-                flex-direction: column;
-            }
-            .research-video-card > h2 {
-                font-size: 1.5rem;
-                padding: 1.2rem 1.5rem 0.3rem 1.5rem;
-            }
-            .video-text-grid {
-                padding: 1.5rem;
-            }
-        }
-    </style>
-</head>
-<body>
-
-<div class="research-video-card">
-    <h2>Unravel microbial diversity in lake ecosystems</h2>
-
-    <div class="video-text-grid">
-        <div class="box-text">
-            We study the microbial diversity in lake surface waters and the active microbial layer in underlying sediments. We developed a drone-sampling approach to collect samples for a large number of lakes and provide the first catalogue of microbial diversity in Swedish lakes.</p>
-            <p><strong>Methods:</strong> drone-enabled water sampling, sediment coring, metabarcoding, metagenomics</p>
+<!-- Add this inside your <body> where the three cards should appear -->
+<!-- The container uses your existing .container class (transparent) -->
+<div class="container">
+    
+    <!-- CARD 1: title + text left / video right -->
+    <div class="research-video-card">
+        <h2>Unravel microbial diversity in lake ecosystems</h2>
+        <div class="video-text-grid">
+            <div class="box-text">
+                <p>We study the microbial diversity in lake surface waters and the active microbial layer in underlying sediments. We developed a drone-sampling approach to collect samples for a large number of lakes and provide the first catalogue of microbial diversity in Swedish lakes.</p>
+                <p><strong>Methods:</strong> drone-enabled water sampling, sediment coring, metabarcoding, metagenomics</p>
+            </div>
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/dNsyfW5JZag" title="Aquatic Microbial Ecology" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
         </div>
-        <div class="video-wrapper">
-            <iframe 
-                src="https://www.youtube.com/embed/dNsyfW5JZag" 
-                title="YouTube video player - Aquatic Microbial Ecology" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                referrerpolicy="strict-origin-when-cross-origin" 
-                allowfullscreen>
-            </iframe>
+    </div>
+
+    <!-- CARD 2: video left / text right (reverse layout) -->
+    <div class="research-video-card">
+        <h2>Explore microbial metabolisms in coastal systems</h2>
+        <div class="video-text-grid reverse-on-desktop">
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/_EdsVF-Etpo" title="Fjord frontiers" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="box-text">
+                <p>Aquatic oxygen minimum zones are expanding due to warming and nutrient pollution. Our lab investigates how microbial communities — bacteria, archaea, and protists — respond to deoxygenation gradients. Using high‑resolution time‑series and multi‑omics (metatranscriptomics + metabolomics), we decipher functional shifts, metabolic adaptations, and cascading effects on biogeochemical cycles (nitrogen, sulfur, carbon).</p>
+                <p><strong>Methods:</strong> water sampling, sediment coring, metabarcoding, metagenomics, genome‑resolved metagenomics, genome‑centric metatranscriptomics</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CARD 3: same layout as CARD 1 (text left / video right) -->
+    <div class="research-video-card">
+        <h2>Track past changes in aquatic microbial functions</h2>
+        <div class="video-text-grid">
+            <div class="box-text">
+                <p>We use sedimentary ancient DNA (sedDNA) to reconstruct past changes in freshwater and marine microbial communities over centuries to millennia. By analyzing genetic records preserved in sediments, we uncover how microbial assemblages responded to climate shifts, eutrophication, deoxygenation and other environmental stressors. This long‑term perspective is essential to predict future trajectories under ongoing anthropogenic pressures.</p>
+                <p><strong>Methods:</strong> sediment coring, ancient metagenomics, phylogenomics</p>
+            </div>
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/_EdsVF-Etpo" title="Fjord frontiers" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
         </div>
     </div>
 </div>
 
+<style>
+/* Additional styles to make the cards match your existing CSS */
+.research-video-card {
+    margin-bottom: 2rem;
+    background: rgba(0, 0, 0, 0.5);   /* same as .research-card */
+    backdrop-filter: blur(4px);        /* glass effect */
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, background 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
 
-        <div class="research-video-card">
-            <h2>Explore microbial metabolisms in coastal systems</h2>
-            <div class="video-text-grid">
-                <div class="video-wrapper">
-                    <iframe 
-                        src="https://www.youtube.com/embed/_EdsVF-Etpo" 
-                        title="Fjord frontiers" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                        referrerpolicy="strict-origin-when-cross-origin" 
-                        allowfullscreen>
-                        </iframe>
-                </div>
-             <div class="box-text">
-                       <p>Aquatic oxygen minimum zones are expanding due to warming and nutrient pollution. Our lab investigates how microbial communities — bacteria, archaea, and protists — respond to deoxygenation gradients. Using high-resolution time-series and multi-omics (metatranscriptomics + metabolomics), we decipher functional shifts, metabolic adaptations, and cascading effects on biogeochemical cycles (nitrogen, sulfur, carbon).</p>
-                        <p><strong>Methods:</strong> water sampling, sediment coring, metabarcoding, metagenomics, genome-resolved metagenomics, genone-centric metatranscriptomics</p>
-                    </div>
-                </div>
-            </div>
+.research-video-card:hover {
+    background: rgba(0, 0, 0, 0.6);
+    transform: translateY(-3px);
+}
 
-            <div class="research-video-card">
-                    <h2>Track past changes in aquatic microbial functions</h2>
-                <div class="video-text-grid">
-                    <div class="box-text">
-                        <p>We use sedimentary ancient DNA (sedDNA) to reconstruct past changes in freshwater and marine microbial communities over centuries to millennia. By analyzing genetic records preserved in sediments, we uncover how microbial assemblages responded to climate shifts, eutrophication, deoxygenation and other environmental stressors. This long-term perspective is essential to predict future trajectories under ongoing anthropogenic pressures.</p>
-                        <p><strong>Methods:</strong> sediment coring, ancient metagenomics, phylogenomics</p>
-                    </div>
-                    <div class="video-wrapper">
-                        <iframe 
-                            src="https://www.youtube.com/embed/_EdsVF-Etpo" 
-                            title="Fjord frontiers" 
-                            frameborder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                            referrerpolicy="strict-origin-when-cross-origin" 
-                            allowfullscreen>
-                        </iframe>
-                    </div>
-                </div>
+.research-video-card > h2 {
+    color: #6ab0d6;                   /* your brand blue */
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin: 0;
+    padding: 1.5rem 2rem 0.5rem 2rem;
+    border-bottom: 2px solid rgba(106, 176, 214, 0.3);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
 
-</body>
-</html>
+.video-text-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.video-text-grid.reverse-on-desktop {
+    flex-direction: row-reverse;
+}
+
+.box-text {
+    flex: 1;
+    min-width: 240px;
+    color: white;
+}
+
+.box-text p {
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.box-text p strong {
+    color: #6ab0d6;
+}
+
+.video-wrapper {
+    flex: 1;
+    min-width: 280px;
+    aspect-ratio: 16 / 9;
+}
+
+.video-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    border: none;
+}
+
+/* Responsive: stack on mobile, remove reverse effect */
+@media (max-width: 768px) {
+    .video-text-grid,
+    .video-text-grid.reverse-on-desktop {
+        flex-direction: column;
+    }
+    .research-video-card > h2 {
+        font-size: 1.3rem;
+        padding: 1rem 1.5rem 0.3rem 1.5rem;
+    }
+    .video-text-grid {
+        padding: 1.5rem;
+    }
+}
+</style>
