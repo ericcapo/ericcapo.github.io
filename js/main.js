@@ -192,7 +192,7 @@ function initHomePageTranslation() {
     isChineseActive = false;
 }
 
-// ----- RESEARCH PAGE TRANSLATION TOGGLES -----
+// ----- RESEARCH PAGE TRANSLATION TOGGLES (UPDATED: targets .box-text-content, keeps button) -----
 const researchChineseTexts = {
     1: `<p>我们研究湖泊表层水和底层沉积物中活跃微生物层的微生物多样性。我们开发了一种无人机采样方法，为大量湖泊采集样本，并首次提供了瑞典湖泊微生物多样性的目录。</p>
         <p><strong>方法：</strong> 无人机水质采样、沉积物岩芯采集、元条形码、宏基因组学</p>`,
@@ -208,24 +208,34 @@ function initResearchPageTranslations() {
     boxes.forEach((box, idx) => {
         let cardId = box.getAttribute('data-original-html');
         if (!cardId) cardId = (idx + 1).toString();
-        if (!box.hasAttribute('data-original-content')) {
-            box.setAttribute('data-original-content', box.innerHTML);
+        
+        // Get the content wrapper inside this box
+        const contentDiv = box.querySelector('.box-text-content');
+        if (!contentDiv) return;
+        
+        // Store original HTML of the content wrapper
+        if (!contentDiv.hasAttribute('data-original-content')) {
+            contentDiv.setAttribute('data-original-content', contentDiv.innerHTML);
         }
+        
+        // Avoid duplicate buttons
         if (box.querySelector('.research-toggle-btn')) return;
+        
         const btn = document.createElement('button');
         btn.className = 'research-toggle-btn';
         btn.textContent = '中文';
         btn.setAttribute('aria-label', 'Toggle Chinese/English');
+        
         let isChinese = false;
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
             if (!isChinese) {
-                box.innerHTML = researchChineseTexts[cardId];
+                contentDiv.innerHTML = researchChineseTexts[cardId];
                 btn.textContent = 'ENG';
                 isChinese = true;
             } else {
-                const original = box.getAttribute('data-original-content');
-                box.innerHTML = original;
+                const original = contentDiv.getAttribute('data-original-content');
+                contentDiv.innerHTML = original;
                 btn.textContent = '中文';
                 isChinese = false;
             }
