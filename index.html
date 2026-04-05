@@ -2,58 +2,101 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Capo Lab | Microbial Ecology</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* === OVERRIDES TO PUSH CONTENT HIGHER (just below the top bar) === */
-        
-        /* 1. Remove extra top padding from the main container */
+        /* === ORIGINAL OVERRIDES (keep layout tight) === */
         .container {
             padding-top: 0 !important;
             margin-top: 0 !important;
         }
-        
-        /* 2. Hero section (title + subtitle) – reduce top margin and spacing */
         .hero {
-            margin-top: 0.25rem !important;    /* sits directly below nav */
+            margin-top: 0.25rem !important;
             margin-bottom: 0.75rem !important;
             padding-top: 0.5rem !important;
             padding-bottom: 0.25rem !important;
         }
-        
-        /* 3. Make the subtitle text BIGGER as requested */
         .hero p {
-            font-size: 1.3rem !important;      /* significantly larger */
+            font-size: 1.3rem !important;
             font-weight: 450;
             line-height: 1.3;
         }
-        
-        /* 4. Move the "text and picture below" (lab-intro) higher */
         .lab-intro {
-            margin-top: 0 !important;           /* remove default top gap */
+            margin-top: 0 !important;
             padding-top: 0 !important;
             margin-bottom: 2rem;
         }
-        
-        /* Optional: keep responsive behavior on smaller screens */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-            .hero p {
-                font-size: 1.3rem !important;
-            }
-            .lab-intro {
-                flex-direction: column;
-            }
+            .hero h1 { font-size: 2rem; }
+            .hero p { font-size: 1.3rem !important; }
+            .lab-intro { flex-direction: column; }
         }
-        
-        /* ensure nav sticky does not cause overlap (just aesthetic) */
         nav {
             position: sticky;
             top: 0;
             z-index: 100;
+        }
+
+        /* === CN BUTTON (now "中文") inside lab-intro-text === */
+        .lab-intro-text {
+            position: relative;  /* needed for absolute positioning of the button */
+        }
+
+        .cn-intro-btn {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            background: #1e3c5c;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 4px 12px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: inherit;
+            border: none;
+            z-index: 5;
+            transition: background 0.2s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+        .cn-intro-btn:hover {
+            background: #0f2b44;
+        }
+
+        /* Tooltip bubble for Chinese translation */
+        .cn-translate-tooltip {
+            position: fixed;
+            background: rgba(20, 30, 38, 0.95);
+            backdrop-filter: blur(12px);
+            color: #f0f3f5;
+            font-family: 'Segoe UI', 'Noto Sans CJK SC', system-ui, sans-serif;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            padding: 12px 16px;
+            border-radius: 18px;
+            max-width: 320px;
+            width: max-content;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+            z-index: 2100;
+            pointer-events: none;
+            border: 1px solid rgba(255,215,150,0.4);
+        }
+        .cn-translate-tooltip::before {
+            content: '';
+            position: absolute;
+            bottom: -7px;
+            left: 20px;
+            border-width: 7px 7px 0 7px;
+            border-style: solid;
+            border-color: rgba(20,30,38,0.95) transparent transparent transparent;
+        }
+        /* variant when tooltip appears below the button */
+        .cn-translate-tooltip.tooltip-below::before {
+            top: -7px;
+            bottom: auto;
+            border-width: 0 7px 7px 7px;
+            border-color: transparent transparent rgba(20,30,38,0.95) transparent;
         }
     </style>
 </head>
