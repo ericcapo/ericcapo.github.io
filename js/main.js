@@ -167,80 +167,42 @@ function enhancePublications() {
     });
 }
 
-// ----- CHINESE TRANSLATION FEATURE (button inside .lab-intro-text) -----
+// ----- CHINESE TRANSLATION FEATURE: replace English text inline -----
 const chineseIntroTranslation = `我们研究水生微生物群落的时空动态及其对环境变化（如气候变化、富营养化、脱氧或汞污染）的功能响应。我们应用分子生态学方法，如元条形码、（古）宏基因组学、基于MAGs的分析和宏转录组学。通过对水柱和下方沉积物档案中的遗传信息进行测序，我们研究水生微生物生命的长期变化，以更好地理解它们当前和未来的发展轨迹。`;
 
-let translationTooltip = null;
-
-function getTranslationTooltip() {
-    if (!translationTooltip) {
-        translationTooltip = document.createElement('div');
-        translationTooltip.className = 'cn-translate-tooltip';
-        translationTooltip.textContent = chineseIntroTranslation;
-        document.body.appendChild(translationTooltip);
-        translationTooltip.style.display = 'none';
-    }
-    return translationTooltip;
-}
-
-function positionTooltipNearButton(btnRect, tooltip) {
-    const tooltipRect = tooltip.getBoundingClientRect();
-    let left = btnRect.left;
-    let top = btnRect.top - tooltipRect.height - 12;
-    
-    if (left + tooltipRect.width > window.innerWidth - 16) {
-        left = window.innerWidth - tooltipRect.width - 16;
-    }
-    if (left < 16) left = 16;
-    
-    if (top < 16) {
-        top = btnRect.bottom + 12;
-        tooltip.classList.add('tooltip-below');
-    } else {
-        tooltip.classList.remove('tooltip-below');
-    }
-    
-    tooltip.style.left = `${left}px`;
-    tooltip.style.top = `${top}px`;
-}
-
-function showTranslationForButton(btn) {
-    const tooltip = getTranslationTooltip();
-    tooltip.textContent = chineseIntroTranslation;
-    tooltip.style.display = 'block';
-    tooltip.style.visibility = 'hidden';
-    positionTooltipNearButton(btn.getBoundingClientRect(), tooltip);
-    tooltip.style.visibility = 'visible';
-}
-
-function hideTranslationTooltip() {
-    if (translationTooltip) {
-        translationTooltip.style.display = 'none';
-    }
-}
+let originalEnglishHTML = '';  // stores the original paragraph content
 
 function initHomePageTranslation() {
     const cnButton = document.querySelector('.cn-intro-btn');
     if (!cnButton) return;
     
-    // Remove old listeners to avoid duplicates
+    // Find the paragraph inside .lab-intro-text (the one containing the English text)
+    const textParagraph = document.querySelector('.lab-intro-text p');
+    if (!textParagraph) return;
+    
+    // Save the original English content (as HTML, preserving bold tags)
+    if (!originalEnglishHTML) {
+        originalEnglishHTML = textParagraph.innerHTML;
+    }
+    
+    // Remove any previous listeners to avoid duplicates
     cnButton.removeEventListener('mouseenter', handleMouseEnter);
     cnButton.removeEventListener('mouseleave', handleMouseLeave);
     
-    function handleMouseEnter() { showTranslationForButton(cnButton); }
-    function handleMouseLeave() { hideTranslationTooltip(); }
+    function handleMouseEnter() {
+        // Replace English with Chinese translation
+        textParagraph.innerHTML = chineseIntroTranslation;
+        // Optional smooth transition
+        textParagraph.style.transition = 'opacity 0.2s';
+    }
+    
+    function handleMouseLeave() {
+        // Restore original English text
+        textParagraph.innerHTML = originalEnglishHTML;
+    }
     
     cnButton.addEventListener('mouseenter', handleMouseEnter);
     cnButton.addEventListener('mouseleave', handleMouseLeave);
-    
-    const reposition = () => {
-        if (translationTooltip && translationTooltip.style.display === 'block') {
-            const btn = document.querySelector('.cn-intro-btn');
-            if (btn) positionTooltipNearButton(btn.getBoundingClientRect(), translationTooltip);
-        }
-    };
-    window.addEventListener('resize', reposition);
-    window.addEventListener('scroll', reposition, { passive: true });
 }
 
 // Render home page with top 3 news items AND the 中文 button inside .lab-intro-text
@@ -280,7 +242,7 @@ function renderHome() {
         <div class="lab-intro">
             <div class="lab-intro-text">
                 <p>We study the spatio-temporal dynamics of <b>aquatic microbial communities</b> and their functional responses to environmental change, such as climate change, eutrophication, deoxygenation or mercury pollution. We apply <b>molecular ecology</b> methods, such as metabarcoding, (ancient) metagenomics, MAGs-based analysis and metatranscriptomics. By sequencing the genetic information from <b>water columns</b> and underlying <b>sedimentary archives</b>, we investigate the long-term changes in aquatic microbial life for a better understanding of their current and future trajectories</p>
-                <!-- 中文 button (Chinese language abbreviation) at bottom left of the text box -->
+                <!-- 中文 button (Chinese language abbreviation) at bottom right of the text box -->
                 <button class="cn-intro-btn" aria-label="Show Chinese translation">中文</button>
             </div>
             <div class="lab-intro-image">
@@ -344,7 +306,7 @@ async function render() {
     if (siteData.currentPage === 'home') {
         content = renderHome();
         pageContainer.innerHTML = content;
-        // Attach translation hover to the 中文 button inside the intro box
+        // Attach translation hover to the 中文 button (inline replacement)
         initHomePageTranslation();
     } else {
         content = await loadPageContent(siteData.currentPage);
