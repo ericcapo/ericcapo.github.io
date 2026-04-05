@@ -281,7 +281,7 @@ function renderHome() {
             <h2 class="section-title">Latest News</h2>
             <div class="news-grid">${newsHtml}</div>
             <div style="text-align: center; margin-top: 2rem;">
-                <button class="btn" onclick="navigateTo('news')">View All News →</button>
+                <button class="btn" onclick="navigateTo('news')">More News →</button>
             </div>
         </div>
     `;
