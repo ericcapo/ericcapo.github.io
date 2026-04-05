@@ -577,6 +577,42 @@ footer a:hover {
     .publication-title {
         font-size: 1rem;
     }
+    /* Research page toggle button (also needed for home page button if not already present) */
+.lab-intro-text {
+    position: relative;
+    padding-bottom: 50px;
+}
+.cn-intro-btn, .research-toggle-btn {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    background: #2c6b90;
+    color: white;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 4px 12px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-family: inherit;
+    border: none;
+    z-index: 5;
+    transition: background 0.2s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.cn-intro-btn:hover, .research-toggle-btn:hover {
+    background: #e0a158;
+}
+@media (max-width: 480px) {
+    .lab-intro-text, .box-text {
+        padding-bottom: 60px;
+    }
+    .cn-intro-btn, .research-toggle-btn {
+        bottom: 16px;
+        right: 16px;
+        font-size: 0.85rem;
+        padding: 6px 14px;
+    }
+}
     
     .publication-authors {
         font-size: 0.85rem;
