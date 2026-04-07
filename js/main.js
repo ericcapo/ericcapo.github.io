@@ -224,17 +224,18 @@ function buildMicromatesHTML() {
                     <img src="images/mates/micromates.png" alt="MicroMates logo" onerror="this.src='https://placehold.co/500x300?text=MicroMates'">
                 </div>
             </div>
-            <div class="carousel-container" id="micromatesCarousel">
-                <div class="carousel-wrapper">
-                    <button class="carousel-btn" id="carouselPrev">‹</button>
-                    <div class="cards-scroll">
-                        <div class="cards-track" id="cardsTrack"></div>
+
+            <div class="carousel-box">
+                <h3 class="carousel-title">MicroMates cards</h3>
+                <div class="carousel-container" id="micromatesCarousel">
+                    <div class="carousel-wrapper">
+                        <button class="carousel-btn" id="carouselPrev">‹</button>
+                        <div class="cards-scroll">
+                            <div class="cards-track" id="cardsTrack"></div>
+                        </div>
+                        <button class="carousel-btn" id="carouselNext">›</button>
                     </div>
-                    <button class="carousel-btn" id="carouselNext">›</button>
                 </div>
-            </div>
-            <div id="detailPanel" class="detail-panel">
-                <div class="empty-detail">✨ Click on any card above to see its details ✨</div>
             </div>
         </div>
     `;
