@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Micromates – Microbial Card Game | Capo Lab</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a1a1f;
+            background-image: linear-gradient(135deg, #0d2b2e 0%, #071217 100%);
+            color: #f0f5f9;
+            line-height: 1.5;
+            padding: 2rem 1rem;
+            min-height: 100vh;
+        }
+
+        /* main container */
+        .micromates-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(3px);
+            border-radius: 2rem;
+            padding: 2rem 1.5rem;
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(106, 176, 214, 0.3);
+        }
+
+        /* header with two columns */
+        .game-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+            align-items: center;
+        }
+
+        .info-panel {
+            background: rgba(10, 25, 30, 0.75);
+            backdrop-filter: blur(8px);
+            border-radius: 28px;
+            padding: 1.8rem;
+            border-left: 6px solid #6ab0d6;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.3);
+        }
+
+        .info-panel h1 {
+            font-size: 2.2rem;
+            color: #ffd966;
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+        }
+
+        .info-panel .badge {
+            display: inline-block;
+            background: #2c6b90;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .info-panel p {
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            text-align: justify;
+        }
+
+        .info-panel strong {
+            color: #6ab0d6;
+        }
+
+        .right-image {
+            text-align: center;
+        }
+
+        .right-image img {
+            max-width: 100%;
+            border-radius: 24px;
+            box-shadow: 0 12px 25px rgba(0,0,0,0.5);
+            border: 2px solid #6ab0d6;
+            max-height: 280px;
+            object-fit: cover;
+            width: auto;
+        }
+
+        /* carousel section */
+        .carousel-section {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 32px;
+            padding: 1.5rem;
+            margin: 1rem 0 1.5rem;
+        }
+
+        .carousel-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: nowrap;
+        }
+
+        .nav-btn {
+            background: #1f4e6e;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            flex-shrink: 0;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: #0f3b57;
+            transform: scale(1.05);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            background: #2a4a64;
+        }
+
+        .cards-grid {
+            display: flex;
+            gap: 1.2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            flex: 1;
+        }
+
+        .card {
+            background: rgba(20, 28, 32, 0.8);
+            backdrop-filter: blur(4px);
+            border-radius: 18px;
+            padding: 0.8rem;
+            width: 130px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            border: 2px solid rgba(106,176,214,0.2);
+        }
+
+        .card.selected {
+            border: 3px solid #ffd966;
+            background: rgba(0, 0, 0, 0.85);
+            transform: scale(1.02);
+            box-shadow: 0 0 14px rgba(255,217,102,0.5);
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            background: rgba(40, 55, 65, 0.9);
+        }
+
+        .card-img {
+            width: 100%;
+            aspect-ratio: 2 / 3;
+            object-fit: cover;
+            border-radius: 14px;
+            background: #1e2a2f;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .card-label {
+            margin-top: 0.6rem;
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: #c9e2f0;
+        }
+
+        .info-btn-container {
+            text-align: center;
+            margin: 2rem 0 0.5rem;
+        }
+
+        .info-btn {
+            background: #2c7da0;
+            color: white;
+            border: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 12px 32px;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-btn:hover {
+            background: #1f5e7a;
+            transform: scale(1.02);
+        }
+
+        /* MODAL for card details */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(12px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-card {
+            background: rgba(18, 30, 36, 0.98);
+            max-width: 550px;
+            width: 90%;
+            border-radius: 32px;
+            padding: 2rem;
+            border: 1px solid #6ab0d6;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.6);
+            position: relative;
+            text-align: center;
+        }
+
+        .modal-card h3 {
+            font-size: 1.9rem;
+            color: #ffd966;
+            margin-bottom: 1rem;
+        }
+
+        .modal-card p {
+            font-size: 1.05rem;
+            line-height: 1.5;
+            margin: 1rem 0;
+            color: #f0f4f8;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 16px;
+            right: 22px;
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #bbbbbb;
+            transition: color 0.2s;
+        }
+
+        .close-modal:hover {
+            color: white;
+        }
+
+        .modal-btn {
+            background: #2c7da0;
+            margin-top: 1rem;
+            padding: 8px 24px;
+            border: none;
+            border-radius: 40px;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 800px) {
+            .game-header {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .cards-grid {
+                gap: 0.8rem;
+            }
+            .card {
+                width: 100px;
+            }
+            .nav-btn {
+                width: 42px;
+                height: 42px;
+                font-size: 1.6rem;
+            }
+            .info-panel h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 550px) {
+            .card {
+                width: 80px;
+            }
+            .card-label {
+                font-size: 0.65rem;
+            }
+            .micromates-container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="micromates-container">
+    <!-- LEFT TEXT + RIGHT IMAGE (as requested) -->
+    <div class="game-header">
+        <div class="info-panel">
+            <div class="badge">🧪 Lab edition · 55 collectible cards</div>
+            <h1>🎴 Micromates <br> Microbial Card Game</h1>
+            <p><strong>From the Capo Lab</strong> — explore the hidden superpowers of aquatic microorganisms. Each poker‑sized card represents a unique microbial strategy: <strong>mercury methylators, sediment DNA archivists, deoxygenation sentinels, and climate proxies</strong>. Learn ecology while you play!</p>
+            <p>✔️ 55 unique cards &nbsp;|&nbsp; 🧬 Real microbial concepts &nbsp;|&nbsp; 🔬 Based on molecular ecology research</p>
+            <p><em>Click any card to select it, then press <strong>“📖 Show card info”</strong> for a detailed English description.</em></p>
+        </div>
+        <div class="right-image">
+            <img src="images/mates/micromates.jpg" alt="Micromates card game logo" onerror="this.src='https://placehold.co/500x300?text=Micromates+Preview'">
+        </div>
+    </div>
+
+    <!-- CAROUSEL: shows 5 cards at a time, left/right navigation -->
+    <div class="carousel-section">
+        <div class="carousel-wrapper">
+            <button class="nav-btn" id="prevBtn" aria-label="Previous cards">‹</button>
+            <div id="cardsContainer" class="cards-grid"></div>
+            <button class="nav-btn" id="nextBtn" aria-label="Next cards">›</button>
+        </div>
+    </div>
+
+    <!-- INFO BUTTON (opens modal) -->
+    <div class="info-btn-container">
+        <button id="showInfoBtn" class="info-btn">📖 Show info about selected card</button>
+    </div>
+    <footer>
+        <p>Capo Lab – Microbial Ecology | Department of Ecology, Environment and Geoscience, Umeå University</p>
+    </footer>
+</div>
+
+<!-- Modal overlay for card details -->
+<div id="cardModal" class="modal-overlay">
+    <div class="modal-card">
+        <span class="close-modal" id="closeModalBtn">&times;</span>
+        <h3 id="modalTitle">Micromate</h3>
+        <p id="modalDescription">Loading description...</p>
+        <button id="modalCloseBtn" class="modal-btn">Close</button>
+    </div>
+</div>
+
+<script>
+    // ---------- CONFIGURATION ----------
+    const TOTAL_CARDS = 55;
+    const CARDS_PER_PAGE = 5;
+    let currentStartIndex = 0;       // 0-based index of first card shown
+    let selectedCardIndex = 0;        // 0-based, default first card
+
+    // Helper: generate image path (images/mates/mates01.jpg ... mates55.jpg)
+    function getCardImagePath(cardNumber) {
+        const padded = String(cardNumber).padStart(2, '0');
+        return `images/mates/mates${padded}.jpg`;
+    }
+
+    // Rich English descriptions for each card (real microbial ecology flavour)
+    function getCardDescription(cardIdx) {
+        const num = cardIdx + 1;
+        const descriptions = {
+            1: "🏆 Origin Card: The Microbial Genesis – Represents the first spark of aquatic microbial life in ancient oceans.",
+            2: "🔬 Prokaryote Pioneer – Master of nutrient cycling, breaking down organic matter in freshwater systems.",
+            3: "🌊 Cyanobacteria Whisperer – Oxygen revolution: performs oxygenic photosynthesis and nitrogen fixation.",
+            4: "🧬 Archaea Ancient – Thrives in extreme environments; key player in methane metabolism.",
+            5: "🔄 Horizontal Gene Transfer – Wildcard: swaps genetic traits with any adjacent microbe.",
+            6: "🦠 Viral Shuttle – Transfers DNA between different microbial domains via phage particles.",
+            7: "⚡ Metabolic Dynamo – Boosts carbon fixation efficiency in dark ocean layers.",
+            8: "🧪 Mercury Methylator – Produces neurotoxic methylmercury; a sentinel for pollution.",
+            9: "🌡️ Thermophile Survivor – Heat-loving microbe from hydrothermal vents, stable at 80°C.",
+            10: "❄️ Psychrophile Adapt – Cold-active enzymes from polar regions, active near freezing.",
+            11: "💧 Deoxygenation Sentinel – Indicator of expanding oxygen minimum zones in lakes and seas.",
+            12: "🧫 Biofilm Architect – Builds protective microbial mats, enhancing community resilience.",
+            13: "🔮 Sediment Ancient – Unlocks past microbial communities using sedaDNA (ancient DNA).",
+            14: "🔄 Nitrogen Fixer – Converts atmospheric N₂ into bioavailable ammonia.",
+            15: "🌿 Phytoplankton Symbiont – Mutualistic association with diatoms and algae.",
+            16: "🧪 Denitrifier Expert – Removes excess nitrate, turning it back to nitrogen gas.",
+            17: "⚙️ Sulfur Reducer – Drives sulfur cycling in anoxic basins, producing H₂S.",
+            18: "🛡️ Phage Defender – CRISPR-Cas armed, resistant to viral attack.",
+            19: "🧬 Plasmid Donor – Shares antibiotic resistance and metabolic genes.",
+            20: "🧫 Quorum Sensor – Coordinates group behavior based on cell density.",
+            21: "🌊 Upwelling Messenger – Responds to deep-water nutrient pulses in coastal zones.",
+            22: "📜 Archive Keeper – Preserves genetic records in lake sediments for millennia.",
+            23: "🕰️ Holocene Tracker – Tracks microbial shifts over the last 10,000 years.",
+            24: "⚗️ Methanogen Master – Produces methane in deep sediments; key in carbon cycling.",
+            25: "🧪 Methanotroph Ally – Consumes methane, mitigating greenhouse gas emissions.",
+            26: "🌋 Hydrothermal Collaborator – Lives near volcanic seeps, oxidizing sulfur.",
+            27: "🧬 Eukaryotic Partner – Forms symbiosis with protists and microalgae.",
+            28: "🔁 Conjugation Specialist – Transfers plasmids with high efficiency.",
+            29: "🧫 Microcolony Founder – Initiates biofilm formation on organic particles.",
+            30: "🧬 Metatranscriptome Key – Reveals real-time gene expression patterns.",
+            31: "📊 Alpha Diversity Booster – Increases local species richness in microbial hotspots.",
+            32: "🌍 Beta Diversity Explorer – Links different habitats through dispersal.",
+            33: "⚖️ Redox Mediator – Balances electron flow in syntrophic consortia.",
+            34: "🧪 Heavy Metal Binder – Detoxifies mercury and cadmium via metallothioneins.",
+            35: "🔬 NanoSIMS Probe – Visualizes metabolic activity at nanoscale resolution.",
+            36: "🧫 Cryptic Gene Activator – Unlocks dormant metabolic pathways under stress.",
+            37: "🦠 Protist Predator – Controls bacterial populations, shaping community structure.",
+            38: "💊 Antibiotic Producer – Synthesizes natural antimicrobials to outcompete rivals.",
+            39: "🔬 Microbiome Modulator – Alters host-associated microbial communities (e.g., zooplankton).",
+            40: "🌊 Coastal Sentinel – Responds rapidly to salinity and nutrient fluctuations.",
+            41: "🧬 MAG Assembler – Builds near-complete genomes from metagenomic data.",
+            42: "🔄 Horizontal Hero – Transfers adaptive genes across species boundaries.",
+            43: "🧪 Extracellular Enzyme Master – Degrades complex polysaccharides and proteins.",
+            44: "🕯️ Bioluminescence Gene – Produces light in deep waters, possibly for defense.",
+            45: "🧫 Iron Scavenger – Secretes siderophores to acquire scarce iron.",
+            46: "🧪 Microplastic Degrader – Potential to break down PET and other polymers.",
+            47: "🌡️ Climate Proxy – Records temperature shifts via DNA methylation patterns.",
+            48: "📖 Paleome Reader – Decodes ancient microbial DNA from Holocene sediments.",
+            49: "⚙️ Syntrophy Partner – Cooperates with other species for mutual metabolic benefit.",
+            50: "🔬 Ultra-small Cell – Filterable bacteria, overlooked but abundant in aquifers.",
+            51: "🧬 Ribosomal RNA Sentinel – High-resolution taxonomic marker for monitoring.",
+            52: "🌋 Subsurface Pioneer – Lives in deep crustal aquifers, chemolithoautotroph.",
+            53: "🧪 Metal Respirer – Uses iron or manganese as electron acceptor in anoxic zones.",
+            54: "🧫 Snow Algae Associate – Cold-tolerant psychrophile from glacial ecosystems.",
+            55: "🏅 Master of Micromates – Ultimate card: encapsulates the entire microbial world, from viruses to complex consortia."
+        };
+        return descriptions[num] || `Card #${num}: Unique microbial trait from aquatic environments. Click to reveal metabolic secrets and ecological role.`;
+    }
+
+    // Render the 5 visible cards based on currentStartIndex, highlight selected
+    function renderCarousel() {
+        const container = document.getElementById('cardsContainer');
+        if (!container) return;
+
+        const endIdx = Math.min(currentStartIndex + CARDS_PER_PAGE, TOTAL_CARDS);
+        let cardsHtml = '';
+        for (let i = currentStartIndex; i < endIdx; i++) {
+            const cardNumber = i + 1;
+            const imgSrc = getCardImagePath(cardNumber);
+            const isSelected = (selectedCardIndex === i);
+            const selectedClass = isSelected ? 'selected' : '';
+            cardsHtml += `
+                <div class="card ${selectedClass}" data-card-index="${i}">
+                    <img src="${imgSrc}" alt="Card ${cardNumber}" class="card-img" 
+                         onerror="this.src='https://placehold.co/140x210?text=Card+${cardNumber}'">
+                    <div class="card-label">#${cardNumber}</div>
+                </div>
+            `;
+        }
+        container.innerHTML = cardsHtml;
+
+        // attach click event to each card for selection
+        document.querySelectorAll('.card').forEach(cardDiv => {
+            const idxAttr = cardDiv.getAttribute('data-card-index');
+            if (idxAttr !== null) {
+                const idx = parseInt(idxAttr, 10);
+                cardDiv.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (selectedCardIndex !== idx) {
+                        selectedCardIndex = idx;
+                        renderCarousel();  // re-render to update highlight
+                    }
+                });
+            }
+        });
+
+        // update prev/next button disabled states
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        if (prevBtn) prevBtn.disabled = (currentStartIndex === 0);
+        if (nextBtn) nextBtn.disabled = (currentStartIndex + CARDS_PER_PAGE >= TOTAL_CARDS);
+    }
+
+    // move carousel left / right
+    function moveCarousel(direction) {
+        if (direction === 'prev') {
+            if (currentStartIndex - CARDS_PER_PAGE >= 0) {
+                currentStartIndex -= CARDS_PER_PAGE;
+            } else if (currentStartIndex > 0) {
+                currentStartIndex = 0;
+            } else {
+                return;
+            }
+        } else if (direction === 'next') {
+            if (currentStartIndex + CARDS_PER_PAGE < TOTAL_CARDS) {
+                currentStartIndex += CARDS_PER_PAGE;
+            } else {
+                return;
+            }
+        }
+        renderCarousel();
+    }
+
+    // Show modal with info for currently selected card
+    function showSelectedCardInfo() {
+        const modal = document.getElementById('cardModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDesc = document.getElementById('modalDescription');
+        if (!modal || !modalTitle || !modalDesc) return;
+        
+        const cardNum = selectedCardIndex + 1;
+        modalTitle.innerHTML = `🎴 Micromate #${cardNum}`;
+        modalDesc.innerHTML = getCardDescription(selectedCardIndex);
+        modal.classList.add('active');
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('cardModal');
+        if (modal) modal.classList.remove('active');
+    }
+
+    // Initialize event listeners and load initial cards
+    function init() {
+        renderCarousel();
+        
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const infoBtn = document.getElementById('showInfoBtn');
+        const closeModalSpan = document.getElementById('closeModalBtn');
+        const modalCloseBtn = document.getElementById('modalCloseBtn');
+        const modalOverlay = document.getElementById('cardModal');
+        
+        if (prevBtn) prevBtn.addEventListener('click', () => moveCarousel('prev'));
+        if (nextBtn) nextBtn.addEventListener('click', () => moveCarousel('next'));
+        if (infoBtn) infoBtn.addEventListener('click', showSelectedCardInfo);
+        
+        if (closeModalSpan) closeModalSpan.addEventListener('click', closeModal);
+        if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
+        if (modalOverlay) {
+            modalOverlay.addEventListener('click', (e) => {
+                if (e.target === modalOverlay) closeModal();
+            });
+        }
+        
+        // Optional: preload fallback hint if images missing, but onerror already handled.
+        console.log("Micromates carousel ready – 55 cards, left/right navigation, info modal.");
+    }
+    
+    // start when DOM ready
+    document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
