@@ -224,11 +224,11 @@ function buildMicromatesHTML() {
                         When you complete a realm (all 5 cards), show it and place it face up. 
                         First to collect <strong>3 complete realms</strong> wins!<br><br>
                         <strong>Card categories (one per realm):</strong><br>
-                        <img src="images/others/yellow.jpg" alt="Light" style="height:1.2rem; vertical-align:middle;"> Light &nbsp;&nbsp;
-                        <img src="images/others/pink.jpg" alt="Nitrogen" style="height:1.2rem; vertical-align:middle;"> Nitrogen &nbsp;&nbsp;
-                        <img src="images/others/blue.jpg" alt="Sulfur" style="height:1.2rem; vertical-align:middle;"> Sulfur &nbsp;&nbsp;
-                        <img src="images/others/green.jpg" alt="Carbon" style="height:1.2rem; vertical-align:middle;"> Carbon &nbsp;&nbsp;
-                        <img src="images/others/purple.jpg" alt="Special" style="height:1.2rem; vertical-align:middle;"> Special
+                        <img src="images/others/yellow.png" alt="Light" style="height:1.2rem; vertical-align:middle;"> Light &nbsp;&nbsp;
+                        <img src="images/others/pink.png" alt="Nitrogen" style="height:1.2rem; vertical-align:middle;"> Nitrogen &nbsp;&nbsp;
+                        <img src="images/others/blue.png" alt="Sulfur" style="height:1.2rem; vertical-align:middle;"> Sulfur &nbsp;&nbsp;
+                        <img src="images/others/green.png" alt="Carbon" style="height:1.2rem; vertical-align:middle;"> Carbon &nbsp;&nbsp;
+                        <img src="images/others/purple.png" alt="Special" style="height:1.2rem; vertical-align:middle;"> Special
                     </p>
                 </div>
                 <div class="game-right-img">
