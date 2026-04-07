@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>MicroMates – Marine Realms Card Game | Capo Lab</title>
+    <title>MicroMates – Oceanic Realms Card Game</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -71,6 +71,9 @@
             padding: 0.8rem 1rem;
             border-radius: 20px;
             margin-top: 0.8rem;
+        }
+        .right-image {
+            text-align: center;
         }
         .right-image img {
             max-width: 100%;
@@ -185,17 +188,22 @@
 <div class="micromates-container">
     <div class="game-header">
         <div class="info-panel">
-            <div class="badge">🌊 Capo Lab · 55 cards · Happy Families</div>
-            <h1>🎴 MicroMates – Marine Realms</h1>
-            <p><strong>How to play:</strong> Collect all 5 cards of a Marine Realm. Ask another player: “Do you have <em>Baltic Cyanobacteria</em> from the <strong>Baltic Sea realm</strong>?” If yes, take it and go again; if not, draw from the pile. First to collect <strong>3 complete realms</strong> wins!</p>
+            <h1>🎴 MicroMates – Oceanic Realms</h1>
+            <div class="badge">🌊 11 realms · 55 cards · Happy Families</div>
             <div class="family-list" id="realmList"></div>
-            <div class="rules-box">🎯 <strong>Quick rules (2–6 players):</strong> Shuffle 55 cards. Deal 7 each. Youngest starts. Ask for a card from a realm you already own. If the opponent has it, take it and continue; otherwise draw one. When you complete a realm (5 cards), show it. First with 3 realms wins!</div>
+            <div class="rules-box">
+                <strong>🎯 How to play:</strong> Collect all 5 cards of a <b>realm</b>. Ask another player: “Do you have <em>Baltic Cyanobacteria</em> from the <strong>Baltic Sea realm</strong>?” If yes, take it and go again; if not, draw from the pile. First to collect <strong>3 complete realms</strong> wins!
+            </div>
+            <div class="rules-box">
+                <strong>Quick rules (2–6 players):</strong> Shuffle 55 cards. Deal 7 each. Youngest starts. Ask for a card from a realm you already own. If the opponent has it, take it and continue; otherwise draw one. When you complete a realm (5 cards), show it. First with 3 realms wins!
+            </div>
             <p><em>👇 <strong>Click any card</strong> to see its enlarged image, description and DOI link.</em></p>
         </div>
         <div class="right-image">
             <img src="images/mates/micromates.jpg" alt="MicroMates cover" onerror="this.src='https://placehold.co/500x300?text=MicroMates'">
         </div>
     </div>
+    
     <div class="carousel-section">
         <div class="carousel-wrapper">
             <button class="nav-btn" id="prevBtn">‹</button>
@@ -206,6 +214,7 @@
     <div id="detailPanel" class="detail-panel"><div class="empty-detail">✨ Click any card above ✨</div></div>
     <footer>MicroMates – Marine Realms | Inspired by Capo Lab research | Umeå University</footer>
 </div>
+
 <script>
     // ---------- MARINE REALMS DATA (11 realms × 5 cards = 55) ----------
     const realms = [
@@ -243,7 +252,8 @@
             "Vent Hyperthermophile", "Seep Methanogen", "Vent Sulfur Oxidizer", "Seep Metal Muncher", "Vent Viral Fusogen"
         ]}
     ];
-    // Build full card list (title, realm index, description, doi)
+
+    // Build full card list
     let cards = [];
     for (let r = 0; r < realms.length; r++) {
         for (let c = 0; c < realms[r].cards.length; c++) {
@@ -256,6 +266,7 @@
             });
         }
     }
+
     function getDescriptionByCard(realm, cardName) {
         const map = {
             "Baltic Cyanobacteria": "Nitrogen‑fixing Nodularia blooms cause summer cyanotoxins.",
@@ -316,30 +327,40 @@
         };
         return map[cardName] || `Fascinating microbe from ${realm}.`;
     }
-    // Populate family badges
+
+    // Populate family badges (realms list)
     const realmListDiv = document.getElementById('realmList');
-    realms.forEach(r => {
-        const badge = document.createElement('span');
-        badge.className = 'family-badge';
-        badge.style.borderLeft = `4px solid ${r.color}`;
-        badge.textContent = `${r.name} (5 cards)`;
-        realmListDiv.appendChild(badge);
-    });
+    if (realmListDiv) {
+        realms.forEach(r => {
+            const badge = document.createElement('span');
+            badge.className = 'family-badge';
+            badge.style.borderLeft = `4px solid ${r.color}`;
+            badge.textContent = `${r.name} (5 cards)`;
+            realmListDiv.appendChild(badge);
+        });
+    }
+
     // Carousel logic
     const TOTAL = cards.length;
     const VISIBLE = 5;
     const STEP = 2;
     let startIdx = 0;
     let selectedIdx = 0;
-    function getCardImagePath(num) { return `images/mates/mates${String(num).padStart(2,'0')}.jpg`; }
+
+    // IMPORTANT: image path relative to the main index.html (root)
+    function getCardImagePath(num) {
+        return `images/mates/mates${String(num).padStart(2,'0')}.jpg`;
+    }
+
     function renderTrack() {
         const track = document.getElementById('cardsTrack');
+        if (!track) return;
         let html = '';
         for (let i = 0; i < TOTAL; i++) {
-            const img = getCardImagePath(i+1);
+            const imgPath = getCardImagePath(i+1);
             const selectedClass = (selectedIdx === i) ? 'selected' : '';
             html += `<div class="card-item ${selectedClass}" data-idx="${i}">
-                        <img src="${img}" class="card-img" onerror="this.src='https://placehold.co/160x240?text=Card+${i+1}'">
+                        <img src="${imgPath}" class="card-img" onerror="this.src='https://placehold.co/160x240?text=Card+${i+1}'">
                         <div class="card-label">${cards[i].title}</div>
                     </div>`;
         }
@@ -354,26 +375,33 @@
         });
         updatePosition();
     }
+
     function updatePosition() {
         const track = document.getElementById('cardsTrack');
+        if (!track) return;
         const maxStart = Math.max(0, TOTAL - VISIBLE);
         startIdx = Math.min(maxStart, Math.max(0, startIdx));
         const offset = - (startIdx * (160 + 12));
         track.style.transform = `translateX(${offset}px)`;
-        document.getElementById('prevBtn').disabled = (startIdx === 0);
-        document.getElementById('nextBtn').disabled = (startIdx >= maxStart);
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        if (prevBtn) prevBtn.disabled = (startIdx === 0);
+        if (nextBtn) nextBtn.disabled = (startIdx >= maxStart);
     }
+
     function move(delta) {
         const maxStart = Math.max(0, TOTAL - VISIBLE);
         startIdx = Math.min(maxStart, Math.max(0, startIdx + delta * STEP));
         updatePosition();
     }
+
     function updateDetail(idx) {
         const panel = document.getElementById('detailPanel');
+        if (!panel) return;
         const c = cards[idx];
-        const img = getCardImagePath(idx+1);
+        const imgPath = getCardImagePath(idx+1);
         panel.innerHTML = `
-            <div class="detail-image"><img src="${img}" onerror="this.src='https://placehold.co/280x420'"></div>
+            <div class="detail-image"><img src="${imgPath}" onerror="this.src='https://placehold.co/280x420?text=Image+Missing'"></div>
             <div class="detail-text">
                 <h3>${c.title} <span style="font-size:1rem;">(#${idx+1})</span></h3>
                 <div class="detail-description">${c.description}</div>
@@ -381,6 +409,8 @@
             </div>
         `;
     }
+
+    // Attach event listeners and initial render
     document.getElementById('prevBtn').addEventListener('click', () => move(-1));
     document.getElementById('nextBtn').addEventListener('click', () => move(1));
     renderTrack();
