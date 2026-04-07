@@ -3,14 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>MicroMates – Happy Families Card Game | Capo Lab</title>
+    <title>MicroMates – Marine Realms Card Game | Capo Lab</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #0a1a1f;
@@ -20,7 +15,6 @@
             padding: 2rem 1rem;
             min-height: 100vh;
         }
-
         .micromates-container {
             max-width: 1300px;
             margin: 0 auto;
@@ -31,8 +25,6 @@
             box-shadow: 0 20px 35px rgba(0, 0, 0, 0.4);
             border: 1px solid rgba(106, 176, 214, 0.3);
         }
-
-        /* header two columns */
         .game-header {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -40,38 +32,27 @@
             margin-bottom: 2rem;
             align-items: center;
         }
-
         .info-panel {
             background: rgba(10, 25, 30, 0.75);
             backdrop-filter: blur(8px);
             border-radius: 28px;
             padding: 1.8rem;
             border-left: 6px solid #6ab0d6;
-            box-shadow: 0 8px 18px rgba(0,0,0,0.3);
         }
-
         .info-panel h1 {
             font-size: 2.2rem;
             color: #ffd966;
             margin-bottom: 0.5rem;
         }
-
         .info-panel .badge {
-            display: inline-block;
             background: #2c6b90;
             padding: 0.2rem 0.8rem;
             border-radius: 30px;
             font-size: 0.8rem;
             font-weight: bold;
+            display: inline-block;
             margin-bottom: 1rem;
         }
-
-        .info-panel p {
-            margin-bottom: 1rem;
-            font-size: 1rem;
-            text-align: justify;
-        }
-
         .family-list {
             display: flex;
             flex-wrap: wrap;
@@ -91,9 +72,6 @@
             border-radius: 20px;
             margin-top: 0.8rem;
         }
-        .right-image {
-            text-align: center;
-        }
         .right-image img {
             max-width: 100%;
             border-radius: 24px;
@@ -102,8 +80,6 @@
             max-height: 280px;
             object-fit: cover;
         }
-
-        /* carousel */
         .carousel-section {
             background: rgba(0, 0, 0, 0.4);
             border-radius: 28px;
@@ -121,43 +97,25 @@
             border: none;
             color: white;
             font-size: 2rem;
-            font-weight: bold;
             width: 52px;
             height: 52px;
             border-radius: 50%;
             cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             flex-shrink: 0;
         }
-        .nav-btn:hover:not(:disabled) {
-            background: #0f3b57;
-            transform: scale(1.05);
-        }
-        .nav-btn:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-        }
-        .cards-scroll {
-            flex: 1;
-            overflow: hidden;
-        }
+        .nav-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        .cards-scroll { flex: 1; overflow: hidden; }
         .cards-track {
             display: flex;
             gap: 1.2rem;
             transition: transform 0.4s ease-in-out;
-            will-change: transform;
         }
         .card-item {
             flex: 0 0 auto;
             width: 160px;
             background: rgba(20, 28, 32, 0.8);
-            backdrop-filter: blur(4px);
             padding: 0.8rem;
             cursor: pointer;
-            transition: all 0.2s ease;
             text-align: center;
             border: 2px solid rgba(106,176,214,0.2);
             border-radius: 0px;
@@ -166,18 +124,12 @@
             border: 3px solid #ffd966;
             background: rgba(0, 0, 0, 0.85);
             transform: scale(1.02);
-            box-shadow: 0 0 14px rgba(255,217,102,0.5);
-        }
-        .card-item:hover {
-            transform: translateY(-6px);
-            background: rgba(40, 55, 65, 0.9);
         }
         .card-img {
             width: 100%;
             aspect-ratio: 2 / 3;
             object-fit: cover;
             background: #1e2a2f;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
             border-radius: 0px;
         }
         .card-label {
@@ -186,8 +138,6 @@
             font-size: 0.85rem;
             color: #c9e2f0;
         }
-
-        /* Detail panel */
         .detail-panel {
             background: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(8px);
@@ -198,17 +148,11 @@
             grid-template-columns: 280px 1fr;
             gap: 2rem;
             align-items: start;
-            border: 1px solid rgba(106,176,214,0.4);
         }
         .detail-image img {
             width: 100%;
-            max-width: 280px;
             border-radius: 0px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-            background: #1a2a2f;
-        }
-        .detail-text {
-            text-align: left;
         }
         .detail-text h3 {
             color: #ffd966;
@@ -224,37 +168,16 @@
             color: #6ab0d6;
             text-decoration: none;
             font-family: monospace;
-            font-size: 1rem;
             background: rgba(0,0,0,0.3);
             padding: 0.2rem 0.6rem;
             border-radius: 12px;
         }
-        .detail-doi a:hover {
-            text-decoration: underline;
-            color: #8bcbff;
-        }
-        .empty-detail {
-            text-align: center;
-            padding: 2rem;
-            color: #aaa;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 2rem;
-            font-size: 0.85rem;
-            opacity: 0.8;
-        }
-
+        .empty-detail { text-align: center; padding: 2rem; color: #aaa; }
+        footer { text-align: center; margin-top: 2rem; font-size: 0.85rem; opacity: 0.8; }
         @media (max-width: 800px) {
             .game-header { grid-template-columns: 1fr; }
             .card-item { width: 120px; }
-            .detail-panel { grid-template-columns: 1fr; text-align: center; gap: 1rem; }
-            .detail-image { display: flex; justify-content: center; }
-        }
-        @media (max-width: 550px) {
-            .card-item { width: 100px; }
-            .card-label { font-size: 0.7rem; }
+            .detail-panel { grid-template-columns: 1fr; text-align: center; }
         }
     </style>
 </head>
@@ -262,202 +185,206 @@
 <div class="micromates-container">
     <div class="game-header">
         <div class="info-panel">
-            <div class="badge">🧪 Capo Lab edition · 55 cards · Happy Families game</div>
-            <h1>🎴 MicroMates - Oceanic Realms</h1>
-            <p><strong>How to play:</strong> Collect all 5 cards of a <b>realm</b> (e.g., Baltic Sea, California Coast etc). On your turn, ask another player for a specific card (e.g., “Do you have <em>the yellow mate</em> from the <strong style="color:#ffd966;">Baltic Sea</strong>?”). If they have it, you take it and go again. If not, draw from the pile. The first player to collect <strong>3 complete realms</strong> wins! Card types are : 🟡 Light, 🩷 Nitrogen, 🔵 Sulfur, 🟢 Carbon, 🟣 Special</p>
-
-            <div class="rules-box">
-                <strong>Rules (2–6 players):</strong> Shuffle all 50 cards. Deal 7 cards each. Youngest starts. On your turn, ask any player for a card from a <b>realm</b> you already own. If they have it, take it and continue; if not, draw 1 card from the pile. When you complete an <b>realm</b> (all 5 cards), show it and place it face up. First to collect 3 <b>realm</b> wins!
-
+            <div class="badge">🌊 Capo Lab · 55 cards · Happy Families</div>
+            <h1>🎴 MicroMates – Marine Realms</h1>
+            <p><strong>How to play:</strong> Collect all 5 cards of a Marine Realm. Ask another player: “Do you have <em>Baltic Cyanobacteria</em> from the <strong>Baltic Sea realm</strong>?” If yes, take it and go again; if not, draw from the pile. First to collect <strong>3 complete realms</strong> wins!</p>
+            <div class="family-list" id="realmList"></div>
+            <div class="rules-box">🎯 <strong>Quick rules (2–6 players):</strong> Shuffle 55 cards. Deal 7 each. Youngest starts. Ask for a card from a realm you already own. If the opponent has it, take it and continue; otherwise draw one. When you complete a realm (5 cards), show it. First with 3 realms wins!</div>
+            <p><em>👇 <strong>Click any card</strong> to see its enlarged image, description and DOI link.</em></p>
+        </div>
         <div class="right-image">
-            <img src="images/mates/micromates.png" alt="MicroMates cover" onerror="this.src='https://placehold.co/500x300?text=MicroMates'">
+            <img src="images/mates/micromates.jpg" alt="MicroMates cover" onerror="this.src='https://placehold.co/500x300?text=MicroMates'">
         </div>
     </div>
-
-    <!-- Carousel -->
     <div class="carousel-section">
         <div class="carousel-wrapper">
             <button class="nav-btn" id="prevBtn">‹</button>
-            <div class="cards-scroll">
-                <div class="cards-track" id="cardsTrack"></div>
-            </div>
+            <div class="cards-scroll"><div class="cards-track" id="cardsTrack"></div></div>
             <button class="nav-btn" id="nextBtn">›</button>
         </div>
     </div>
-
-    <!-- Detail panel (dynamic) -->
-    <div id="detailPanel" class="detail-panel">
-        <div class="empty-detail">✨ Click on any card above to see its details ✨</div>
-    </div>
-
-    <footer>
-        <p>MicroMates – Oceanic Realms</p>
-    </footer>
+    <div id="detailPanel" class="detail-panel"><div class="empty-detail">✨ Click any card above ✨</div></div>
+    <footer>MicroMates – Marine Realms | Inspired by Capo Lab research | Umeå University</footer>
 </div>
-
 <script>
-    // --------------------------------------------------------------
-    // ALL CARD DATA CONSOLIDATED IN A SINGLE ARRAY
-    // Each card: index (0‑based), title, description, doi
-    // --------------------------------------------------------------
-    const cardsData = [
-        { title: "Aphanie, Baltic Sea", description: "The primordial spark of aquatic microbial life. Represents the first self-replicating systems in ancient oceans.", doi: "10.1039/micromates.2025.001" },
-        { title: "Prokaryote Pioneer", description: "Key player in decomposing organic matter and recycling nutrients in freshwater and marine sediments.", doi: "10.1039/micromates.2025.002" },
-        { title: "Cyanobacteria Whisperer", description: "Performs oxygenic photosynthesis and nitrogen fixation, shaping Earth's atmosphere.", doi: "10.1039/micromates.2025.003" },
-        { title: "Archaea Ancient", description: "Thrives in extreme environments (high temperature, salinity) and produces methane.", doi: "10.1039/micromates.2025.004" },
-        { title: "Horizontal Gene Transfer", description: "Transfers genetic material between unrelated species, accelerating evolution.", doi: "10.1039/micromates.2025.005" },
-        { title: "Viral Shuttle", description: "Uses bacteriophages to shuttle DNA across microbial communities.", doi: "10.1039/micromates.2025.006" },
-        { title: "Metabolic Dynamo", description: "Boosts carbon fixation efficiency in dark ocean layers using alternative electron donors.", doi: "10.1039/micromates.2025.007" },
-        { title: "Mercury Methylator", description: "Methylates inorganic mercury, producing neurotoxic methylmercury that bioaccumulates.", doi: "10.1039/micromates.2025.008" },
-        { title: "Thermophile Survivor", description: "Hyperthermophile living near hydrothermal vents, optimal growth above 80°C.", doi: "10.1039/micromates.2025.009" },
-        { title: "Psychrophile Adapt", description: "Cold-adapted enzyme producer, active near freezing point in polar regions.", doi: "10.1039/micromates.2025.010" },
-        { title: "Deoxygenation Sentinel", description: "Indicator species for expanding oxygen minimum zones in lakes and seas.", doi: "10.1039/micromates.2025.011" },
-        { title: "Biofilm Architect", description: "Architect of protective biofilms, enhancing community resilience against antibiotics.", doi: "10.1039/micromates.2025.012" },
-        { title: "Sediment Ancient", description: "Preserves ancient DNA in lake sediments, unlocking past microbial communities.", doi: "10.1039/micromates.2025.013" },
-        { title: "Nitrogen Fixer", description: "Converts atmospheric N₂ into bioavailable ammonia, essential for primary production.", doi: "10.1039/micromates.2025.014" },
-        { title: "Phytoplankton Symbiont", description: "Mutualistic symbiont of diatoms and algae, exchanging metabolites.", doi: "10.1039/micromates.2025.015" },
-        { title: "Denitrifier Expert", description: "Reduces nitrate to N₂ gas, removing excess nitrogen from eutrophic waters.", doi: "10.1039/micromates.2025.016" },
-        { title: "Sulfur Reducer", description: "Reduces sulfate to hydrogen sulfide, driving sulfur cycling in anoxic basins.", doi: "10.1039/micromates.2025.017" },
-        { title: "Phage Defender", description: "Armed with CRISPR-Cas systems, resistant to viral infection.", doi: "10.1039/micromates.2025.018" },
-        { title: "Plasmid Donor", description: "Shares antibiotic resistance and metabolic genes via conjugation.", doi: "10.1039/micromates.2025.019" },
-        { title: "Quorum Sensor", description: "Coordinates group behavior based on cell density via autoinducer molecules.", doi: "10.1039/micromates.2025.020" },
-        { title: "Upwelling Messenger", description: "Responds rapidly to deep-water nutrient upwelling, triggering blooms.", doi: "10.1039/micromates.2025.021" },
-        { title: "Archive Keeper", description: "Long-term recorder of genetic information in sedimentary archives.", doi: "10.1039/micromates.2025.022" },
-        { title: "Holocene Tracker", description: "Tracks microbial community shifts over the last 10,000 years using sedaDNA.", doi: "10.1039/micromates.2025.023" },
-        { title: "Methanogen Master", description: "Produces methane in deep sediments, a key step in carbon cycling.", doi: "10.1039/micromates.2025.024" },
-        { title: "Methanotroph Ally", description: "Consumes methane, mitigating greenhouse gas emissions from aquatic systems.", doi: "10.1039/micromates.2025.025" },
-        { title: "Hydrothermal Collaborator", description: "Oxidizes sulfur compounds in hydrothermal vents, supporting chemosynthetic food webs.", doi: "10.1039/micromates.2025.026" },
-        { title: "Eukaryotic Partner", description: "Forms symbioses with protists and microalgae, influencing host metabolism.", doi: "10.1039/micromates.2025.027" },
-        { title: "Conjugation Specialist", description: "High-efficiency plasmid transfer via conjugation pili.", doi: "10.1039/micromates.2025.028" },
-        { title: "Microcolony Founder", description: "Initiates biofilm formation on organic particles and surfaces.", doi: "10.1039/micromates.2025.029" },
-        { title: "Metatranscriptome Key", description: "Reveals real-time gene expression patterns using metatranscriptomics.", doi: "10.1039/micromates.2025.030" },
-        { title: "Alpha Diversity Booster", description: "Increases local species richness through niche construction and facilitation.", doi: "10.1039/micromates.2025.031" },
-        { title: "Beta Diversity Explorer", description: "Links different habitats via dispersal and connectivity, enhancing beta diversity.", doi: "10.1039/micromates.2025.032" },
-        { title: "Redox Mediator", description: "Balances electron flow in syntrophic consortia, preventing metabolic bottlenecks.", doi: "10.1039/micromates.2025.033" },
-        { title: "Heavy Metal Binder", description: "Detoxifies heavy metals (mercury, cadmium) via metallothionein proteins.", doi: "10.1039/micromates.2025.034" },
-        { title: "NanoSIMS Probe", description: "Visualizes metabolic activity at nanoscale using stable isotope probing.", doi: "10.1039/micromates.2025.035" },
-        { title: "Cryptic Gene Activator", description: "Unlocks dormant metabolic pathways under stress, enabling adaptation.", doi: "10.1039/micromates.2025.036" },
-        { title: "Protist Predator", description: "Grazes on bacteria, shaping microbial community structure and function.", doi: "10.1039/micromates.2025.037" },
-        { title: "Antibiotic Producer", description: "Produces natural antimicrobials to outcompete rival microbes.", doi: "10.1039/micromates.2025.038" },
-        { title: "Microbiome Modulator", description: "Modulates host-associated microbiomes (e.g., zooplankton guts).", doi: "10.1039/micromates.2025.039" },
-        { title: "Coastal Sentinel", description: "Responds to salinity and nutrient fluctuations in coastal zones.", doi: "10.1039/micromates.2025.040" },
-        { title: "MAG Assembler", description: "Assembles near-complete genomes from metagenomic data (MAGs).", doi: "10.1039/micromates.2025.041" },
-        { title: "Horizontal Hero", description: "Transfers adaptive genes across species boundaries, driving evolution.", doi: "10.1039/micromates.2025.042" },
-        { title: "Extracellular Enzyme Master", description: "Degrades complex polysaccharides, proteins, and lipids via extracellular enzymes.", doi: "10.1039/micromates.2025.043" },
-        { title: "Bioluminescence Gene", description: "Produces bioluminescence, possibly for defense or attracting predators.", doi: "10.1039/micromates.2025.044" },
-        { title: "Iron Scavenger", description: "Secretes siderophores to scavenge scarce iron in oxic waters.", doi: "10.1039/micromates.2025.045" },
-        { title: "Microplastic Degrader", description: "Degrades PET and other plastics using cutinase-like enzymes.", doi: "10.1039/micromates.2025.046" },
-        { title: "Climate Proxy", description: "Records temperature shifts via DNA methylation patterns in sedimentary DNA.", doi: "10.1039/micromates.2025.047" },
-        { title: "Paleome Reader", description: "Decodes ancient microbial DNA from Holocene sediments, reconstructing past ecosystems.", doi: "10.1039/micromates.2025.048" },
-        { title: "Syntrophy Partner", description: "Cooperates with other species for mutualistic metabolic exchange (syntrophy).", doi: "10.1039/micromates.2025.049" },
-        { title: "Ultra-small Cell", description: "Ultra-small bacteria that pass through 0.2 µm filters, overlooked but abundant.", doi: "10.1039/micromates.2025.050" },
-        { title: "Ribosomal RNA Sentinel", description: "High-resolution taxonomic marker using 16S/18S rRNA genes for monitoring.", doi: "10.1039/micromates.2025.051" },
-        { title: "Subsurface Pioneer", description: "Chemolithoautotroph living in deep crustal aquifers, using inorganic energy sources.", doi: "10.1039/micromates.2025.052" },
-        { title: "Metal Respirer", description: "Uses iron or manganese as electron acceptor in anoxic environments.", doi: "10.1039/micromates.2025.053" },
-        { title: "Snow Algae Associate", description: "Cold-tolerant psychrophile from glacial and snow ecosystems.", doi: "10.1039/micromates.2025.054" },
-        { title: "Master of Micromates", description: "Ultimate card: embodies the entire microbial world – from viruses to complex consortia.", doi: "10.1039/micromates.2025.055" }
+    // ---------- MARINE REALMS DATA (11 realms × 5 cards = 55) ----------
+    const realms = [
+        { name: "Baltic Sea", color: "#FFD966", cards: [
+            "Baltic Cyanobacteria", "Baltic Hypoxia Survivor", "Baltic Sediment Methanogen", "Baltic Phage Controller", "Baltic Mercury Methylator"
+        ]},
+        { name: "Black Sea", color: "#FF99CC", cards: [
+            "Black Sea Sulfur Oxidizer", "Black Sea Anammox", "Black Sea Methanogen", "Black Sea Viral Shuttle", "Black Sea Resin Seeker"
+        ]},
+        { name: "Mediterranean Sea", color: "#66CCFF", cards: [
+            "Medi Oligotroph", "Medi Deep‑Water Microbe", "Medi Symbiont", "Medi Viral Bloom", "Medi Plastic Degrader"
+        ]},
+        { name: "North Sea", color: "#88FF88", cards: [
+            "North Sea Tidal Flats", "North Sea Methane Seep", "North Sea Algal Symbiont", "North Sea Antibiotic Producer", "North Sea Iron Scavenger"
+        ]},
+        { name: "Red Sea", color: "#CC99FF", cards: [
+            "Red Sea Halophile", "Red Sea Thermophile", "Red Sea UV Resistant", "Red Sea Viral Reservoir", "Red Sea Metal Binder"
+        ]},
+        { name: "Caspian Sea", color: "#FF8888", cards: [
+            "Caspian Oil Degrader", "Caspian Brackish Survivor", "Caspian Sediment Archaeon", "Caspian Denitrifier", "Caspian Phage Warrior"
+        ]},
+        { name: "Arctic Ocean", color: "#99CCFF", cards: [
+            "Arctic Psychrophile", "Arctic Ice Algae", "Arctic Methanotroph", "Arctic CRISPR Defender", "Arctic Siderophore"
+        ]},
+        { name: "Southern Ocean", color: "#B0E0E6", cards: [
+            "Southern Iron Limiter", "Southern Polar Front", "Southern Krill Symbiont", "Southern Viral Shuttle", "Southern Enzyme Master"
+        ]},
+        { name: "Pacific Ocean", color: "#FFB347", cards: [
+            "Pacific OMZ Survivor", "Pacific Hydrothermal Vent", "Pacific Garbage Patch", "Pacific Bioluminescence", "Pacific Horizontal Hero"
+        ]},
+        { name: "Atlantic Ocean", color: "#77AADD", cards: [
+            "Atlantic Sargasso Fixer", "Atlantic Deep Current", "Atlantic Symbiont", "Atlantic Metal Respirer", "Atlantic Gene Donor"
+        ]},
+        { name: "Global Vents & Seeps", color: "#DD88FF", cards: [
+            "Vent Hyperthermophile", "Seep Methanogen", "Vent Sulfur Oxidizer", "Seep Metal Muncher", "Vent Viral Fusogen"
+        ]}
     ];
-
-    const TOTAL_CARDS = cardsData.length;
-    const CARDS_VISIBLE = 5;
-    const MOVE_STEP = 2;               // move by 2 cards each click
-    let currentStartIndex = 0;         // first visible card index
-    let selectedCardIndex = 0;         // currently selected card (0‑based)
-
-    function getCardImagePath(cardNumber) {
-        const padded = String(cardNumber).padStart(2, '0');
-        return `images/mates/mates${padded}.jpg`;
+    // Build full card list (title, realm index, description, doi)
+    let cards = [];
+    for (let r = 0; r < realms.length; r++) {
+        for (let c = 0; c < realms[r].cards.length; c++) {
+            cards.push({
+                title: realms[r].cards[c],
+                realm: realms[r].name,
+                realmColor: realms[r].color,
+                description: `Unique microbial signature from the ${realms[r].name}. ${getDescriptionByCard(realms[r].name, realms[r].cards[c])}`,
+                doi: `10.1039/micromates.${String(r*5 + c + 1).padStart(3,'0')}`
+            });
+        }
     }
-
-    function renderCarouselTrack() {
+    function getDescriptionByCard(realm, cardName) {
+        const map = {
+            "Baltic Cyanobacteria": "Nitrogen‑fixing Nodularia blooms cause summer cyanotoxins.",
+            "Baltic Hypoxia Survivor": "Tolerates low oxygen, thrives in dead zones.",
+            "Baltic Sediment Methanogen": "Produces methane in muddy basins.",
+            "Baltic Phage Controller": "Viruses regulate algal bloom collapse.",
+            "Baltic Mercury Methylator": "Converts mercury to neurotoxic methylmercury.",
+            "Black Sea Sulfur Oxidizer": "Epsilonproteobacteria at chemocline oxidize H₂S.",
+            "Black Sea Anammox": "Removes nitrogen in suboxic zone.",
+            "Black Sea Methanogen": "Deep sediment archaea produce methane.",
+            "Black Sea Viral Shuttle": "Gene transfer across redoxcline.",
+            "Black Sea Resin Seeker": "Degrades recalcitrant organic matter.",
+            "Medi Oligotroph": "Thrives in ultra‑low nutrient waters.",
+            "Medi Deep‑Water Microbe": "Adapted to high pressure and darkness.",
+            "Medi Symbiont": "Lives inside jellyfish or sponges.",
+            "Medi Viral Bloom": "Viruses control phytoplankton blooms.",
+            "Medi Plastic Degrader": "Degrades microplastics in warm seas.",
+            "North Sea Tidal Flats": "Feeds on organic matter from marshes.",
+            "North Sea Methane Seep": "Anaerobic methane oxidation.",
+            "North Sea Algal Symbiont": "Diatom‑associated bacteria.",
+            "North Sea Antibiotic Producer": "Produces antimicrobials against pathogens.",
+            "North Sea Iron Scavenger": "Siderophores in coastal waters.",
+            "Red Sea Halophile": "High‑salt adapted archaea.",
+            "Red Sea Thermophile": "Lives in warm deeps (60°C).",
+            "Red Sea UV Resistant": "Carries photolyase and antioxidants.",
+            "Red Sea Viral Reservoir": "High viral diversity.",
+            "Red Sea Metal Binder": "Detoxifies heavy metals.",
+            "Caspian Oil Degrader": "Hydrocarbon‑degrading bacteria.",
+            "Caspian Brackish Survivor": "Tolerates fluctuating salinity.",
+            "Caspian Sediment Archaeon": "Methanogen in anoxic mud.",
+            "Caspian Denitrifier": "Removes nitrate from polluted waters.",
+            "Caspian Phage Warrior": "CRISPR‑Cas defence.",
+            "Arctic Psychrophile": "Cold‑active enzymes at −1.8°C.",
+            "Arctic Ice Algae": "Symbiont of sea ice diatoms.",
+            "Arctic Methanotroph": "Consumes methane from permafrost.",
+            "Arctic CRISPR Defender": "Viral immunity in cold waters.",
+            "Arctic Siderophore": "Iron scavenging under ice.",
+            "Southern Iron Limiter": "Responds to iron fertilisation.",
+            "Southern Polar Front": "Upwelling specialist.",
+            "Southern Krill Symbiont": "Gut microbiome of krill.",
+            "Southern Viral Shuttle": "Horizontal gene transfer in Southern Ocean.",
+            "Southern Enzyme Master": "Degrades chitin and algal polysaccharides.",
+            "Pacific OMZ Survivor": "Anammox in oxygen minimum zone.",
+            "Pacific Hydrothermal Vent": "Chemolithoautotroph at black smokers.",
+            "Pacific Garbage Patch": "Plastic biofilm coloniser.",
+            "Pacific Bioluminescence": "Light production in deep sea.",
+            "Pacific Horizontal Hero": "Transfers adaptive genes.",
+            "Atlantic Sargasso Fixer": "Nitrogen fixer in Sargasso Sea.",
+            "Atlantic Deep Current": "Dispersal via thermohaline circulation.",
+            "Atlantic Symbiont": "Lives with deep‑sea corals.",
+            "Atlantic Metal Respirer": "Iron/manganese reduction in sediments.",
+            "Atlantic Gene Donor": "Plasmid exchange across Atlantic.",
+            "Vent Hyperthermophile": "Optimum growth 90°C, sulfur metabolism.",
+            "Seep Methanogen": "Methane production in cold seeps.",
+            "Vent Sulfur Oxidizer": "Epsilonproteobacteria, chemosynthetic.",
+            "Seep Metal Muncher": "Heavy metal resistance and methylation.",
+            "Vent Viral Fusogen": "Fusion proteins for lateral gene transfer."
+        };
+        return map[cardName] || `Fascinating microbe from ${realm}.`;
+    }
+    // Populate family badges
+    const realmListDiv = document.getElementById('realmList');
+    realms.forEach(r => {
+        const badge = document.createElement('span');
+        badge.className = 'family-badge';
+        badge.style.borderLeft = `4px solid ${r.color}`;
+        badge.textContent = `${r.name} (5 cards)`;
+        realmListDiv.appendChild(badge);
+    });
+    // Carousel logic
+    const TOTAL = cards.length;
+    const VISIBLE = 5;
+    const STEP = 2;
+    let startIdx = 0;
+    let selectedIdx = 0;
+    function getCardImagePath(num) { return `images/mates/mates${String(num).padStart(2,'0')}.jpg`; }
+    function renderTrack() {
         const track = document.getElementById('cardsTrack');
-        if (!track) return;
         let html = '';
-        for (let i = 0; i < TOTAL_CARDS; i++) {
-            const cardNum = i + 1;
-            const imgPath = getCardImagePath(cardNum);
-            const isSelected = (selectedCardIndex === i);
-            html += `
-                <div class="card-item ${isSelected ? 'selected' : ''}" data-card-index="${i}">
-                    <img src="${imgPath}" class="card-img" onerror="this.src='https://placehold.co/160x240?text=Card+${cardNum}'">
-                    <div class="card-label">${cardsData[i].title}</div>
-                </div>
-            `;
+        for (let i = 0; i < TOTAL; i++) {
+            const img = getCardImagePath(i+1);
+            const selectedClass = (selectedIdx === i) ? 'selected' : '';
+            html += `<div class="card-item ${selectedClass}" data-idx="${i}">
+                        <img src="${img}" class="card-img" onerror="this.src='https://placehold.co/160x240?text=Card+${i+1}'">
+                        <div class="card-label">${cards[i].title}</div>
+                    </div>`;
         }
         track.innerHTML = html;
-        // Attach click events
-        document.querySelectorAll('.card-item').forEach(card => {
-            const idx = parseInt(card.dataset.cardIndex);
-            card.addEventListener('click', () => {
-                selectedCardIndex = idx;
-                renderCarouselTrack();          // re-render to update highlight
-                updateCarouselPosition();       // keep position
-                updateDetailPanel(selectedCardIndex);
+        document.querySelectorAll('.card-item').forEach(el => {
+            el.addEventListener('click', () => {
+                selectedIdx = parseInt(el.dataset.idx);
+                renderTrack();
+                updateDetail(selectedIdx);
+                updatePosition();
             });
         });
-        updateCarouselPosition();
+        updatePosition();
     }
-
-    function updateCarouselPosition() {
+    function updatePosition() {
         const track = document.getElementById('cardsTrack');
-        if (!track) return;
-        const cardWidth = 160 + 12; // width + gap (1.2rem = 12px)
-        const maxStartIndex = Math.max(0, TOTAL_CARDS - CARDS_VISIBLE);
-        let newOffset = currentStartIndex;
-        if (newOffset > maxStartIndex) newOffset = maxStartIndex;
-        if (newOffset < 0) newOffset = 0;
-        currentStartIndex = newOffset;
-        const translateX = -(currentStartIndex * cardWidth);
-        track.style.transform = `translateX(${translateX}px)`;
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        if (prevBtn) prevBtn.disabled = (currentStartIndex === 0);
-        if (nextBtn) nextBtn.disabled = (currentStartIndex >= maxStartIndex);
+        const maxStart = Math.max(0, TOTAL - VISIBLE);
+        startIdx = Math.min(maxStart, Math.max(0, startIdx));
+        const offset = - (startIdx * (160 + 12));
+        track.style.transform = `translateX(${offset}px)`;
+        document.getElementById('prevBtn').disabled = (startIdx === 0);
+        document.getElementById('nextBtn').disabled = (startIdx >= maxStart);
     }
-
-    function moveCarousel(direction) {
-        const maxStart = Math.max(0, TOTAL_CARDS - CARDS_VISIBLE);
-        if (direction === 'prev') {
-            currentStartIndex = Math.max(0, currentStartIndex - MOVE_STEP);
-        } else if (direction === 'next') {
-            currentStartIndex = Math.min(maxStart, currentStartIndex + MOVE_STEP);
-        }
-        updateCarouselPosition();
+    function move(delta) {
+        const maxStart = Math.max(0, TOTAL - VISIBLE);
+        startIdx = Math.min(maxStart, Math.max(0, startIdx + delta * STEP));
+        updatePosition();
     }
-
-    function updateDetailPanel(cardIdx) {
+    function updateDetail(idx) {
         const panel = document.getElementById('detailPanel');
-        if (!panel) return;
-        const card = cardsData[cardIdx];
-        const cardNum = cardIdx + 1;
-        const imgSrc = getCardImagePath(cardNum);
+        const c = cards[idx];
+        const img = getCardImagePath(idx+1);
         panel.innerHTML = `
-            <div class="detail-image">
-                <img src="${imgSrc}" alt="${card.title}" onerror="this.src='https://placehold.co/280x420?text=Card+${cardNum}'">
-            </div>
+            <div class="detail-image"><img src="${img}" onerror="this.src='https://placehold.co/280x420'"></div>
             <div class="detail-text">
-                <h3>${card.title} <span style="font-size:1rem;">(#${cardNum})</span></h3>
-                <div class="detail-description">${card.description}</div>
-                <div class="detail-doi">
-                    <strong>Reference:</strong> <a href="https://doi.org/${card.doi}" target="_blank" rel="noopener noreferrer">doi:${card.doi}</a>
-                </div>
+                <h3>${c.title} <span style="font-size:1rem;">(#${idx+1})</span></h3>
+                <div class="detail-description">${c.description}</div>
+                <div class="detail-doi"><strong>Reference:</strong> <a href="https://doi.org/${c.doi}" target="_blank">doi:${c.doi}</a></div>
             </div>
         `;
     }
-
-    function init() {
-        renderCarouselTrack();
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        if (prevBtn) prevBtn.addEventListener('click', () => moveCarousel('prev'));
-        if (nextBtn) nextBtn.addEventListener('click', () => moveCarousel('next'));
-        // Show first card details by default
-        selectedCardIndex = 0;
-        renderCarouselTrack();   // ensures highlight
-        updateDetailPanel(0);
-    }
-
-    document.addEventListener('DOMContentLoaded', init);
+    document.getElementById('prevBtn').addEventListener('click', () => move(-1));
+    document.getElementById('nextBtn').addEventListener('click', () => move(1));
+    renderTrack();
+    updateDetail(0);
 </script>
 </body>
 </html>
