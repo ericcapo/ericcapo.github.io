@@ -103,7 +103,7 @@
             object-fit: cover;
         }
 
-        /* carousel - smooth sliding, larger cards, no radius */
+        /* carousel */
         .carousel-section {
             background: rgba(0, 0, 0, 0.4);
             border-radius: 28px;
@@ -150,7 +150,6 @@
             transition: transform 0.4s ease-in-out;
             will-change: transform;
         }
-        /* larger cards, NO border-radius */
         .card-item {
             flex: 0 0 auto;
             width: 160px;
@@ -188,7 +187,7 @@
             color: #c9e2f0;
         }
 
-        /* Detail panel (appears below carousel) */
+        /* Detail panel */
         .detail-panel {
             background: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(8px);
@@ -250,7 +249,6 @@
         @media (max-width: 800px) {
             .game-header { grid-template-columns: 1fr; }
             .card-item { width: 120px; }
-            .nav-btn { width: 42px; height: 42px; font-size: 1.6rem; }
             .detail-panel { grid-template-columns: 1fr; text-align: center; gap: 1rem; }
             .detail-image { display: flex; justify-content: center; }
         }
@@ -265,22 +263,12 @@
     <div class="game-header">
         <div class="info-panel">
             <div class="badge">🧪 Capo Lab edition · 55 cards · Happy Families game</div>
-            <h1>🎴 MicroMates</h1>
-            <p><strong>How to play:</strong> Collect all 5 cards of a family. On your turn, ask another player for a specific card (e.g., “Do you have <em>Cyanobacteria Whisperer</em> from the <strong style="color:#ffd966;">Light family</strong>?”). If they have it, you take it and go again. If not, draw from the pile. The first player to collect <strong>3 complete families</strong> wins!</p>
-            
-            <div class="family-list">
-                <span class="family-badge" style="border-left: 4px solid #FFD966;">🟡 Light (photosynthesis)</span>
-                <span class="family-badge" style="border-left: 4px solid #FF99CC;">🩷 Nitrogen (fixation/denitrification)</span>
-                <span class="family-badge" style="border-left: 4px solid #66CCFF;">🔵 Sulfur (oxidation/reduction)</span>
-                <span class="family-badge" style="border-left: 4px solid #88FF88;">🟢 Carbon (methanogenesis/methanotrophy)</span>
-                <span class="family-badge" style="border-left: 4px solid #CC99FF;">🟣 Special features (symbiosis, biofilms)</span>
-                <span class="family-badge" style="border-left: 4px solid #FF8888;">⚔️ Weapons (toxins, antibiotics, CRISPR, metal resistance) – 4 families</span>
-            </div>
+            <h1>🎴 MicroMates - Oceanic Realms</h1>
+            <p><strong>How to play:</strong> Collect all 5 cards of a <b>realm</b> (e.g., Baltic Sea, California Coast etc). On your turn, ask another player for a specific card (e.g., “Do you have <em>the yellow mate</em> from the <strong style="color:#ffd966;">Baltic Sea</strong>?”). If they have it, you take it and go again. If not, draw from the pile. The first player to collect <strong>3 complete realms</strong> wins! Card types are : 🟡 Light, 🩷 Nitrogen, 🔵 Sulfur, 🟢 Carbon, 🟣 Special</p>
+
             <div class="rules-box">
-                <strong>🎯 Quick rules (2–6 players):</strong> Shuffle all 55 cards. Deal 7 cards each. Youngest starts. On your turn, ask any player for a card from a family you already own. If they have it, take it and continue; if not, draw 1 card from the pile. When you complete a family (all 5 cards), show it and place it face up. First to collect 3 families wins!
-            </div>
-            <p><em>👇 <strong>Click any card</strong> to see its enlarged image, description and DOI link.</em></p>
-        </div>
+                <strong>Rules (2–6 players):</strong> Shuffle all 50 cards. Deal 7 cards each. Youngest starts. On your turn, ask any player for a card from a <b>realm</b> you already own. If they have it, take it and continue; if not, draw 1 card from the pile. When you complete an <b>realm</b> (all 5 cards), show it and place it face up. First to collect 3 <b>realm</b> wins!
+
         <div class="right-image">
             <img src="images/mates/micromates.jpg" alt="MicroMates cover" onerror="this.src='https://placehold.co/500x300?text=MicroMates'">
         </div>
@@ -303,127 +291,84 @@
     </div>
 
     <footer>
-        <p>MicroMates – Microbial Happy Families | Inspired by real microbial ecology | Capo Lab, Umeå University</p>
+        <p>MicroMates – Oceanic Realms</p>
     </footer>
 </div>
 
 <script>
-    // ---------- CONFIGURATION ----------
-    const TOTAL_CARDS = 55;
-    const CARDS_VISIBLE = 5;
-    const MOVE_STEP = 2;            // move by 2 cards when clicking left/right
-    let currentStartIndex = 0;      // index of first visible card in the track
-    let selectedCardIndex = 0;      // 0-based index of currently selected card
+    // --------------------------------------------------------------
+    // ALL CARD DATA CONSOLIDATED IN A SINGLE ARRAY
+    // Each card: index (0‑based), title, description, doi
+    // --------------------------------------------------------------
+    const cardsData = [
+        { title: "Aphanie, Baltic Sea", description: "The primordial spark of aquatic microbial life. Represents the first self-replicating systems in ancient oceans.", doi: "10.1039/micromates.2025.001" },
+        { title: "Prokaryote Pioneer", description: "Key player in decomposing organic matter and recycling nutrients in freshwater and marine sediments.", doi: "10.1039/micromates.2025.002" },
+        { title: "Cyanobacteria Whisperer", description: "Performs oxygenic photosynthesis and nitrogen fixation, shaping Earth's atmosphere.", doi: "10.1039/micromates.2025.003" },
+        { title: "Archaea Ancient", description: "Thrives in extreme environments (high temperature, salinity) and produces methane.", doi: "10.1039/micromates.2025.004" },
+        { title: "Horizontal Gene Transfer", description: "Transfers genetic material between unrelated species, accelerating evolution.", doi: "10.1039/micromates.2025.005" },
+        { title: "Viral Shuttle", description: "Uses bacteriophages to shuttle DNA across microbial communities.", doi: "10.1039/micromates.2025.006" },
+        { title: "Metabolic Dynamo", description: "Boosts carbon fixation efficiency in dark ocean layers using alternative electron donors.", doi: "10.1039/micromates.2025.007" },
+        { title: "Mercury Methylator", description: "Methylates inorganic mercury, producing neurotoxic methylmercury that bioaccumulates.", doi: "10.1039/micromates.2025.008" },
+        { title: "Thermophile Survivor", description: "Hyperthermophile living near hydrothermal vents, optimal growth above 80°C.", doi: "10.1039/micromates.2025.009" },
+        { title: "Psychrophile Adapt", description: "Cold-adapted enzyme producer, active near freezing point in polar regions.", doi: "10.1039/micromates.2025.010" },
+        { title: "Deoxygenation Sentinel", description: "Indicator species for expanding oxygen minimum zones in lakes and seas.", doi: "10.1039/micromates.2025.011" },
+        { title: "Biofilm Architect", description: "Architect of protective biofilms, enhancing community resilience against antibiotics.", doi: "10.1039/micromates.2025.012" },
+        { title: "Sediment Ancient", description: "Preserves ancient DNA in lake sediments, unlocking past microbial communities.", doi: "10.1039/micromates.2025.013" },
+        { title: "Nitrogen Fixer", description: "Converts atmospheric N₂ into bioavailable ammonia, essential for primary production.", doi: "10.1039/micromates.2025.014" },
+        { title: "Phytoplankton Symbiont", description: "Mutualistic symbiont of diatoms and algae, exchanging metabolites.", doi: "10.1039/micromates.2025.015" },
+        { title: "Denitrifier Expert", description: "Reduces nitrate to N₂ gas, removing excess nitrogen from eutrophic waters.", doi: "10.1039/micromates.2025.016" },
+        { title: "Sulfur Reducer", description: "Reduces sulfate to hydrogen sulfide, driving sulfur cycling in anoxic basins.", doi: "10.1039/micromates.2025.017" },
+        { title: "Phage Defender", description: "Armed with CRISPR-Cas systems, resistant to viral infection.", doi: "10.1039/micromates.2025.018" },
+        { title: "Plasmid Donor", description: "Shares antibiotic resistance and metabolic genes via conjugation.", doi: "10.1039/micromates.2025.019" },
+        { title: "Quorum Sensor", description: "Coordinates group behavior based on cell density via autoinducer molecules.", doi: "10.1039/micromates.2025.020" },
+        { title: "Upwelling Messenger", description: "Responds rapidly to deep-water nutrient upwelling, triggering blooms.", doi: "10.1039/micromates.2025.021" },
+        { title: "Archive Keeper", description: "Long-term recorder of genetic information in sedimentary archives.", doi: "10.1039/micromates.2025.022" },
+        { title: "Holocene Tracker", description: "Tracks microbial community shifts over the last 10,000 years using sedaDNA.", doi: "10.1039/micromates.2025.023" },
+        { title: "Methanogen Master", description: "Produces methane in deep sediments, a key step in carbon cycling.", doi: "10.1039/micromates.2025.024" },
+        { title: "Methanotroph Ally", description: "Consumes methane, mitigating greenhouse gas emissions from aquatic systems.", doi: "10.1039/micromates.2025.025" },
+        { title: "Hydrothermal Collaborator", description: "Oxidizes sulfur compounds in hydrothermal vents, supporting chemosynthetic food webs.", doi: "10.1039/micromates.2025.026" },
+        { title: "Eukaryotic Partner", description: "Forms symbioses with protists and microalgae, influencing host metabolism.", doi: "10.1039/micromates.2025.027" },
+        { title: "Conjugation Specialist", description: "High-efficiency plasmid transfer via conjugation pili.", doi: "10.1039/micromates.2025.028" },
+        { title: "Microcolony Founder", description: "Initiates biofilm formation on organic particles and surfaces.", doi: "10.1039/micromates.2025.029" },
+        { title: "Metatranscriptome Key", description: "Reveals real-time gene expression patterns using metatranscriptomics.", doi: "10.1039/micromates.2025.030" },
+        { title: "Alpha Diversity Booster", description: "Increases local species richness through niche construction and facilitation.", doi: "10.1039/micromates.2025.031" },
+        { title: "Beta Diversity Explorer", description: "Links different habitats via dispersal and connectivity, enhancing beta diversity.", doi: "10.1039/micromates.2025.032" },
+        { title: "Redox Mediator", description: "Balances electron flow in syntrophic consortia, preventing metabolic bottlenecks.", doi: "10.1039/micromates.2025.033" },
+        { title: "Heavy Metal Binder", description: "Detoxifies heavy metals (mercury, cadmium) via metallothionein proteins.", doi: "10.1039/micromates.2025.034" },
+        { title: "NanoSIMS Probe", description: "Visualizes metabolic activity at nanoscale using stable isotope probing.", doi: "10.1039/micromates.2025.035" },
+        { title: "Cryptic Gene Activator", description: "Unlocks dormant metabolic pathways under stress, enabling adaptation.", doi: "10.1039/micromates.2025.036" },
+        { title: "Protist Predator", description: "Grazes on bacteria, shaping microbial community structure and function.", doi: "10.1039/micromates.2025.037" },
+        { title: "Antibiotic Producer", description: "Produces natural antimicrobials to outcompete rival microbes.", doi: "10.1039/micromates.2025.038" },
+        { title: "Microbiome Modulator", description: "Modulates host-associated microbiomes (e.g., zooplankton guts).", doi: "10.1039/micromates.2025.039" },
+        { title: "Coastal Sentinel", description: "Responds to salinity and nutrient fluctuations in coastal zones.", doi: "10.1039/micromates.2025.040" },
+        { title: "MAG Assembler", description: "Assembles near-complete genomes from metagenomic data (MAGs).", doi: "10.1039/micromates.2025.041" },
+        { title: "Horizontal Hero", description: "Transfers adaptive genes across species boundaries, driving evolution.", doi: "10.1039/micromates.2025.042" },
+        { title: "Extracellular Enzyme Master", description: "Degrades complex polysaccharides, proteins, and lipids via extracellular enzymes.", doi: "10.1039/micromates.2025.043" },
+        { title: "Bioluminescence Gene", description: "Produces bioluminescence, possibly for defense or attracting predators.", doi: "10.1039/micromates.2025.044" },
+        { title: "Iron Scavenger", description: "Secretes siderophores to scavenge scarce iron in oxic waters.", doi: "10.1039/micromates.2025.045" },
+        { title: "Microplastic Degrader", description: "Degrades PET and other plastics using cutinase-like enzymes.", doi: "10.1039/micromates.2025.046" },
+        { title: "Climate Proxy", description: "Records temperature shifts via DNA methylation patterns in sedimentary DNA.", doi: "10.1039/micromates.2025.047" },
+        { title: "Paleome Reader", description: "Decodes ancient microbial DNA from Holocene sediments, reconstructing past ecosystems.", doi: "10.1039/micromates.2025.048" },
+        { title: "Syntrophy Partner", description: "Cooperates with other species for mutualistic metabolic exchange (syntrophy).", doi: "10.1039/micromates.2025.049" },
+        { title: "Ultra-small Cell", description: "Ultra-small bacteria that pass through 0.2 µm filters, overlooked but abundant.", doi: "10.1039/micromates.2025.050" },
+        { title: "Ribosomal RNA Sentinel", description: "High-resolution taxonomic marker using 16S/18S rRNA genes for monitoring.", doi: "10.1039/micromates.2025.051" },
+        { title: "Subsurface Pioneer", description: "Chemolithoautotroph living in deep crustal aquifers, using inorganic energy sources.", doi: "10.1039/micromates.2025.052" },
+        { title: "Metal Respirer", description: "Uses iron or manganese as electron acceptor in anoxic environments.", doi: "10.1039/micromates.2025.053" },
+        { title: "Snow Algae Associate", description: "Cold-tolerant psychrophile from glacial and snow ecosystems.", doi: "10.1039/micromates.2025.054" },
+        { title: "Master of Micromates", description: "Ultimate card: embodies the entire microbial world – from viruses to complex consortia.", doi: "10.1039/micromates.2025.055" }
+    ];
 
-    // Helper: image path
+    const TOTAL_CARDS = cardsData.length;
+    const CARDS_VISIBLE = 5;
+    const MOVE_STEP = 2;               // move by 2 cards each click
+    let currentStartIndex = 0;         // first visible card index
+    let selectedCardIndex = 0;         // currently selected card (0‑based)
+
     function getCardImagePath(cardNumber) {
         const padded = String(cardNumber).padStart(2, '0');
         return `images/mates/mates${padded}.jpg`;
     }
 
-    // ----- Card data: title, description, DOI (realistic sample for each card) -----
-    // For brevity, we generate a dynamic but plausible mapping.
-    // Each card gets a unique title, a short description, and a DOI.
-    const cardTitles = [
-        "Origin: Microbial Genesis", "Prokaryote Pioneer", "Cyanobacteria Whisperer",
-        "Archaea Ancient", "Horizontal Gene Transfer", "Viral Shuttle", "Metabolic Dynamo",
-        "Mercury Methylator", "Thermophile Survivor", "Psychrophile Adapt", "Deoxygenation Sentinel",
-        "Biofilm Architect", "Sediment Ancient", "Nitrogen Fixer", "Phytoplankton Symbiont",
-        "Denitrifier Expert", "Sulfur Reducer", "Phage Defender", "Plasmid Donor", "Quorum Sensor",
-        "Upwelling Messenger", "Archive Keeper", "Holocene Tracker", "Methanogen Master",
-        "Methanotroph Ally", "Hydrothermal Collaborator", "Eukaryotic Partner", "Conjugation Specialist",
-        "Microcolony Founder", "Metatranscriptome Key", "Alpha Diversity Booster", "Beta Diversity Explorer",
-        "Redox Mediator", "Heavy Metal Binder", "NanoSIMS Probe", "Cryptic Gene Activator",
-        "Protist Predator", "Antibiotic Producer", "Microbiome Modulator", "Coastal Sentinel",
-        "MAG Assembler", "Horizontal Hero", "Extracellular Enzyme Master", "Bioluminescence Gene",
-        "Iron Scavenger", "Microplastic Degrader", "Climate Proxy", "Paleome Reader",
-        "Syntrophy Partner", "Ultra-small Cell", "Ribosomal RNA Sentinel", "Subsurface Pioneer",
-        "Metal Respirer", "Snow Algae Associate", "Master of Micromates"
-    ];
-
-    function getCardDescription(cardIdx) {
-        const descriptions = [
-            "The primordial spark of aquatic microbial life. Represents the first self-replicating systems in ancient oceans.",
-            "Key player in decomposing organic matter and recycling nutrients in freshwater and marine sediments.",
-            "Performs oxygenic photosynthesis and nitrogen fixation, shaping Earth's atmosphere.",
-            "Thrives in extreme environments (high temperature, salinity) and produces methane.",
-            "Transfers genetic material between unrelated species, accelerating evolution.",
-            "Uses bacteriophages to shuttle DNA across microbial communities.",
-            "Boosts carbon fixation efficiency in dark ocean layers using alternative electron donors.",
-            "Methylates inorganic mercury, producing neurotoxic methylmercury that bioaccumulates.",
-            "Hyperthermophile living near hydrothermal vents, optimal growth above 80°C.",
-            "Cold-adapted enzyme producer, active near freezing point in polar regions.",
-            "Indicator species for expanding oxygen minimum zones in lakes and seas.",
-            "Architect of protective biofilms, enhancing community resilience against antibiotics.",
-            "Preserves ancient DNA in lake sediments, unlocking past microbial communities.",
-            "Converts atmospheric N₂ into bioavailable ammonia, essential for primary production.",
-            "Mutualistic symbiont of diatoms and algae, exchanging metabolites.",
-            "Reduces nitrate to N₂ gas, removing excess nitrogen from eutrophic waters.",
-            "Reduces sulfate to hydrogen sulfide, driving sulfur cycling in anoxic basins.",
-            "Armed with CRISPR-Cas systems, resistant to viral infection.",
-            "Shares antibiotic resistance and metabolic genes via conjugation.",
-            "Coordinates group behavior based on cell density via autoinducer molecules.",
-            "Responds rapidly to deep-water nutrient upwelling, triggering blooms.",
-            "Long-term recorder of genetic information in sedimentary archives.",
-            "Tracks microbial community shifts over the last 10,000 years using sedaDNA.",
-            "Produces methane in deep sediments, a key step in carbon cycling.",
-            "Consumes methane, mitigating greenhouse gas emissions from aquatic systems.",
-            "Oxidizes sulfur compounds in hydrothermal vents, supporting chemosynthetic food webs.",
-            "Forms symbioses with protists and microalgae, influencing host metabolism.",
-            "High-efficiency plasmid transfer via conjugation pili.",
-            "Initiates biofilm formation on organic particles and surfaces.",
-            "Reveals real-time gene expression patterns using metatranscriptomics.",
-            "Increases local species richness through niche construction and facilitation.",
-            "Links different habitats via dispersal and connectivity, enhancing beta diversity.",
-            "Balances electron flow in syntrophic consortia, preventing metabolic bottlenecks.",
-            "Detoxifies heavy metals (mercury, cadmium) via metallothionein proteins.",
-            "Visualizes metabolic activity at nanoscale using stable isotope probing.",
-            "Unlocks dormant metabolic pathways under stress, enabling adaptation.",
-            "Grazes on bacteria, shaping microbial community structure and function.",
-            "Produces natural antimicrobials to outcompete rival microbes.",
-            "Modulates host-associated microbiomes (e.g., zooplankton guts).",
-            "Responds to salinity and nutrient fluctuations in coastal zones.",
-            "Assembles near-complete genomes from metagenomic data (MAGs).",
-            "Transfers adaptive genes across species boundaries, driving evolution.",
-            "Degrades complex polysaccharides, proteins, and lipids via extracellular enzymes.",
-            "Produces bioluminescence, possibly for defense or attracting predators.",
-            "Secretes siderophores to scavenge scarce iron in oxic waters.",
-            "Degrades PET and other plastics using cutinase-like enzymes.",
-            "Records temperature shifts via DNA methylation patterns in sedimentary DNA.",
-            "Decodes ancient microbial DNA from Holocene sediments, reconstructing past ecosystems.",
-            "Cooperates with other species for mutualistic metabolic exchange (syntrophy).",
-            "Ultra-small bacteria that pass through 0.2 µm filters, overlooked but abundant.",
-            "High-resolution taxonomic marker using 16S/18S rRNA genes for monitoring.",
-            "Chemolithoautotroph living in deep crustal aquifers, using inorganic energy sources.",
-            "Uses iron or manganese as electron acceptor in anoxic environments.",
-            "Cold-tolerant psychrophile from glacial and snow ecosystems.",
-            "Ultimate card: embodies the entire microbial world – from viruses to complex consortia."
-        ];
-        // Ensure we have a description for each card; fallback to generic
-        if (cardIdx < descriptions.length) return descriptions[cardIdx];
-        return `Card #${cardIdx+1}: Unique microbial trait from aquatic environments. Click to reveal more.`;
-    }
-
-    function getCardDOI(cardIdx) {
-        // Generate realistic-looking DOI for each card (unique)
-        const baseDOI = "10.1039/micromates";
-        const suffixes = [
-            "2025.001", "2025.002", "2025.003", "2025.004", "2025.005",
-            "2025.006", "2025.007", "2025.008", "2025.009", "2025.010",
-            "2025.011", "2025.012", "2025.013", "2025.014", "2025.015",
-            "2025.016", "2025.017", "2025.018", "2025.019", "2025.020",
-            "2025.021", "2025.022", "2025.023", "2025.024", "2025.025",
-            "2025.026", "2025.027", "2025.028", "2025.029", "2025.030",
-            "2025.031", "2025.032", "2025.033", "2025.034", "2025.035",
-            "2025.036", "2025.037", "2025.038", "2025.039", "2025.040",
-            "2025.041", "2025.042", "2025.043", "2025.044", "2025.045",
-            "2025.046", "2025.047", "2025.048", "2025.049", "2025.050",
-            "2025.051", "2025.052", "2025.053", "2025.054", "2025.055"
-        ];
-        return `doi:${baseDOI}.${suffixes[cardIdx]}`;
-    }
-
-    // Render carousel track (all 55 cards) and update highlight
     function renderCarouselTrack() {
         const track = document.getElementById('cardsTrack');
         if (!track) return;
@@ -435,7 +380,7 @@
             html += `
                 <div class="card-item ${isSelected ? 'selected' : ''}" data-card-index="${i}">
                     <img src="${imgPath}" class="card-img" onerror="this.src='https://placehold.co/160x240?text=Card+${cardNum}'">
-                    <div class="card-label">${cardTitles[i]}</div>
+                    <div class="card-label">${cardsData[i].title}</div>
                 </div>
             `;
         }
@@ -443,7 +388,7 @@
         // Attach click events
         document.querySelectorAll('.card-item').forEach(card => {
             const idx = parseInt(card.dataset.cardIndex);
-            card.addEventListener('click', (e) => {
+            card.addEventListener('click', () => {
                 selectedCardIndex = idx;
                 renderCarouselTrack();          // re-render to update highlight
                 updateCarouselPosition();       // keep position
@@ -453,18 +398,17 @@
         updateCarouselPosition();
     }
 
-    // Smooth slide: position track based on currentStartIndex (moves by MOVE_STEP)
     function updateCarouselPosition() {
         const track = document.getElementById('cardsTrack');
         if (!track) return;
         const cardWidth = 160 + 12; // width + gap (1.2rem = 12px)
         const maxStartIndex = Math.max(0, TOTAL_CARDS - CARDS_VISIBLE);
-        // clamp start index
-        if (currentStartIndex > maxStartIndex) currentStartIndex = maxStartIndex;
-        if (currentStartIndex < 0) currentStartIndex = 0;
-        const translateX = - (currentStartIndex * cardWidth);
+        let newOffset = currentStartIndex;
+        if (newOffset > maxStartIndex) newOffset = maxStartIndex;
+        if (newOffset < 0) newOffset = 0;
+        currentStartIndex = newOffset;
+        const translateX = -(currentStartIndex * cardWidth);
         track.style.transform = `translateX(${translateX}px)`;
-        // enable/disable buttons
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
         if (prevBtn) prevBtn.disabled = (currentStartIndex === 0);
@@ -472,50 +416,44 @@
     }
 
     function moveCarousel(direction) {
-        const step = MOVE_STEP;
         const maxStart = Math.max(0, TOTAL_CARDS - CARDS_VISIBLE);
         if (direction === 'prev') {
-            currentStartIndex = Math.max(0, currentStartIndex - step);
+            currentStartIndex = Math.max(0, currentStartIndex - MOVE_STEP);
         } else if (direction === 'next') {
-            currentStartIndex = Math.min(maxStart, currentStartIndex + step);
+            currentStartIndex = Math.min(maxStart, currentStartIndex + MOVE_STEP);
         }
         updateCarouselPosition();
     }
 
-    // Update detail panel below carousel
     function updateDetailPanel(cardIdx) {
         const panel = document.getElementById('detailPanel');
         if (!panel) return;
+        const card = cardsData[cardIdx];
         const cardNum = cardIdx + 1;
-        const title = cardTitles[cardIdx];
-        const description = getCardDescription(cardIdx);
-        const doiString = getCardDOI(cardIdx);
         const imgSrc = getCardImagePath(cardNum);
-        
         panel.innerHTML = `
             <div class="detail-image">
-                <img src="${imgSrc}" alt="${title}" onerror="this.src='https://placehold.co/280x420?text=Card+${cardNum}'">
+                <img src="${imgSrc}" alt="${card.title}" onerror="this.src='https://placehold.co/280x420?text=Card+${cardNum}'">
             </div>
             <div class="detail-text">
-                <h3>${title} <span style="font-size:1rem;">(#${cardNum})</span></h3>
-                <div class="detail-description">${description}</div>
+                <h3>${card.title} <span style="font-size:1rem;">(#${cardNum})</span></h3>
+                <div class="detail-description">${card.description}</div>
                 <div class="detail-doi">
-                    <strong>Reference:</strong> <a href="https://doi.org/${doiString.replace('doi:', '')}" target="_blank" rel="noopener noreferrer">${doiString}</a>
+                    <strong>Reference:</strong> <a href="https://doi.org/${card.doi}" target="_blank" rel="noopener noreferrer">doi:${card.doi}</a>
                 </div>
             </div>
         `;
     }
 
-    // Initialization
     function init() {
         renderCarouselTrack();
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
         if (prevBtn) prevBtn.addEventListener('click', () => moveCarousel('prev'));
         if (nextBtn) nextBtn.addEventListener('click', () => moveCarousel('next'));
-        // Set default selected card (first) and show its details
+        // Show first card details by default
         selectedCardIndex = 0;
-        renderCarouselTrack(); // ensures highlight
+        renderCarouselTrack();   // ensures highlight
         updateDetailPanel(0);
     }
 
