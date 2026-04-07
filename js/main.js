@@ -205,7 +205,14 @@ const MOVE_STEP = 2;          // number of cards to move per click/swipe
 let selectedCardIndex = 0;
 let cardsData = [];
 
-// Cooldown for touchpad scrolling (slows down rapid wheel events)
+// Infinite carousel variables
+let CLONE_COUNT = 3;           // three copies of the cards
+let virtualCardCount = 0;
+let realCardWidth = 0;
+let realGap = 0;
+let cardsPerView = 5;
+
+// Cooldown for touchpad scrolling
 let wheelCooldown = false;
 let wheelTimer = null;
 
@@ -257,7 +264,7 @@ function buildMicromatesHTML() {
     `;
 }
 
-// Attach touchpad (wheel) and touch swipe events to the scroll container
+// Attach touchpad and touch swipe events
 function attachCarouselSwipeEvents() {
     const scrollContainer = document.querySelector('.cards-scroll');
     if (!scrollContainer) return;
@@ -265,151 +272,132 @@ function attachCarouselSwipeEvents() {
     let touchStartX = 0;
     let isSwiping = false;
     
-    // Laptop touchpad: horizontal scroll with cooldown to slow it down
     scrollContainer.addEventListener('wheel', (e) => {
-        // Horizontal scroll OR vertical with Shift key
         if (Math.abs(e.deltaX) > Math.abs(e.deltaY) || e.shiftKey) {
             e.preventDefault();
-            if (wheelCooldown) return; // ignore rapid events
-            
-            if (e.deltaX > 0) {
-                moveCarousel('next');
-            } else if (e.deltaX < 0) {
-                moveCarousel('prev');
-            }
-            
+            if (wheelCooldown) return;
+            if (e.deltaX > 0) moveCarousel('next');
+            else if (e.deltaX < 0) moveCarousel('prev');
             wheelCooldown = true;
             if (wheelTimer) clearTimeout(wheelTimer);
-            wheelTimer = setTimeout(() => {
-                wheelCooldown = false;
-            }, 150); // 150ms cooldown = slower, smoother scrolling
+            wheelTimer = setTimeout(() => { wheelCooldown = false; }, 150);
         }
     }, { passive: false });
     
-    // Touch / mobile swipe (no cooldown needed, it's discrete)
     scrollContainer.addEventListener('touchstart', (e) => {
         touchStartX = e.touches[0].clientX;
         isSwiping = true;
     });
-    
     scrollContainer.addEventListener('touchmove', (e) => {
         if (!isSwiping) return;
         const deltaX = e.touches[0].clientX - touchStartX;
-        if (Math.abs(deltaX) > 30) { // threshold
-            if (deltaX > 0) {
-                moveCarousel('prev');
-            } else {
-                moveCarousel('next');
-            }
+        if (Math.abs(deltaX) > 30) {
+            if (deltaX > 0) moveCarousel('prev');
+            else moveCarousel('next');
             isSwiping = false;
         }
     });
-    
-    scrollContainer.addEventListener('touchend', () => {
-        isSwiping = false;
-    });
+    scrollContainer.addEventListener('touchend', () => { isSwiping = false; });
 }
 
 function renderCarouselTrack() {
     const track = document.getElementById('cardsTrack');
     if (!track) return;
+    
     let html = '';
-    for (let i = 0; i < TOTAL_CARDS; i++) {
-        const cardNum = i + 1;
-        const imgPath = getCardImagePath(cardNum);
-        const isSelected = (selectedCardIndex === i);
-        html += `
-            <div class="card-item ${isSelected ? 'selected' : ''}" data-card-index="${i}">
-                <img src="${imgPath}" class="card-img" onerror="this.src='https://placehold.co/160x240?text=Card+${cardNum}'">
-            </div>
-        `;
+    for (let copy = 0; copy < CLONE_COUNT; copy++) {
+        for (let i = 0; i < TOTAL_CARDS; i++) {
+            const cardNum = i + 1;
+            const imgPath = getCardImagePath(cardNum);
+            const isSelected = (selectedCardIndex === i && copy === 1); // highlight only middle copy
+            html += `
+                <div class="card-item ${isSelected ? 'selected' : ''}" data-card-index="${i}" data-copy="${copy}">
+                    <img src="${imgPath}" class="card-img" onerror="this.src='https://placehold.co/160x240?text=Card+${cardNum}'">
+                </div>
+            `;
+        }
     }
     track.innerHTML = html;
+    
     document.querySelectorAll('.card-item').forEach(card => {
-        const idx = parseInt(card.dataset.cardIndex);
+        const originalIndex = parseInt(card.dataset.cardIndex);
         card.addEventListener('click', () => {
-            selectedCardIndex = idx;
+            selectedCardIndex = originalIndex;
             renderCarouselTrack();
-            updateCarouselPosition();
+            centerOnCard(originalIndex);
             updateDetailPanel(selectedCardIndex);
         });
     });
-    updateCarouselPosition();
-}
-
-// Dynamic update: measures actual card width + gap, and enables wrap-around
-function updateCarouselPosition() {
-    const track = document.getElementById('cardsTrack');
-    if (!track) return;
     
     const firstCard = track.querySelector('.card-item');
-    if (!firstCard) return;
-    
-    const cardWidth = firstCard.offsetWidth;
-    const style = window.getComputedStyle(track);
-    const gap = parseFloat(style.gap) || 0;
-    const fullCardWidth = cardWidth + gap;
-    
-    const container = document.querySelector('.cards-scroll');
-    const containerWidth = container ? container.clientWidth : 0;
-    let cardsPerView = Math.floor(containerWidth / fullCardWidth);
-    if (cardsPerView < 1) cardsPerView = 1;
-    
-    const maxStartIndex = Math.max(0, TOTAL_CARDS - cardsPerView);
-    
-    // Normalize offset (wrap-around is handled in moveCarousel, so just clamp here)
-    let newOffset = currentCarouselOffset;
-    if (newOffset > maxStartIndex) newOffset = maxStartIndex;
-    if (newOffset < 0) newOffset = 0;
-    currentCarouselOffset = newOffset;
-    
-    const translateX = -(currentCarouselOffset * fullCardWidth);
-    track.style.transform = `translateX(${translateX}px)`;
-    
-    // Buttons are always enabled (wrap-around handles edges)
-    const prevBtn = document.getElementById('carouselPrev');
-    const nextBtn = document.getElementById('carouselNext');
-    if (prevBtn) prevBtn.disabled = false;
-    if (nextBtn) nextBtn.disabled = false;
-}
-
-// Wrap-around move: when reaching end, go to start; when at start and moving prev, go to end
-function moveCarousel(direction) {
-    const track = document.getElementById('cardsTrack');
-    if (!track) return;
-    
-    const firstCard = track.querySelector('.card-item');
-    if (!firstCard) return;
-    
-    const cardWidth = firstCard.offsetWidth;
-    const style = window.getComputedStyle(track);
-    const gap = parseFloat(style.gap) || 0;
-    const fullCardWidth = cardWidth + gap;
-    
-    const container = document.querySelector('.cards-scroll');
-    const containerWidth = container ? container.clientWidth : 0;
-    let cardsPerView = Math.floor(containerWidth / fullCardWidth);
-    if (cardsPerView < 1) cardsPerView = 1;
-    
-    const maxStartIndex = Math.max(0, TOTAL_CARDS - cardsPerView);
-    let newOffset = currentCarouselOffset;
-    
-    if (direction === 'prev') {
-        newOffset -= MOVE_STEP;
-        if (newOffset < 0) {
-            // Wrap to the end
-            newOffset = maxStartIndex;
-        }
-    } else if (direction === 'next') {
-        newOffset += MOVE_STEP;
-        if (newOffset > maxStartIndex) {
-            // Wrap to the start
-            newOffset = 0;
-        }
+    if (firstCard) {
+        realCardWidth = firstCard.offsetWidth;
+        const style = window.getComputedStyle(track);
+        realGap = parseFloat(style.gap) || 0;
     }
     
-    currentCarouselOffset = newOffset;
-    updateCarouselPosition();
+    // Start at the beginning of the middle copy
+    currentCarouselOffset = TOTAL_CARDS * 1;
+    updateCarouselPosition(true);
+}
+
+function updateCarouselPosition(skipTransition = false) {
+    const track = document.getElementById('cardsTrack');
+    if (!track || realCardWidth === 0) return;
+    
+    const fullCardWidth = realCardWidth + realGap;
+    const container = document.querySelector('.cards-scroll');
+    const containerWidth = container ? container.clientWidth : 0;
+    cardsPerView = Math.floor(containerWidth / fullCardWidth);
+    if (cardsPerView < 1) cardsPerView = 1;
+    
+    if (skipTransition) track.style.transition = 'none';
+    else track.style.transition = 'transform 0.3s ease-out';
+    
+    track.style.transform = `translateX(-${currentCarouselOffset * fullCardWidth}px)`;
+    
+    if (skipTransition) {
+        track.offsetHeight; // force reflow
+        track.style.transition = '';
+    }
+    
+    // Infinite loop reset logic
+    const totalVirtualCards = TOTAL_CARDS * CLONE_COUNT;
+    const maxAllowedOffset = totalVirtualCards - cardsPerView;
+    if (currentCarouselOffset >= TOTAL_CARDS * (CLONE_COUNT - 1)) {
+        currentCarouselOffset -= TOTAL_CARDS;
+        track.style.transition = 'none';
+        track.style.transform = `translateX(-${currentCarouselOffset * fullCardWidth}px)`;
+        track.offsetHeight;
+        track.style.transition = '';
+    } else if (currentCarouselOffset < TOTAL_CARDS) {
+        currentCarouselOffset += TOTAL_CARDS;
+        track.style.transition = 'none';
+        track.style.transform = `translateX(-${currentCarouselOffset * fullCardWidth}px)`;
+        track.offsetHeight;
+        track.style.transition = '';
+    }
+}
+
+function moveCarousel(direction) {
+    if (!realCardWidth) return;
+    const fullCardWidth = realCardWidth + realGap;
+    if (direction === 'prev') currentCarouselOffset -= MOVE_STEP;
+    else if (direction === 'next') currentCarouselOffset += MOVE_STEP;
+    updateCarouselPosition(false);
+}
+
+function centerOnCard(cardOriginalIndex) {
+    if (!realCardWidth) return;
+    const fullCardWidth = realCardWidth + realGap;
+    // Target the middle copy (copy index 1)
+    const targetOffset = TOTAL_CARDS * 1 + cardOriginalIndex;
+    const container = document.querySelector('.cards-scroll');
+    const containerWidth = container ? container.clientWidth : 0;
+    const cardsPerView = Math.floor(containerWidth / fullCardWidth);
+    const desiredOffset = Math.max(0, targetOffset - Math.floor(cardsPerView / 2));
+    currentCarouselOffset = desiredOffset;
+    updateCarouselPosition(false);
 }
 
 function updateDetailPanel(cardIdx) {
@@ -434,7 +422,7 @@ function updateDetailPanel(cardIdx) {
     `;
 }
 
-// Simple CSV parser that handles quoted fields
+// CSV parser
 function parseCSV(csvText) {
     const rows = [];
     const regex = /(?:,|^)(?:"([^"]*(?:""[^"]*)*)"|([^",]*))/g;
@@ -459,7 +447,6 @@ async function loadCSVAndInit() {
         const csvText = await response.text();
         const rows = parseCSV(csvText);
         if (rows.length < 2) throw new Error('CSV has no data rows');
-        const headers = rows[0];
         cardsData = [];
         for (let i = 1; i < rows.length; i++) {
             const cols = rows[i];
@@ -488,10 +475,9 @@ async function loadCSVAndInit() {
 
 function rebuildMicromatesCarousel() {
     if (cardsData.length === 0) return;
-    currentCarouselOffset = 0;
+    currentCarouselOffset = TOTAL_CARDS * 1;
     selectedCardIndex = 0;
     renderCarouselTrack();
-    // Attach button events
     const prevBtn = document.getElementById('carouselPrev');
     const nextBtn = document.getElementById('carouselNext');
     if (prevBtn) {
