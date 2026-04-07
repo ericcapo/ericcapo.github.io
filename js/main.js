@@ -217,8 +217,19 @@ function buildMicromatesHTML() {
             <h1 class="section-title">MicroMates – Oceanic Realms Card Game</h1>
             <div class="game-header">
                 <div class="game-text-box">
-                    <p><strong>How to play:</strong> Collect all 5 cards of a realm. Ask another player: “Do you have <em>Baltic Cyanobacteria</em> from the <strong>Baltic Sea realm</strong>?” If yes, take it and go again; if not, draw from the pile. First to collect <strong>3 complete realms</strong> wins!</p>
-                    <p><strong>Rules (2–6 players):</strong> Shuffle all 55 cards. Deal 7 cards each. Youngest starts. On your turn, ask any player for a card from a realm you already own. If they have it, take it and continue; if not, draw 1 card from the pile. When you complete a realm (all 5 cards), show it and place it face up. First to collect 3 realms wins!</p>
+                    <p style="text-align: justify;">
+                        <strong>How to play (2–6 players):</strong> Shuffle all 55 cards. Deal 7 cards each. Youngest starts. 
+                        On your turn, ask any player for a card from a realm you already own. 
+                        If they have it, take it and continue; if not, draw 1 card from the pile. 
+                        When you complete a realm (all 5 cards), show it and place it face up. 
+                        First to collect <strong>3 complete realms</strong> wins!<br><br>
+                        <strong>Card categories (one per realm):</strong><br>
+                        <img src="images/others/yellow.jpg" alt="Light" style="height:1.2rem; vertical-align:middle;"> Light &nbsp;&nbsp;
+                        <img src="images/others/pink.jpg" alt="Nitrogen" style="height:1.2rem; vertical-align:middle;"> Nitrogen &nbsp;&nbsp;
+                        <img src="images/others/blue.jpg" alt="Sulfur" style="height:1.2rem; vertical-align:middle;"> Sulfur &nbsp;&nbsp;
+                        <img src="images/others/green.jpg" alt="Carbon" style="height:1.2rem; vertical-align:middle;"> Carbon &nbsp;&nbsp;
+                        <img src="images/others/purple.jpg" alt="Special" style="height:1.2rem; vertical-align:middle;"> Special
+                    </p>
                 </div>
                 <div class="game-right-img">
                     <img src="images/mates/micromates.png" alt="MicroMates logo" onerror="this.src='https://placehold.co/500x300?text=MicroMates'">
