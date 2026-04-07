@@ -201,10 +201,13 @@ function initResearchPageTranslations() {
 let micromatesInitialized = false;
 let currentCarouselOffset = 0;
 let TOTAL_CARDS = 0;
-const CARDS_VISIBLE = 5;
-const MOVE_STEP = 2;
+const MOVE_STEP = 2;          // number of cards to move per click/swipe
 let selectedCardIndex = 0;
 let cardsData = [];
+
+// Cooldown for touchpad scrolling (slows down rapid wheel events)
+let wheelCooldown = false;
+let wheelTimer = null;
 
 function getCardImagePath(cardNumber) {
     const padded = String(cardNumber).padStart(2, '0');
@@ -262,20 +265,28 @@ function attachCarouselSwipeEvents() {
     let touchStartX = 0;
     let isSwiping = false;
     
-    // Laptop touchpad: horizontal scroll (deltaX)
+    // Laptop touchpad: horizontal scroll with cooldown to slow it down
     scrollContainer.addEventListener('wheel', (e) => {
         // Horizontal scroll OR vertical with Shift key
         if (Math.abs(e.deltaX) > Math.abs(e.deltaY) || e.shiftKey) {
             e.preventDefault();
+            if (wheelCooldown) return; // ignore rapid events
+            
             if (e.deltaX > 0) {
                 moveCarousel('next');
             } else if (e.deltaX < 0) {
                 moveCarousel('prev');
             }
+            
+            wheelCooldown = true;
+            if (wheelTimer) clearTimeout(wheelTimer);
+            wheelTimer = setTimeout(() => {
+                wheelCooldown = false;
+            }, 150); // 150ms cooldown = slower, smoother scrolling
         }
     }, { passive: false });
     
-    // Touch / mobile swipe
+    // Touch / mobile swipe (no cooldown needed, it's discrete)
     scrollContainer.addEventListener('touchstart', (e) => {
         touchStartX = e.touches[0].clientX;
         isSwiping = true;
@@ -326,30 +337,78 @@ function renderCarouselTrack() {
     updateCarouselPosition();
 }
 
+// Dynamic update: measures actual card width + gap, and enables wrap-around
 function updateCarouselPosition() {
     const track = document.getElementById('cardsTrack');
     if (!track) return;
-    const cardWidth = 160 + 12; // width + gap
-    const maxStartIndex = Math.max(0, TOTAL_CARDS - CARDS_VISIBLE);
+    
+    const firstCard = track.querySelector('.card-item');
+    if (!firstCard) return;
+    
+    const cardWidth = firstCard.offsetWidth;
+    const style = window.getComputedStyle(track);
+    const gap = parseFloat(style.gap) || 0;
+    const fullCardWidth = cardWidth + gap;
+    
+    const container = document.querySelector('.cards-scroll');
+    const containerWidth = container ? container.clientWidth : 0;
+    let cardsPerView = Math.floor(containerWidth / fullCardWidth);
+    if (cardsPerView < 1) cardsPerView = 1;
+    
+    const maxStartIndex = Math.max(0, TOTAL_CARDS - cardsPerView);
+    
+    // Normalize offset (wrap-around is handled in moveCarousel, so just clamp here)
     let newOffset = currentCarouselOffset;
     if (newOffset > maxStartIndex) newOffset = maxStartIndex;
     if (newOffset < 0) newOffset = 0;
     currentCarouselOffset = newOffset;
-    const translateX = - (currentCarouselOffset * cardWidth);
+    
+    const translateX = -(currentCarouselOffset * fullCardWidth);
     track.style.transform = `translateX(${translateX}px)`;
+    
+    // Buttons are always enabled (wrap-around handles edges)
     const prevBtn = document.getElementById('carouselPrev');
     const nextBtn = document.getElementById('carouselNext');
-    if (prevBtn) prevBtn.disabled = (currentCarouselOffset === 0);
-    if (nextBtn) nextBtn.disabled = (currentCarouselOffset >= maxStartIndex);
+    if (prevBtn) prevBtn.disabled = false;
+    if (nextBtn) nextBtn.disabled = false;
 }
 
+// Wrap-around move: when reaching end, go to start; when at start and moving prev, go to end
 function moveCarousel(direction) {
-    const maxStart = Math.max(0, TOTAL_CARDS - CARDS_VISIBLE);
+    const track = document.getElementById('cardsTrack');
+    if (!track) return;
+    
+    const firstCard = track.querySelector('.card-item');
+    if (!firstCard) return;
+    
+    const cardWidth = firstCard.offsetWidth;
+    const style = window.getComputedStyle(track);
+    const gap = parseFloat(style.gap) || 0;
+    const fullCardWidth = cardWidth + gap;
+    
+    const container = document.querySelector('.cards-scroll');
+    const containerWidth = container ? container.clientWidth : 0;
+    let cardsPerView = Math.floor(containerWidth / fullCardWidth);
+    if (cardsPerView < 1) cardsPerView = 1;
+    
+    const maxStartIndex = Math.max(0, TOTAL_CARDS - cardsPerView);
+    let newOffset = currentCarouselOffset;
+    
     if (direction === 'prev') {
-        currentCarouselOffset = Math.max(0, currentCarouselOffset - MOVE_STEP);
+        newOffset -= MOVE_STEP;
+        if (newOffset < 0) {
+            // Wrap to the end
+            newOffset = maxStartIndex;
+        }
     } else if (direction === 'next') {
-        currentCarouselOffset = Math.min(maxStart, currentCarouselOffset + MOVE_STEP);
+        newOffset += MOVE_STEP;
+        if (newOffset > maxStartIndex) {
+            // Wrap to the start
+            newOffset = 0;
+        }
     }
+    
+    currentCarouselOffset = newOffset;
     updateCarouselPosition();
 }
 
@@ -417,7 +476,6 @@ async function loadCSVAndInit() {
         TOTAL_CARDS = cardsData.length;
         if (TOTAL_CARDS !== 55) console.warn(`Expected 55 cards, got ${TOTAL_CARDS}`);
         micromatesInitialized = true;
-        // Build the UI from the loaded data
         rebuildMicromatesCarousel();
     } catch (error) {
         console.error('Failed to load micromates.csv:', error);
@@ -428,7 +486,6 @@ async function loadCSVAndInit() {
     }
 }
 
-// Rebuild carousel UI after data is loaded or page is revisited
 function rebuildMicromatesCarousel() {
     if (cardsData.length === 0) return;
     currentCarouselOffset = 0;
@@ -438,7 +495,6 @@ function rebuildMicromatesCarousel() {
     const prevBtn = document.getElementById('carouselPrev');
     const nextBtn = document.getElementById('carouselNext');
     if (prevBtn) {
-        // remove old listeners to avoid duplicates
         const newPrev = prevBtn.cloneNode(true);
         prevBtn.parentNode.replaceChild(newPrev, prevBtn);
         newPrev.addEventListener('click', () => moveCarousel('prev'));
@@ -448,17 +504,14 @@ function rebuildMicromatesCarousel() {
         nextBtn.parentNode.replaceChild(newNext, nextBtn);
         newNext.addEventListener('click', () => moveCarousel('next'));
     }
-    // Attach swipe events
     attachCarouselSwipeEvents();
     updateDetailPanel(0);
 }
 
 function initMicromatesPage() {
     if (micromatesInitialized && cardsData.length > 0) {
-        // Already loaded – just rebuild the carousel UI (in case DOM was recreated)
         rebuildMicromatesCarousel();
     } else {
-        // First time – load CSV then build
         loadCSVAndInit();
     }
 }
