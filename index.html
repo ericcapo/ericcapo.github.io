@@ -175,16 +175,16 @@
         }
         .card-item {
             flex: 0 0 auto;
-            width: 160px;
+            width: 160px;                /* adjust as needed */
+            aspect-ratio: 3.5 / 2.5;    /* height = 3.5, width = 2.5 → 1.4 ratio */
             background: rgba(20, 28, 32, 0.8);
             backdrop-filter: blur(4px);
-            padding: 0.8rem;
+            padding: 0;                  /* remove padding to make image fill exactly */
             cursor: pointer;
-            transition: all 0.2s ease;
-            text-align: center;
             border: 2px solid rgba(106,176,214,0.2);
-            border-radius: 0px;
-        }
+            border-radius: 6px;          /* rounded corners */
+            overflow: hidden;            /* keeps image inside rounded corners */
+            }
         .card-item.selected {
             border: 3px solid #ffd966;
             background: rgba(0, 0, 0, 0.85);
@@ -197,11 +197,10 @@
         }
         .card-img {
             width: 100%;
-            aspect-ratio: 2 / 3;
+            height: 100%;
             object-fit: cover;
-            background: #1e2a2f;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-            border-radius: 0px;
+            display: block;
+            border-radius: 6px;        
         }
         .card-label {
             margin-top: 0.6rem;
