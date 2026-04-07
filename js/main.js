@@ -204,7 +204,7 @@ let TOTAL_CARDS = 0;
 const CARDS_VISIBLE = 5;
 const MOVE_STEP = 2;
 let selectedCardIndex = 0;
-let cardsData = []; // will hold objects from CSV
+let cardsData = [];
 
 function getCardImagePath(cardNumber) {
     const padded = String(cardNumber).padStart(2, '0');
@@ -214,7 +214,7 @@ function getCardImagePath(cardNumber) {
 function buildMicromatesHTML() {
     return `
         <div class="micromates-wrapper">
-            <h2>MicroMates – Oceanic Realms Card Game</h2>
+            <h1 class="section-title">MicroMates – Oceanic Realms Card Game</h1>
             <div class="game-header">
                 <div class="game-text-box">
                     <p><strong>How to play:</strong> Collect all 5 cards of a realm. Ask another player: “Do you have <em>Baltic Cyanobacteria</em> from the <strong>Baltic Sea realm</strong>?” If yes, take it and go again; if not, draw from the pile. First to collect <strong>3 complete realms</strong> wins!</p>
@@ -251,7 +251,6 @@ function renderCarouselTrack() {
         html += `
             <div class="card-item ${isSelected ? 'selected' : ''}" data-card-index="${i}">
                 <img src="${imgPath}" class="card-img" onerror="this.src='https://placehold.co/160x240?text=Card+${cardNum}'">
-                <div class="card-label">${cardsData[i].mate_name}</div>
             </div>
         `;
     }
@@ -271,7 +270,7 @@ function renderCarouselTrack() {
 function updateCarouselPosition() {
     const track = document.getElementById('cardsTrack');
     if (!track) return;
-    const cardWidth = 160 + 12;
+    const cardWidth = 160 + 12; // width + gap
     const maxStartIndex = Math.max(0, TOTAL_CARDS - CARDS_VISIBLE);
     let newOffset = currentCarouselOffset;
     if (newOffset > maxStartIndex) newOffset = maxStartIndex;
@@ -315,27 +314,6 @@ function updateDetailPanel(cardIdx) {
             </div>
         </div>
     `;
-}
-
-function populateRealmBadges() {
-    const realmMap = new Map();
-    cardsData.forEach(card => {
-        if (!realmMap.has(card.location)) realmMap.set(card.location, 0);
-        realmMap.set(card.location, realmMap.get(card.location) + 1);
-    });
-    const realmListDiv = document.getElementById('realmList');
-    if (!realmListDiv) return;
-    realmListDiv.innerHTML = '';
-    const colors = ['#FFD966','#FF99CC','#66CCFF','#88FF88','#CC99FF','#FF8888','#99CCFF','#B0E0E6','#FFB347','#77AADD','#DD88FF'];
-    let idx = 0;
-    for (let [realm, count] of realmMap) {
-        const badge = document.createElement('span');
-        badge.className = 'family-badge';
-        badge.style.borderLeft = `4px solid ${colors[idx % colors.length]}`;
-        badge.textContent = `${realm} (${count} cards)`;
-        realmListDiv.appendChild(badge);
-        idx++;
-    }
 }
 
 // Simple CSV parser that handles quoted fields
@@ -390,7 +368,6 @@ async function loadCSVAndInit() {
             selectedCardIndex = 0;
             renderCarouselTrack();
             updateDetailPanel(0);
-            populateRealmBadges();
         }
         micromatesInitialized = true;
     } catch (error) {
