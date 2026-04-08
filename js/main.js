@@ -267,17 +267,7 @@ function buildMicromatesHTML() {
             <div class="game-header history-section" style="margin-top: 2rem;">
                 <div class="game-text-box">
                     <h3 class="section-title">The Story Behind MicroMates</h3>
-                    <p style="text-align: justify;">
-                        MicroMates was born from a passion for both microbiology and card gaming. 
-                        The idea came during a late‑night lab meeting when researchers realised that the 
-                        incredible diversity of microbial metabolism – from light‑harvesting to sulfur cycling – 
-                        could be turned into a fun, educational card game. 
-                        Each card represents a real microbial process or organism, carefully illustrated 
-                        and linked to scientific references. The game has been play‑tested by scientists, 
-                        students, and families to ensure it is both accurate and engaging. 
-                        Today, MicroMates is used in classrooms and at conferences to spark curiosity 
-                        about the hidden world of microbes.
-                 This idea started from the collaboration of two scientists Dr Eric Capo and Meifang Zhong from Umeå University (Umeå, Sweden), and the artist Thomas Cerigny from Mikimo studio (Bordeaux, France).
+                    <p style="text-align: justify;"> MicroMates was born in 2024 from a passion for both microbiology and card gaming. The idea came after a seminar at Umeå University by Klaus Jürgens when researchers realised that the incredible diversity of microbial metabolism – from light‑harvesting to sulfur cycling – could be turned into a fun, educational card game. Each card represents a real organism, carefully illustrated and linked to scientific references. Today, MicroMates is showed in outreach events and at conferences to spark curiosity about the hidden world of microbes. This card game is developed by Eric Capo and Meifang Zhong from Umeå University (Umeå, Sweden), and the artist Thomas Cerigny from Mikimo studio (Bordeaux, France).
                     </p>
                     <p style="text-align: justify; margin-top: 1rem;">
                         <strong>Version 1.0</strong> – 55 cards, 11 realms, endless strategies. 
