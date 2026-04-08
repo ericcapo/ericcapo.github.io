@@ -524,7 +524,8 @@ function renderHome() {
         </div>
         <div class="lab-intro">
             <div class="lab-intro-text">
-                <p>We study the spatio-temporal dynamics of <b>aquatic microbial communities</b> and their functional responses to environmental change, such as climate change, eutrophication, deoxygenation or mercury pollution. We apply <b>molecular ecology</b> methods, such as metabarcoding, (ancient) metagenomics, MAGs-based analysis and metatranscriptomics. By sequencing the genetic information from <b>water columns</b> and underlying <b>sedimentary archives</b>, we investigate the long-term changes in aquatic microbial life for a better understanding of their current and future trajectories.</p>
+                <p> We aim to understand how aquatic microbial communities are shaped across space and time, and how they functionally respond to major environmental pressures—including climate change, eutrophication, deoxygenation, and mercury pollution.</p>
+                <p>To achieve this, we apply molecular ecology approaches such as metabarcoding, (ancient) metagenomics, MAGs-based analysis, and metatranscriptomics. By sequencing genetic information from both modern water columns and underlying sedimentary archives, we capture a high-resolution record of aquatic microbial communities.</p>                 <p>Reconstructing long-term changes in aquatic microbial life allows us to link past ecosystem states to present-day dynamics. Ultimately, this deep-time perspective will improve our ability to predict future trajectories of aquatic ecosystems under ongoing environmental change.</p>
                 <button class="cn-intro-btn" aria-label="Toggle Chinese/English">中文</button>
             </div>
             <div class="lab-intro-image">
