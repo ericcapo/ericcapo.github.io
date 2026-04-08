@@ -332,11 +332,7 @@ function buildMicromatesHTML() {
             <div class="game-header">
                 <div class="game-text-box" style="padding-top: 0;">
                     <h2 style="color: white; font-size: 1.6rem; font-weight: 600; margin: 0; padding: 0.5rem 2rem 0.5rem 2rem; border-bottom: 2px solid rgba(106,176,214,0.3); text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">Oceanic Realms Game Rules</h2>                    
-                <p style="text-align: justify;"><strong>How to play</strong> (2–6 players): Shuffle all 55 cards. Deal 7 cards each. Youngest starts. 
-                    On your turn, ask any player for a card from a realm (Baltic Sea, Cariaco Basin,...) you already own. 
-                    If they have it, take it and continue; if not, draw 1 card from the pile. 
-                    When you complete a realm (5 card types), show it and place it face up. 
-                    First to collect <strong>3 complete realms</strong> wins!<br><br>
+                <p style="text-align: justify;"><strong>What is this game about? The players must collect all MicroMates from a <b>realm</b> that depict microorganisms living in these ecosystems such as the Baltic Sea, Black Sea or Cariaco Basin. The MicroMates exhibit different metabolic capacities showed here as different card types<br>
                     <strong>Card types</strong> (one per realm):<br>
                     <img src="images/others/yellow.png" alt="Light" style="height:1.2rem; vertical-align:middle;"> Light &nbsp;&nbsp;
                     <img src="images/others/pink.png" alt="Nitrogen" style="height:1.2rem; vertical-align:middle;"> Nitrogen &nbsp;&nbsp;
@@ -344,6 +340,7 @@ function buildMicromatesHTML() {
                     <img src="images/others/green.png" alt="Carbon" style="height:1.2rem; vertical-align:middle;"> Carbon &nbsp;&nbsp;
                     <img src="images/others/purple.png" alt="Special" style="height:1.2rem; vertical-align:middle;"> Special
                     </p>
+                <p style="text-align: justify;"><strong>How to play</strong> (2–6 players): Shuffle all cards. Deal 7 cards each. Youngest starts. On your turn, ask any player for a card from a <b>realm</b> you already own. If they have it, take it and continue; if not, draw 1 card from the pile. When you complete a realm (5 card types), show it and place it face up. First to collect <strong>3 realms</strong> wins!</p>
                 </div>
                 <div class="game-right-img">
                     <img src="images/mates/micromates.png" alt="MicroMates logo" onerror="this.src='https://placehold.co/500x300?text=MicroMates'">
