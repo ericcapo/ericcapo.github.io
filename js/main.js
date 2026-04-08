@@ -527,7 +527,7 @@ function renderHome() {
         </div>
         <div class="lab-intro">
             <div class="lab-intro-text">
-<p>We study how <b>aquatic microbial communities</b> change across space and time, and how they functionally respond to climate change, eutrophication, deoxygenation, and mercury pollution. We apply <b>molecular ecology</b> tools—metabarcoding, (ancient) metagenomics, MAGs analysis, and metatranscriptomics from the genetic information from water columns and sediment archives, capturing a high-resolution record of microbial life. Reconstructing <b>long-term microbial functional changes</b> helps us link past ecosystem states to present dynamics, improving predictions of future aquatic ecosystem trajectories under ongoing environmental change.</p>
+<p>We study how <b>aquatic microbial communities</b> change across space and time, and how they functionally respond to climate change, eutrophication, deoxygenation, and mercury pollution. We apply <b>molecular ecology</b> tools—metabarcoding, (ancient) metagenomics, MAGs analysis, and metatranscriptomics from the genetic information from water columns and sediment archives, capturing a high-resolution record of microbial life. Reconstructing <b>long-term microbial changes</b> helps us link past ecosystem states to present dynamics, improving predictions of future aquatic ecosystem trajectories under ongoing environmental change.</p>
                 <button class="cn-intro-btn" aria-label="Toggle Chinese/English">中文</button>
             </div>
             <div class="lab-intro-image">
