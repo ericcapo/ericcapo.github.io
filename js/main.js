@@ -276,7 +276,7 @@ function buildMicromatesHTML() {
         .detail-panel {
             display: flex;
             gap: 2rem;
-            background: transparent;  /* original - no white background */
+            background: rgba(0, 0, 0, 0.45);
             border-radius: 20px;
             padding: 1.5rem;
             margin-top: 2rem;
