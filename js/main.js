@@ -331,7 +331,7 @@ function buildMicromatesHTML() {
             <h1 class="section-title">MicroMates<sup>™</sup> Card Game</h1>
             <div class="game-header">
                 <div class="game-text-box" style="padding-top: 0;">
-                    <h2 style="color: white; font-size: 1.6rem; font-weight: 600; margin: 0; padding: 0.5rem 2rem 0.5rem 2rem; border-bottom: 2px solid rgba(106,176,214,0.3); text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">Oceanic Realms Game Rules</h2>                    
+                    <h2 style="color: white; font-size: 1.6rem; font-weight: 600; margin: 0; padding: 0.5rem 2rem 0.5rem 2rem; border-bottom: 2px solid rgba(106,176,214,0.3); text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">MicroMates<sup>™</sup> Oceanic Realms</h2>                    
                 <p style="text-align: justify;"><strong>What is this game about? The players must collect all MicroMates from a <b>realm</b> that depict microorganisms living in these ecosystems such as the Baltic Sea, Black Sea or Cariaco Basin. The MicroMates exhibit different metabolic capacities showed here as different card types<br>
                     <strong>Card types</strong> (one per realm):<br>
                     <img src="images/others/yellow.png" alt="Light" style="height:1.2rem; vertical-align:middle;"> Light &nbsp;&nbsp;
