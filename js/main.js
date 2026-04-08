@@ -127,7 +127,7 @@ function enhancePublications() {
 }
 
 // ----- HOME PAGE TRANSLATION -----
-const chineseIntroTranslation = `我们研究水生微生物群落的时空动态及其对环境变化（如气候变化、富营养化、脱氧或汞污染）的功能响应。我们应用分子生态学方法，如元条形码、（古）宏基因组学、基于MAGs的分析和宏转录组学。通过对水柱和下方沉积物档案中的遗传信息进行测序，我们研究水生微生物生命的长期变化，以更好地理解它们当前和未来的发展轨迹。`;
+const chineseIntroTranslation = `<p>我们研究<b>水生微生物群落</b>如何随空间和时间变化，以及它们如何功能性地响应气候变化、富营养化、脱氧作用和汞污染。我们运用<b>分子生态学</b>工具——宏条形码、（古）宏基因组学、MAGs分析以及宏转录组学——从水柱和沉积物档案中获取遗传信息，捕捉微生物生命的高分辨率记录。重建<b>微生物功能的长期变化</b>有助于我们将过去的生态系统状态与当前动态联系起来，从而提高在持续环境变化下对水生生态系统未来轨迹的预测能力。</p>`;
 let originalEnglishHTML = '';
 let isChineseActive = false;
 
@@ -157,12 +157,15 @@ function initHomePageTranslation() {
 
 // ----- RESEARCH PAGE TRANSLATIONS -----
 const researchChineseTexts = {
-    1: `<p>我们研究湖泊表层水和底层沉积物中活跃微生物层的微生物多样性。我们开发了一种无人机采样方法，为大量湖泊采集样本，并首次提供了瑞典湖泊微生物多样性的目录。</p>
-        <p><strong>方法：</strong> 无人机水质采样、沉积物岩芯采集、元条形码、宏基因组学</p>`,
-    2: `<p>由于气候变暖和营养盐污染，水体氧最小区正在扩大。我们研究微生物群落（细菌、古菌、原生生物）如何响应持续的脱氧过程。我们解析功能转变、代谢适应以及对生物地球化学循环（氮、硫、碳）的级联效应，以及神经毒素甲基汞的形成。</p>
-        <p><strong>方法：</strong> 水样采集、沉积物岩芯采集、元条形码、宏基因组学、基于基因组的宏转录组学</p>`,
-    3: `<p>我们利用沉积物古DNA（sedDNA）重建淡水与海洋微生物群落数百年至千年尺度的历史变化。通过分析沉积物中保存的遗传记录，揭示微生物组合如何响应气候变迁、富营养化、脱氧及其他环境压力。</p>
-        <p><strong>方法：</strong> 沉积物岩芯采集、古宏基因组学、系统发育基因组学</p>`
+    1: `<p>我们研究湖泊表层水体及底层沉积物活性微生物层中的微生物多样性（细菌、古菌、原生生物）。利用新型无人机采样方法，结合沉积物岩芯采集，我们从瑞典数百个湖泊中收集水样。结合宏条形码和宏基因组学，这项工作正在生成首个瑞典湖泊微生物多样性综合目录。</p>
+        <p><strong>方法：</strong> 无人机水样采集、沉积物岩芯钻取、宏条形码、宏基因组学</p>
+        <p><strong>示例：</strong> 想了解更多？观看 BLADE 项目视频</p>`,
+    2: `<p>我们研究微生物群落如何响应由气候变暖和营养盐污染引起的近海系统氧最小区扩张。利用宏基因组学、宏转录组学结合氧梯度培养实验，我们追踪功能变化、代谢适应，以及对氮、硫、碳循环和甲基汞产生的级联效应。我们的目标是预测脱氧作用如何重塑近海生物地球化学过程，并为全球变暖背景下神经毒素产生的减缓策略提供科学依据。</p>
+        <p><strong>方法：</strong> 水样采集、沉积物岩芯钻取、宏条形码、宏基因组学、基于基因组的宏转录组学</p>
+        <p><strong>示例：</strong> 感兴趣？观看我们的纪录片《峡湾前沿》</p>`,
+    3: `<p>我们利用沉积物古DNA（sedDNA）重建淡水和海洋微生物群落数百至数千年的变化。通过分析沉积物岩芯中保存的遗传记录，我们揭示微生物如何响应过去的气候变化、富营养化、脱氧作用及其他环境压力。这一长期视角帮助我们连接过去的生态系统状态与当前动态，从而提高在持续人为压力下对未来演变轨迹的预测能力。</p>
+        <p><strong>方法：</strong> 沉积物岩芯钻取、古宏基因组学、系统发育基因组学</p>
+        <p><strong>示例：</strong> 想参与更多？观看 SWE25 探险视频！</p>`
 };
 
 function initResearchPageTranslations() {
@@ -524,8 +527,7 @@ function renderHome() {
         </div>
         <div class="lab-intro">
             <div class="lab-intro-text">
-                <p> We aim to understand how aquatic microbial communities are shaped across space and time, and how they functionally respond to major environmental pressures—including climate change, eutrophication, deoxygenation, and mercury pollution.</p>
-                <p>To achieve this, we apply molecular ecology approaches such as metabarcoding, (ancient) metagenomics, MAGs-based analysis, and metatranscriptomics. By sequencing genetic information from both modern water columns and underlying sedimentary archives, we capture a high-resolution record of aquatic microbial communities.</p>                 <p>Reconstructing long-term changes in aquatic microbial life allows us to link past ecosystem states to present-day dynamics. Ultimately, this deep-time perspective will improve our ability to predict future trajectories of aquatic ecosystems under ongoing environmental change.</p>
+<p>We study how <b>aquatic microbial communities</b> change across space and time, and how they functionally respond to climate change, eutrophication, deoxygenation, and mercury pollution. We apply <b>molecular ecology</b> tools—metabarcoding, (ancient) metagenomics, MAGs analysis, and metatranscriptomics from the genetic information from water columns and sediment archives, capturing a high-resolution record of microbial life. Reconstructing <b>long-term microbial functional changes</b> helps us link past ecosystem states to present dynamics, improving predictions of future aquatic ecosystem trajectories under ongoing environmental change.</p>
                 <button class="cn-intro-btn" aria-label="Toggle Chinese/English">中文</button>
             </div>
             <div class="lab-intro-image">
