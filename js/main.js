@@ -366,7 +366,7 @@ function buildMicromatesHTML() {
                 <div class="game-text-box" style="padding-top: 0;">
                    <h2 style="color: white; font-size: 1.6rem; font-weight: 600; margin: 0; padding: 0.5rem 2rem 0.5rem 2rem; border-bottom: 2px solid rgba(106,176,214,0.3); text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">The Story Behind MicroMates<sup>™</sup></h2> 
                     <p style="text-align: justify;"> The idea of the MicroMates<sup>™</sup> card game came in 2024 after a seminar by Klaus Jürgens at Umeå University when researchers realised that the incredible diversity of microbial metabolisms could be turned into a fun, educational card game. Each card represents a real microorganism, carefully illustrated and linked to scientific references. This card game is developed by Eric Capo and Meifang Zhong from Umeå University (Umeå, Sweden), and the artist Thomas Cerigny from Mikimo studio (Bordeaux, France).</p><br>
-                    <a href="https://www.umu.se/en/news/researchers-card-game-teaches-children-about-microorganisms_12144957/  " target="_blank">On Campus News</a>
+                <a href="https://www.umu.se/en/news/researchers-card-game-teaches-children-about-microorganisms_12144957/" target="_blank" style="color: white !important;">Umeå news spotlight</a>
                 </div>
                 <div class="game-right-img">
                     <img src="images/mates/history.jpg" alt="History of MicroMates" onerror="this.src='https://placehold.co/500x300?text=History+of+MicroMates'">
