@@ -229,19 +229,18 @@ function buildMicromatesHTML() {
             <h1 class="section-title">MicroMates Card Game</h1>
             <div class="game-header">
                 <div class="game-text-box">
-                    
                     <h3 class="section-title">MicroMates Oceanic Realms</h3>
-                        <p style="text-align: justify;"><strong>How to play</strong> (2–6 players): Shuffle all 55 cards. Deal 7 cards each. Youngest starts. 
-                        On your turn, ask any player for a card from a realm (Baltic Sea, Cariaco Basin,...) you already own. 
-                        If they have it, take it and continue; if not, draw 1 card from the pile. 
-                        When you complete a realm (5 card types), show it and place it face up. 
-                        First to collect <strong>3 complete realms</strong> wins!<br><br>
-                        <strong>Card types</strong> (one per realm):<br>
-                        <img src="images/others/yellow.png" alt="Light" style="height:1.2rem; vertical-align:middle;"> Light &nbsp;&nbsp;
-                        <img src="images/others/pink.png" alt="Nitrogen" style="height:1.2rem; vertical-align:middle;"> Nitrogen &nbsp;&nbsp;
-                        <img src="images/others/blue.png" alt="Sulfur" style="height:1.2rem; vertical-align:middle;"> Sulfur &nbsp;&nbsp;
-                        <img src="images/others/green.png" alt="Carbon" style="height:1.2rem; vertical-align:middle;"> Carbon &nbsp;&nbsp;
-                        <img src="images/others/purple.png" alt="Special" style="height:1.2rem; vertical-align:middle;"> Special
+                    <p style="text-align: justify;"><strong>How to play</strong> (2–6 players): Shuffle all 55 cards. Deal 7 cards each. Youngest starts. 
+                    On your turn, ask any player for a card from a realm (Baltic Sea, Cariaco Basin,...) you already own. 
+                    If they have it, take it and continue; if not, draw 1 card from the pile. 
+                    When you complete a realm (5 card types), show it and place it face up. 
+                    First to collect <strong>3 complete realms</strong> wins!<br><br>
+                    <strong>Card types</strong> (one per realm):<br>
+                    <img src="images/others/yellow.png" alt="Light" style="height:1.2rem; vertical-align:middle;"> Light &nbsp;&nbsp;
+                    <img src="images/others/pink.png" alt="Nitrogen" style="height:1.2rem; vertical-align:middle;"> Nitrogen &nbsp;&nbsp;
+                    <img src="images/others/blue.png" alt="Sulfur" style="height:1.2rem; vertical-align:middle;"> Sulfur &nbsp;&nbsp;
+                    <img src="images/others/green.png" alt="Carbon" style="height:1.2rem; vertical-align:middle;"> Carbon &nbsp;&nbsp;
+                    <img src="images/others/purple.png" alt="Special" style="height:1.2rem; vertical-align:middle;"> Special
                     </p>
                 </div>
                 <div class="game-right-img">
@@ -263,9 +262,36 @@ function buildMicromatesHTML() {
             <div id="detailPanel" class="detail-panel">
                 <div class="empty-detail">✨ Click on any card above to see its details ✨</div>
             </div>
+            
+            <!-- NEW HISTORY SECTION (text left, image right) -->
+            <div class="game-header history-section" style="margin-top: 2rem;">
+                <div class="game-text-box">
+                    <h3 class="section-title">The Story Behind MicroMates</h3>
+                    <p style="text-align: justify;">
+                        MicroMates was born from a passion for both microbiology and card gaming. 
+                        The idea came during a late‑night lab meeting when researchers realised that the 
+                        incredible diversity of microbial metabolism – from light‑harvesting to sulfur cycling – 
+                        could be turned into a fun, educational card game. 
+                        Each card represents a real microbial process or organism, carefully illustrated 
+                        and linked to scientific references. The game has been play‑tested by scientists, 
+                        students, and families to ensure it is both accurate and engaging. 
+                        Today, MicroMates is used in classrooms and at conferences to spark curiosity 
+                        about the hidden world of microbes.
+                 This idea started from the collaboration of two scientists Dr Eric Capo and Meifang Zhong from Umeå University (Umeå, Sweden), and the artist Thomas Cerigny from Mikimo studio (Bordeaux, France).
+                    </p>
+                    <p style="text-align: justify; margin-top: 1rem;">
+                        <strong>Version 1.0</strong> – 55 cards, 11 realms, endless strategies. 
+                        Stay tuned for expansion packs featuring deep‑sea vents and polar microbiomes!
+                    </p>
+                </div>
+                <div class="game-right-img">
+                    <img src="images/mates/history.jpg" alt="History of MicroMates" onerror="this.src='https://placehold.co/500x300?text=History+of+MicroMates'">
+                </div>
+            </div>
         </div>
     `;
 }
+
 
 // Attach touchpad and touch swipe events
 function attachCarouselSwipeEvents() {
