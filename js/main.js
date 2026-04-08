@@ -312,7 +312,6 @@ function buildMicromatesHTML() {
             color: #f0f0f0;     /* light gray for readability on dark */
         }
         .detail-doi {
-            font-size: 0.85rem;
             word-break: break-word;
             color: #cccccc;
         }
