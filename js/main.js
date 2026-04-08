@@ -210,7 +210,6 @@ let cardsData = [];
 
 // Infinite carousel variables
 let CLONE_COUNT = 3;           // three copies of the cards
-let virtualCardCount = 0;
 let realCardWidth = 0;
 let realGap = 0;
 let cardsPerView = 5;
@@ -303,6 +302,37 @@ function attachCarouselSwipeEvents() {
     scrollContainer.addEventListener('touchend', () => { isSwiping = false; });
 }
 
+// Attach click events without rebuilding the track (smooth centering)
+function attachCardClickEvents() {
+    document.querySelectorAll('.card-item').forEach(card => {
+        // Clone to remove any previous listeners
+        const newCard = card.cloneNode(true);
+        card.parentNode.replaceChild(newCard, card);
+        
+        const originalIndex = parseInt(newCard.dataset.cardIndex);
+        newCard.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (selectedCardIndex === originalIndex) return;
+            
+            selectedCardIndex = originalIndex;
+            
+            // Update 'selected' class on all cards (only middle copy gets highlight)
+            document.querySelectorAll('.card-item').forEach(c => {
+                const idx = parseInt(c.dataset.cardIndex);
+                const copy = parseInt(c.dataset.copy);
+                if (idx === selectedCardIndex && copy === 1) {
+                    c.classList.add('selected');
+                } else {
+                    c.classList.remove('selected');
+                }
+            });
+            
+            centerOnCard(selectedCardIndex);
+            updateDetailPanel(selectedCardIndex);
+        });
+    });
+}
+
 function renderCarouselTrack() {
     const track = document.getElementById('cardsTrack');
     if (!track) return;
@@ -312,7 +342,7 @@ function renderCarouselTrack() {
         for (let i = 0; i < TOTAL_CARDS; i++) {
             const cardNum = i + 1;
             const imgPath = getCardImagePath(cardNum);
-            const isSelected = (selectedCardIndex === i && copy === 1); // highlight only middle copy
+            const isSelected = (selectedCardIndex === i && copy === 1);
             html += `
                 <div class="card-item ${isSelected ? 'selected' : ''}" data-card-index="${i}" data-copy="${copy}">
                     <img src="${imgPath}" class="card-img" onerror="this.src='https://placehold.co/160x240?text=Card+${cardNum}'">
@@ -322,15 +352,7 @@ function renderCarouselTrack() {
     }
     track.innerHTML = html;
     
-    document.querySelectorAll('.card-item').forEach(card => {
-        const originalIndex = parseInt(card.dataset.cardIndex);
-        card.addEventListener('click', () => {
-            selectedCardIndex = originalIndex;
-            renderCarouselTrack();
-            centerOnCard(originalIndex);
-            updateDetailPanel(selectedCardIndex);
-        });
-    });
+    attachCardClickEvents();
     
     const firstCard = track.querySelector('.card-item');
     if (firstCard) {
@@ -339,7 +361,6 @@ function renderCarouselTrack() {
         realGap = parseFloat(style.gap) || 0;
     }
     
-    // Start at the beginning of the middle copy
     currentCarouselOffset = TOTAL_CARDS * 1;
     updateCarouselPosition(true);
 }
@@ -366,7 +387,6 @@ function updateCarouselPosition(skipTransition = false) {
     
     // Infinite loop reset logic
     const totalVirtualCards = TOTAL_CARDS * CLONE_COUNT;
-    const maxAllowedOffset = totalVirtualCards - cardsPerView;
     if (currentCarouselOffset >= TOTAL_CARDS * (CLONE_COUNT - 1)) {
         currentCarouselOffset -= TOTAL_CARDS;
         track.style.transition = 'none';
@@ -393,12 +413,11 @@ function moveCarousel(direction) {
 function centerOnCard(cardOriginalIndex) {
     if (!realCardWidth) return;
     const fullCardWidth = realCardWidth + realGap;
-    // Target the middle copy (copy index 1)
     const targetOffset = TOTAL_CARDS * 1 + cardOriginalIndex;
     const container = document.querySelector('.cards-scroll');
     const containerWidth = container ? container.clientWidth : 0;
-    const cardsPerView = Math.floor(containerWidth / fullCardWidth);
-    const desiredOffset = Math.max(0, targetOffset - Math.floor(cardsPerView / 2));
+    const currentCardsPerView = Math.floor(containerWidth / fullCardWidth);
+    const desiredOffset = Math.max(0, targetOffset - Math.floor(currentCardsPerView / 2));
     currentCarouselOffset = desiredOffset;
     updateCarouselPosition(false);
 }
@@ -416,29 +435,40 @@ function updateDetailPanel(cardIdx) {
             <img src="${imgSrc}" alt="${card.mate_name}" onerror="this.src='https://placehold.co/280x420?text=Card+${cardNum}'">
         </div>
         <div class="detail-text">
-            <h3>${card.mate_name} <span style="font-size:1rem;">(#${cardNum})</span></h3>
-            <div class="detail-description"><strong>${card.mate_function}</strong><br>${card.description}</div>
+            <h3>${escapeHtml(card.mate_name)} <span style="font-size:1rem;">(#${cardNum})</span></h3>
+            <div class="detail-description"><strong>${escapeHtml(card.mate_function)}</strong><br>${escapeHtml(card.description)}</div>
             <div class="detail-doi">
-                <strong>Reference:</strong> <a href="${webLink}" target="_blank" rel="noopener noreferrer">doi:${card.doi || 'no DOI'}</a>
+                <strong>Reference:</strong> <a href="${escapeHtml(webLink)}" target="_blank" rel="noopener noreferrer">doi:${escapeHtml(card.doi || 'no DOI')}</a>
             </div>
         </div>
     `;
 }
 
-// CSV parser
+// Robust CSV parser (handles quotes, missing fields, trailing newlines)
 function parseCSV(csvText) {
     const rows = [];
-    const regex = /(?:,|^)(?:"([^"]*(?:""[^"]*)*)"|([^",]*))/g;
-    let lines = csvText.split(/\r?\n/);
+    const lines = csvText.split(/\r?\n/);
     for (let line of lines) {
-        if (line.trim() === '') continue;
-        let row = [];
-        let match;
-        while ((match = regex.exec(line)) !== null) {
-            row.push(match[1] !== undefined ? match[1].replace(/""/g, '"') : (match[2] || ''));
+        line = line.trim();
+        if (line === '') continue;
+        const row = [];
+        let inQuotes = false;
+        let current = '';
+        for (let i = 0; i < line.length; i++) {
+            const ch = line[i];
+            if (ch === '"') {
+                inQuotes = !inQuotes;
+            } else if (ch === ',' && !inQuotes) {
+                row.push(current);
+                current = '';
+            } else {
+                current += ch;
+            }
         }
-        if (row.length > 0) rows.push(row);
-        regex.lastIndex = 0;
+        row.push(current); // last field
+        // Remove surrounding quotes and unescape double quotes
+        const cleaned = row.map(f => f.replace(/^"|"$/g, '').replace(/""/g, '"'));
+        rows.push(cleaned);
     }
     return rows;
 }
@@ -452,15 +482,14 @@ async function loadCSVAndInit() {
         if (rows.length < 2) throw new Error('CSV has no data rows');
         cardsData = [];
         for (let i = 1; i < rows.length; i++) {
-            const cols = rows[i];
-            if (cols.length < 6) continue;
+            let cols = rows[i];
+            // Ensure at least 6 columns (weblink may be missing)
+            while (cols.length < 6) cols.push('');
+            const [location, mate_name, mate_function, description, doi, weblink] = cols;
+            const finalWeblink = weblink || (doi ? `https://doi.org/${doi}` : '#');
             cardsData.push({
-                location: cols[0],
-                mate_name: cols[1],
-                mate_function: cols[2],
-                description: cols[3],
-                doi: cols[4],
-                weblink: cols[5]
+                location, mate_name, mate_function, description, doi,
+                weblink: finalWeblink
             });
         }
         TOTAL_CARDS = cardsData.length;
