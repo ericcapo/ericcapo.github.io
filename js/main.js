@@ -1,3 +1,13 @@
+// At the top of main.js, before any other code
+const forcedPage = window.initialPage || null;
+let siteData = {
+    currentPage: forcedPage || 'home',   // use forced page if present
+    activePhoto: null,
+    pageContent: {},
+    newsItems: []
+};
+// ... rest of your existing code ...
+
 // main.js – SPA with translation toggles + Micromates (loads card data from CSV)
 const siteData = {
     currentPage: 'home',
