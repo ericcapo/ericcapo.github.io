@@ -1,6 +1,4 @@
-// ... rest of your existing code ...
-
-// main.js – SPA with translation toggles + Micromates (loads card data from CSV)
+// main.js 
 const siteData = {
     currentPage: 'home',
     activePhoto: null,
