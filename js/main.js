@@ -710,9 +710,17 @@ async function render() {
             </div>
         </nav>
         <div class="container" id="page-container"></div>
+
         <footer>
-            <p>Contact: <a href="mailto:eric.capo@umu.se">eric.capo@umu.se</a></p>
-            <p style="margin-top: 0.5rem; font-size: 0.85rem;">Department of Ecology, Environment and Geoscience, Umeå University, Sweden</p>
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="images/others/umu.png" alt="Capo Lab Logo" onerror="this.src='https://placehold.co/150x60?text=Capo+Lab'">
+                </div>
+            <div class="footer-info">
+                <p>Contact: <a href="mailto:eric.capo@umu.se">eric.capo@umu.se</a></p>
+                <p style="margin-top: 0.5rem; font-size: 0.85rem;">Department of Ecology, Environment and Geoscience, Umeå University, Sweden</p>
+            </div>
+        </div>
         </footer>
         <div id="modal" class="modal"><div id="modal-content"></div></div>
     `;
