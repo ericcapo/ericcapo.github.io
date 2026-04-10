@@ -664,7 +664,7 @@ function renderHome() {
     return `
         <div class="hero">
             <h1>Welcome to Capo Lab</h1>
-            <p><b>We explore the past life of microorganisms in marine and freshwater systems</b></p>
+            <p><b>We explore the past life of microorganisms in marine and freshwater ecosystems</b></p>
         </div>
         <div class="lab-intro">
             <div class="lab-intro-text">
