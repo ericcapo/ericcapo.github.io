@@ -704,7 +704,7 @@ async function render() {
                     <li><a href="#" data-page="research" onclick="navigateTo('research'); return false;">Research</a></li>
                     <li><a href="#" data-page="team" onclick="navigateTo('team'); return false;">Team</a></li>
                     <li><a href="#" data-page="news" onclick="navigateTo('news'); return false;">News</a></li>
-                    <li><a href="#" data-page="micromates" onclick="navigateTo('micromates'); return false;">Card Game</a></li>
+                    <li><a href="#" data-page="micromates" onclick="navigateTo('micromates'); return false;">MicroMates<sup>™</sup></a></li>
                     <li><a href="#" data-page="publications" onclick="navigateTo('publications'); return false;">Publications</a></li>
                 </ul>
             </div>
