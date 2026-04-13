@@ -332,14 +332,15 @@ function buildMicromatesHTML() {
             <div class="game-header">
                 <div class="game-text-box" style="padding-top: 0;">
                     <h2 style="color: white; font-size: 1.6rem; font-weight: 600; margin: 0; padding: 0.5rem 2rem 0.5rem 2rem; border-bottom: 2px solid rgba(106,176,214,0.3); text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">MicroMates<sup>™</sup> Oceanic Realms</h2>                    
-                <p style="text-align: justify;"><strong>What is MicroMates<sup>™</sup>?</strong> You collect little creatures called mates, each living in a unique ecosystem (a realm) and powered by one of five sources of energy. Your goal: complete entire realms by gathering all five energy types within them.</p> <br>
-                <p style="text-align: justify;"><strong>How to play</strong> (2–6 players): Shuffle and deal 7 cards each. Youngest goes first. On your turn, ask any player for a mate from a specific realm using one of the five energy sources. If they have it, take it and continue your turn; if not, draw one card from the pile. Whenever you collect all five energy sources of the same realm, show it and place it face up. First to get <strong>3 realms</strong> wins!</p><br>Energy types:</p> 
+                <p style="text-align: justify;"><strong>What is MicroMates<sup>™</sup>?</strong> You collect little creatures called mates, each living in a unique ecosystem (a realm) and powered by one of five sources of energy. </p><br>Energy types:</p> 
                 <p style="text-align: justify;"><img src="images/others/yellow.png" alt="Light" style="height:1.2rem; vertical-align:middle;"> Light &nbsp;&nbsp;
                     <img src="images/others/pink.png" alt="Nitrogen" style="height:1.2rem; vertical-align:middle;"> Nitrogen &nbsp;&nbsp;
                     <img src="images/others/blue.png" alt="Sulfur" style="height:1.2rem; vertical-align:middle;"> Sulfur &nbsp;&nbsp;
                     <img src="images/others/green.png" alt="Carbon" style="height:1.2rem; vertical-align:middle;"> Carbon &nbsp;&nbsp;
                     <img src="images/others/purple.png" alt="Special" style="height:1.2rem; vertical-align:middle;"> Special
-                    </p>
+                    </p> <br>
+                <p style="text-align: justify;"><strong>How to play</strong> (2–6 players): Shuffle and deal 7 cards each. Youngest goes first. On your turn, ask any player for a mate from a specific realm using one of the five energy sources. If they have it, take it and continue your turn; if not, draw one card from the pile. Whenever you collect all five energy sources of the same realm, show it and place it face up. First to get <strong>3 realms</strong> wins!</p><br>
+                <p style="text-align: justify;">Try also our online game (1 player): <a href="https://www.capolab.net/oceanicduel.html" target="_blank" style="color: white !important;">Oceanic Duel</a></p>
                 </div>
                 <div class="game-right-img">
                     <img src="images/mates/micromates.jpg" alt="MicroMates logo" onerror="this.src='https://placehold.co/500x300?text=MicroMates'">
