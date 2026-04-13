@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Oceanic Mate Duel · Capo Lab</title>
+    <title>Oceanic Duel · Capo Lab</title>
     <style>
         * {
             margin: 0;
@@ -24,7 +24,7 @@
         }
 
         .game-container {
-            max-width: 1400px;
+            max-width: 1300px;
             margin: 0 auto;
             background: rgba(0, 20, 30, 0.75);
             backdrop-filter: blur(5px);
@@ -58,28 +58,44 @@
             font-size: 0.8rem;
         }
 
-        .rules-panel {
-            background: rgba(0, 0, 0, 0.6);
+        /* Rules box with new game button inside */
+        .rules-box {
+            background: rgba(0, 0, 0, 0.65);
             border-radius: 1rem;
-            padding: 0.5rem 1rem;
+            padding: 0.6rem 1rem;
             margin-bottom: 1rem;
             display: flex;
             align-items: center;
-            gap: 1rem;
+            justify-content: space-between;
             flex-wrap: wrap;
-            justify-content: center;
-            font-size: 0.75rem;
+            gap: 1rem;
         }
         .rules-text {
-            flex: 3;
+            flex: 4;
+            font-size: 0.8rem;
             line-height: 1.3;
         }
+        .rules-img {
+            flex: 0;
+            text-align: center;
+        }
         .rules-img img {
-            max-width: 60px;
+            max-width: 55px;
             border-radius: 6px;
             border: 1px solid #ffcf9a;
         }
+        .new-game-btn {
+            background: #ffb347;
+            border: none;
+            font-weight: bold;
+            padding: 0.3rem 1rem;
+            border-radius: 2rem;
+            cursor: pointer;
+            font-size: 0.8rem;
+            white-space: nowrap;
+        }
 
+        /* Score & status row */
         .duel-header {
             display: flex;
             justify-content: space-between;
@@ -88,7 +104,7 @@
             gap: 0.5rem;
             background: #021f2ccc;
             border-radius: 2rem;
-            padding: 0.4rem 1rem;
+            padding: 0.3rem 1rem;
             margin-bottom: 1rem;
         }
         .score-card {
@@ -103,18 +119,10 @@
             padding: 0.2rem 1rem;
             border-radius: 2rem;
             font-weight: bold;
-            font-size: 0.9rem;
-        }
-        .new-game-btn {
-            background: #ffb347;
-            border: none;
-            font-weight: bold;
-            padding: 0.3rem 1rem;
-            border-radius: 2rem;
-            cursor: pointer;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
         }
 
+        /* main row */
         .battle-row {
             display: flex;
             flex-wrap: wrap;
@@ -144,6 +152,16 @@
             margin-bottom: 0.3rem;
             text-align: center;
             font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 0 0.3rem;
+        }
+        .hand-score {
+            font-size: 0.8rem;
+            background: #000000aa;
+            padding: 0.1rem 0.5rem;
+            border-radius: 1rem;
         }
 
         /* cards: exact fit, no extra padding */
@@ -240,30 +258,40 @@
         <div class="back-link"><a href="/">← Back</a></div>
     </div>
 
-    <div class="rules-panel">
+    <!-- Rules box with New Game button -->
+    <div class="rules-box">
         <div class="rules-text">
-            <strong>⚡ OCEANIC MATE DUEL</strong> · Start with 6 cards · Drag your card to center → fight random opponent card · Win = steal 1 card from opponent (adds to your hand) · Lose = opponent steals from you · Tie = both discarded, each draws 1 from deck · First to 10 cards wins!
+            <strong>⚡ OCEANIC DUEL</strong> · Each player starts with 7 cards.<br>
+            Drag your card to the center → it fights a random opponent card.<br>
+            The <strong>energy color</strong> determines the winner (see image on card back).<br>
+            Winner gets 1 point. Both used cards are discarded.<br>
+            <strong>First to 4 points wins the duel!</strong> (3‑3 = no winner).<br>
+            Click "Next round" after each fight.
         </div>
         <div class="rules-img">
-            <img src="images/mates/back.jpg" alt="card back">
+            <img src="images/mates/back.jpg" alt="energy chart on back">
         </div>
+        <button class="new-game-btn" id="resetGameBtn">⟳ NEW GAME</button>
     </div>
 
+    <!-- Score & status -->
     <div class="duel-header">
-        <div class="score-card">🐚 YOUR HAND: <span id="playerHandCount">6</span></div>
+        <div class="score-card">🏆 YOUR WINS: <span id="playerWins">0</span></div>
         <div class="game-status" id="gameStatus">🌊 Drag a card to center</div>
-        <div class="score-card">🌙 OPPONENT: <span id="opponentHandCount">6</span></div>
-        <button class="new-game-btn" id="resetGameBtn">⟳ NEW GAME</button>
+        <div class="score-card">🏆 OPPONENT WINS: <span id="opponentWins">0</span></div>
     </div>
 
     <div class="battle-row">
         <!-- PLAYER SIDE -->
         <div class="player-side">
-            <div class="hand-title">🐟 YOUR MATES (drag to arena)</div>
+            <div class="hand-title">
+                🐟 YOUR HAND
+                <span class="hand-score" id="playerHandCount">7 cards left</span>
+            </div>
             <div class="cards-grid" id="playerHandContainer"></div>
         </div>
 
-        <!-- CENTER ARENA (drop zone) -->
+        <!-- CENTER ARENA -->
         <div class="center-arena" id="dropZone">
             <div class="battle-cards" style="display: flex; gap: 0.8rem; align-items: center;">
                 <div class="battle-card" id="playerBattleCard">
@@ -282,7 +310,10 @@
 
         <!-- OPPONENT SIDE -->
         <div class="opponent-side">
-            <div class="hand-title">🌙 OPPONENT'S HAND</div>
+            <div class="hand-title">
+                🌙 OPPONENT'S HAND
+                <span class="hand-score" id="opponentHandCount">7 cards left</span>
+            </div>
             <div class="cards-grid" id="opponentHandVisual"></div>
         </div>
     </div>
@@ -290,11 +321,11 @@
 
 <script>
     // --------------------------------------------------------------
-    //  CARD DATA & DECK (55 cards, 11 realms x 5 energies)
+    //  CARD DATA & DECK (55 cards, but we only need 7+7 = 14)
     // --------------------------------------------------------------
     const REALMS = [
-        "Abyss Trench", "Coral Citadel", "Kelp Kingdom", "Sulfur Vents", "Frozen Depths",
-        "Sunken Atoll", "Pearl Expanse", "Magma Rift", "Azure Abyss", "Tidal Throne", "Whirlpool Maw"
+        "Abyss", "Coral", "Kelp", "SulfurVent", "Frozen",
+        "Atoll", "Pearl", "Magma", "Azure", "Tidal", "Whirlpool"
     ];
     const ENERGIES = ["Light", "Nitrogen", "Sulfur", "Carbon", "Special"];
 
@@ -320,7 +351,7 @@
         return `images/mates/mates${padded}.jpg`;
     }
 
-    // Energy rules (fixed)
+    // Energy rules (same as before)
     function getWinner(energyA, energyB) {
         if (energyA === energyB) return "tie";
         const winMap = {
@@ -341,8 +372,8 @@
     let game = {
         playerHand: [],
         opponentHand: [],
-        drawDeck: [],
-        discardPile: [],
+        playerScore: 0,
+        opponentScore: 0,
         active: true,
         roundInProgress: false,
         draggedCardIndex: null
@@ -351,6 +382,8 @@
     // DOM elements
     const playerHandDiv = document.getElementById("playerHandContainer");
     const opponentHandDiv = document.getElementById("opponentHandVisual");
+    const playerWinsSpan = document.getElementById("playerWins");
+    const opponentWinsSpan = document.getElementById("opponentWins");
     const playerHandCountSpan = document.getElementById("playerHandCount");
     const opponentHandCountSpan = document.getElementById("opponentHandCount");
     const gameStatusSpan = document.getElementById("gameStatus");
@@ -362,37 +395,9 @@
     const opponentBattleLabel = document.querySelector("#opponentBattleCard div");
     const dropZone = document.getElementById("dropZone");
 
-    // Helper: draw card from deck (reshuffle discard if needed) – only used for ties
-    function drawCard() {
-        if (game.drawDeck.length === 0) {
-            if (game.discardPile.length === 0) return null;
-            game.drawDeck = shuffle([...game.discardPile]);
-            game.discardPile = [];
-        }
-        return game.drawDeck.pop();
-    }
-
-    // Steal a random card from loser's hand and add to winner's hand
-    function stealCard(winnerHand, loserHand) {
-        if (loserHand.length === 0) return false;
-        const idx = Math.floor(Math.random() * loserHand.length);
-        const stolen = loserHand.splice(idx, 1)[0];
-        winnerHand.push(stolen);
-        return true;
-    }
-
-    // Resolve tie: both played cards go to discard, each draws one (no refill to 6)
-    function resolveTie(playerCard, opponentCard) {
-        game.discardPile.push(playerCard, opponentCard);
-        const newPlayer = drawCard();
-        const newOpponent = drawCard();
-        if (newPlayer) game.playerHand.push(newPlayer);
-        if (newOpponent) game.opponentHand.push(newOpponent);
-    }
-
-    // Update UI and win condition
+    // Update UI: hands, scores, win condition
     function updateUI() {
-        // Player hand (faces, draggable)
+        // Player hand (draggable cards)
         playerHandDiv.innerHTML = "";
         game.playerHand.forEach((card, idx) => {
             const div = document.createElement("div");
@@ -400,7 +405,6 @@
             div.setAttribute("draggable", "true");
             div.setAttribute("data-index", idx);
             div.innerHTML = `<img src="${getCardImage(card)}" onerror="this.src='https://placehold.co/100x140?text=card'">`;
-            // drag start
             div.addEventListener("dragstart", (e) => {
                 if (!game.active || game.roundInProgress) {
                     e.preventDefault();
@@ -418,7 +422,7 @@
             playerHandDiv.appendChild(div);
         });
 
-        // Opponent hand (backs, no drag)
+        // Opponent hand (backs)
         opponentHandDiv.innerHTML = "";
         for (let i = 0; i < game.opponentHand.length; i++) {
             const backDiv = document.createElement("div");
@@ -427,22 +431,40 @@
             opponentHandDiv.appendChild(backDiv);
         }
 
-        playerHandCountSpan.innerText = game.playerHand.length;
-        opponentHandCountSpan.innerText = game.opponentHand.length;
+        playerWinsSpan.innerText = game.playerScore;
+        opponentWinsSpan.innerText = game.opponentScore;
+        playerHandCountSpan.innerText = `${game.playerHand.length} card${game.playerHand.length !== 1 ? 's' : ''} left`;
+        opponentHandCountSpan.innerText = `${game.opponentHand.length} card${game.opponentHand.length !== 1 ? 's' : ''} left`;
 
-        // Win check: first to 10 cards
+        // Win condition: first to 4 wins, or tie if both reach 3 and no cards left
         if (game.active) {
-            if (game.playerHand.length >= 10) {
+            if (game.playerScore >= 4) {
                 game.active = false;
                 game.roundInProgress = true;
-                gameStatusSpan.innerText = "🏆 YOU WIN! 10 cards! 🏆";
-                winnerMsgDiv.innerText = "🏆 VICTORY! You reached 10 cards!";
+                gameStatusSpan.innerText = "🏆 YOU WIN THE DUEL! 🏆";
+                winnerMsgDiv.innerText = "🎉 VICTORY! You reached 4 wins!";
                 nextBtn.disabled = true;
-            } else if (game.opponentHand.length >= 10) {
+            } else if (game.opponentScore >= 4) {
                 game.active = false;
                 game.roundInProgress = true;
-                gameStatusSpan.innerText = "💀 OPPONENT WINS (10 cards)";
-                winnerMsgDiv.innerText = "💀 Opponent reached 10 cards first.";
+                gameStatusSpan.innerText = "💀 OPPONENT WINS THE DUEL";
+                winnerMsgDiv.innerText = "💀 Opponent reached 4 wins first.";
+                nextBtn.disabled = true;
+            } else if (game.playerHand.length === 0 && game.opponentHand.length === 0) {
+                // both out of cards – check final score
+                if (game.playerScore > game.opponentScore) {
+                    game.active = false;
+                    gameStatusSpan.innerText = "🏆 YOU WIN! (more wins)";
+                    winnerMsgDiv.innerText = "🏆 More wins when cards ran out!";
+                } else if (game.opponentScore > game.playerScore) {
+                    game.active = false;
+                    gameStatusSpan.innerText = "💀 OPPONENT WINS (more wins)";
+                    winnerMsgDiv.innerText = "💀 Opponent had more wins.";
+                } else {
+                    game.active = false;
+                    gameStatusSpan.innerText = "🤝 TIE – No winner";
+                    winnerMsgDiv.innerText = "3‑3 tie, no winner.";
+                }
                 nextBtn.disabled = true;
             }
         }
@@ -463,29 +485,23 @@
         opponentBattleImg.src = getCardImage(opponentCard);
         opponentBattleLabel.textContent = `${opponentCard.energy}`;
 
-        // Remove both from hands
+        // Remove both cards from hands
         game.playerHand.splice(playerIdx, 1);
         game.opponentHand.splice(oppIdx, 1);
 
         const result = getWinner(playerCard.energy, opponentCard.energy);
-        let winner = null;
-        if (result === "player") winner = "player";
-        else if (result === "opponent") winner = "opponent";
-        else winner = "tie";
-
         let message = "";
-        if (winner === "player") {
-            const stolen = stealCard(game.playerHand, game.opponentHand);
-            message = stolen ? "✅ YOU WIN! Stole 1 card from opponent → added to your hand." : "✅ YOU WIN! (opponent had no card)";
-            gameStatusSpan.innerText = "✅ You won the duel!";
-        } else if (winner === "opponent") {
-            const stolen = stealCard(game.opponentHand, game.playerHand);
-            message = stolen ? "💀 OPPONENT WINS! Stole 1 card from you." : "💀 OPPONENT WINS! (you had no card)";
-            gameStatusSpan.innerText = "❌ Opponent wins!";
+        if (result === "player") {
+            game.playerScore++;
+            message = `✅ YOU WIN! +1 point (${game.playerScore}‑${game.opponentScore})`;
+            gameStatusSpan.innerText = "✅ You won this battle!";
+        } else if (result === "opponent") {
+            game.opponentScore++;
+            message = `💀 OPPONENT WINS! (${game.playerScore}‑${game.opponentScore})`;
+            gameStatusSpan.innerText = "❌ Opponent won this battle!";
         } else {
-            message = "⚖️ TIE! Both discarded. Each draws 1 card from deck.";
-            resolveTie(playerCard, opponentCard);
-            gameStatusSpan.innerText = "⚡ Tie!";
+            message = `⚖️ TIE! No points. (${game.playerScore}‑${game.opponentScore})`;
+            gameStatusSpan.innerText = "⚡ Tie! No points awarded.";
         }
         winnerMsgDiv.innerText = message;
 
@@ -534,17 +550,17 @@
         updateUI();
     }
 
-    // Reset game
+    // Reset game: each gets 7 random cards, scores 0‑0
     function initNewGame() {
-        const fullDeck = buildFullDeck();
+        const fullDeck = buildFullDeck(); // 55 shuffled
         game.playerHand = [];
         game.opponentHand = [];
-        game.discardPile = [];
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < 7; i++) {
             if (fullDeck.length) game.playerHand.push(fullDeck.pop());
             if (fullDeck.length) game.opponentHand.push(fullDeck.pop());
         }
-        game.drawDeck = fullDeck;
+        game.playerScore = 0;
+        game.opponentScore = 0;
         game.active = true;
         game.roundInProgress = false;
         game.draggedCardIndex = null;
