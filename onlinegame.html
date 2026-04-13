@@ -23,40 +23,62 @@
             color: white;
         }
 
-        .game-container {
-            max-width: 1600px;
-            margin: 0 auto;
-            background: rgba(0, 20, 30, 0.7);
-            backdrop-filter: blur(5px);
-            border-radius: 1.5rem;
-            padding: 1rem;
+        /* ----- navigation bar (matching main.js style) ----- */
+        nav {
+            position: relative;
+            background-image: url('../images/back.jpg');
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 1rem;
+            margin-bottom: 1.5rem;
         }
-
-        .game-header {
+        nav::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.4);
+            border-radius: 1rem;
+            z-index: 0;
+        }
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0.8rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid #3a9fc5;
+            position: relative;
+            z-index: 1;
         }
-        .logo a {
+        .logo {
             color: white;
             font-size: 1.4rem;
             font-weight: bold;
             text-decoration: none;
             text-shadow: 2px 2px 4px black;
         }
-        .back-link a {
-            color: #6ab0d6;
-            background: #00000066;
-            padding: 0.2rem 0.8rem;
-            border-radius: 2rem;
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+        .nav-links a {
+            color: white;
             text-decoration: none;
-            font-size: 0.8rem;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        .nav-links a:hover {
+            color: #6ab0d6;
         }
 
-        /* 4-column flex row */
+        /* 4-column flex row – no outer container background */
         .duel-row {
             display: flex;
             flex-wrap: wrap;
@@ -65,14 +87,14 @@
         }
         .column {
             flex: 1;
-            min-width: 240px;
+            min-width: 230px;
             background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(4px);
             border-radius: 1.2rem;
             padding: 0.8rem;
-            backdrop-filter: blur(3px);
             display: flex;
             flex-direction: column;
-            overflow: hidden; /* prevent any border bleed */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
 
         /* Rules column */
@@ -80,11 +102,13 @@
             gap: 0.8rem;
         }
         .rules-text {
-            font-size: 0.8rem;
-            line-height: 1.35;
-            background: rgba(0,0,0,0.5);
+            font-size: 0.9rem;
+            line-height: 1.4;
+            text-align: justify;
+            background: rgba(0,0,0,0.3);
             padding: 0.6rem;
             border-radius: 1rem;
+            margin-top: 0.3rem;
         }
         .card-back-big {
             text-align: center;
@@ -92,10 +116,15 @@
         }
         .card-back-big img {
             width: 100%;
-            max-width: 140px;
+            max-width: 130px;
             border-radius: 8px;
             border: 2px solid #ffcf9a;
             box-shadow: 0 4px 12px black;
+        }
+        .energy-label {
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-top: 4px;
         }
         .new-game-btn {
             background: #ffb347;
@@ -106,7 +135,7 @@
             cursor: pointer;
             font-size: 0.9rem;
             width: 100%;
-            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
         }
 
         /* Hand columns */
@@ -130,14 +159,12 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 0.7rem;
-            /* removed min-height to avoid empty space and bottom borders */
-            margin-top: 0.3rem;
-            margin-bottom: 0.3rem;
+            gap: 0.6rem;
+            margin: 0.3rem 0;
         }
-        /* Real card size: 2.5 x 3.5 inches (150px width approx) */
+        /* Smaller cards: 120px width (down from 150) */
         .playable-card, .card-back {
-            width: 150px;
+            width: 120px;
             border-radius: 6px;
             text-align: center;
             cursor: pointer;
@@ -171,18 +198,18 @@
         .vs-col {
             justify-content: center;
             align-items: center;
-            gap: 1rem;
+            gap: 0.8rem;
         }
         .battle-cards {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
-            gap: 1rem;
+            gap: 0.8rem;
             margin: 0.5rem 0;
         }
         .battle-card {
-            width: 140px;
+            width: 110px;
             background: #02212ecc;
             border-radius: 6px;
             padding: 0;
@@ -200,10 +227,10 @@
             margin-top: 4px;
         }
         .vs-text {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: bold;
             background: #ffb34766;
-            padding: 0.2rem 0.8rem;
+            padding: 0.2rem 0.6rem;
             border-radius: 50%;
         }
         .drag-hint {
@@ -226,7 +253,7 @@
             background: #2c7da0;
             border: none;
             color: white;
-            padding: 0.4rem 1.2rem;
+            padding: 0.4rem 1rem;
             border-radius: 2rem;
             cursor: pointer;
             font-weight: bold;
@@ -238,41 +265,47 @@
             cursor: not-allowed;
         }
 
-        /* Responsive adjustments */
-        @media (max-width: 1100px) {
-            .playable-card, .card-back { width: 120px; }
-            .battle-card { width: 110px; }
-        }
-        @media (max-width: 900px) {
+        @media (max-width: 1000px) {
             .playable-card, .card-back { width: 100px; }
             .battle-card { width: 95px; }
+        }
+        @media (max-width: 800px) {
+            .playable-card, .card-back { width: 85px; }
+            .battle-card { width: 80px; }
         }
     </style>
 </head>
 <body>
-<div class="game-container">
-    <div class="game-header">
-        <div class="logo"><a href="/">🌊 Capo Lab</a></div>
-        <div class="back-link"><a href="/">← Back</a></div>
-    </div>
+    <!-- Navigation bar (same as main site) -->
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="logo">Capo Lab</a>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/research">Research</a></li>
+                <li><a href="/team">Team</a></li>
+                <li><a href="/news">News</a></li>
+                <li><a href="/micromates">MicroMates™</a></li>
+                <li><a href="/publications">Publications</a></li>
+            </ul>
+        </div>
+    </nav>
 
-    <!-- 4-column main layout -->
+    <!-- 4-column main layout (no outer background) -->
     <div class="duel-row">
-        <!-- COLUMN 1: RULES + NEW GAME + CARD BACK -->
+        <!-- COLUMN 1: RULES + NEW GAME (button at top) -->
         <div class="column rules-col">
+            <button class="new-game-btn" id="resetGameBtn">⟳ NEW GAME</button>
             <div class="rules-text">
                 <strong>⚡ OCEANIC DUEL</strong><br>
-                Start with 6 cards. Drag your card to the center to fight a random opponent card.<br>
-                The energy color (see card back) decides the winner.<br>
-                Winner gets 1 point; both cards are discarded.<br>
-                First to 4 points wins (3‑3 = no winner).<br>
-                Click “Next round” after each fight.
+                Drag a mate to the box "Duel" to fight an opponent card.<br>
+                The energy color decides the winner (see below for energy chart).<br>
+                The player with more wins is the winner.
             </div>
             <div class="card-back-big">
                 <img src="images/mates/back.jpg" alt="card back (energy chart)">
-                <div style="font-size:0.7rem; margin-top:4px;">energy chart</div>
+                <div class="energy-label">⚡ ENERGY CHART ⚡</div>
             </div>
-            <button class="new-game-btn" id="resetGameBtn">⟳ NEW GAME</button>
         </div>
 
         <!-- COLUMN 2: YOUR HAND (with wins counter) -->
@@ -313,265 +346,264 @@
             <div style="font-size:0.7rem; text-align:center; margin-top:6px;" id="opponentCardCount">6 cards left</div>
         </div>
     </div>
-</div>
 
-<script>
-    // --------------------------------------------------------------
-    //  CARD DATA & DECK (55 cards, we only need 6+6 = 12)
-    // --------------------------------------------------------------
-    const REALMS = [
-        "Abyss", "Coral", "Kelp", "SulfurVent", "Frozen",
-        "Atoll", "Pearl", "Magma", "Azure", "Tidal", "Whirlpool"
-    ];
-    const ENERGIES = ["Light", "Nitrogen", "Sulfur", "Carbon", "Special"];
+    <script>
+        // --------------------------------------------------------------
+        //  CARD DATA & DECK (55 cards, we only need 6+6 = 12)
+        // --------------------------------------------------------------
+        const REALMS = [
+            "Abyss", "Coral", "Kelp", "SulfurVent", "Frozen",
+            "Atoll", "Pearl", "Magma", "Azure", "Tidal", "Whirlpool"
+        ];
+        const ENERGIES = ["Light", "Nitrogen", "Sulfur", "Carbon", "Special"];
 
-    function buildFullDeck() {
-        let deck = [];
-        let id = 1;
-        for (let r of REALMS) {
-            for (let e of ENERGIES) {
-                deck.push({ realm: r, energy: e, imageNumber: id++ });
+        function buildFullDeck() {
+            let deck = [];
+            let id = 1;
+            for (let r of REALMS) {
+                for (let e of ENERGIES) {
+                    deck.push({ realm: r, energy: e, imageNumber: id++ });
+                }
             }
+            return shuffle(deck);
         }
-        return shuffle(deck);
-    }
-    function shuffle(arr) {
-        for (let i = arr.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [arr[i], arr[j]] = [arr[j], arr[i]];
+        function shuffle(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
         }
-        return arr;
-    }
-    function getCardImage(card) {
-        const padded = String(card.imageNumber).padStart(2, '0');
-        return `images/mates/mates${padded}.jpg`;
-    }
+        function getCardImage(card) {
+            const padded = String(card.imageNumber).padStart(2, '0');
+            return `images/mates/mates${padded}.jpg`;
+        }
 
-    // Energy rules (same as before)
-    function getWinner(energyA, energyB) {
-        if (energyA === energyB) return "tie";
-        const winMap = {
-            "Sulfur": ["Special","Light"],
-            "Carbon": ["Sulfur","Light"],
-            "Nitrogen": ["Sulfur","Carbon"],
-            "Light": ["Nitrogen","Special"],
-            "Special": ["Carbon","Nitrogen"]
+        // Energy rules (same as before)
+        function getWinner(energyA, energyB) {
+            if (energyA === energyB) return "tie";
+            const winMap = {
+                "Sulfur": ["Special","Light"],
+                "Carbon": ["Sulfur","Light"],
+                "Nitrogen": ["Sulfur","Carbon"],
+                "Light": ["Nitrogen","Special"],
+                "Special": ["Carbon","Nitrogen"]
+            };
+            if (winMap[energyA]?.includes(energyB)) return "player";
+            if (winMap[energyB]?.includes(energyA)) return "opponent";
+            return "tie";
+        }
+
+        // --------------------------------------------------------------
+        //  GAME STATE
+        // --------------------------------------------------------------
+        let game = {
+            playerHand: [],
+            opponentHand: [],
+            playerScore: 0,
+            opponentScore: 0,
+            active: true,
+            roundInProgress: false,
+            draggedCardIndex: null
         };
-        if (winMap[energyA]?.includes(energyB)) return "player";
-        if (winMap[energyB]?.includes(energyA)) return "opponent";
-        return "tie";
-    }
 
-    // --------------------------------------------------------------
-    //  GAME STATE
-    // --------------------------------------------------------------
-    let game = {
-        playerHand: [],
-        opponentHand: [],
-        playerScore: 0,
-        opponentScore: 0,
-        active: true,
-        roundInProgress: false,
-        draggedCardIndex: null
-    };
+        // DOM elements
+        const playerHandDiv = document.getElementById("playerHandContainer");
+        const opponentHandDiv = document.getElementById("opponentHandVisual");
+        const playerWinsSpan = document.getElementById("playerWinsDisplay");
+        const opponentWinsSpan = document.getElementById("opponentWinsDisplay");
+        const playerCardCountSpan = document.getElementById("playerCardCount");
+        const opponentCardCountSpan = document.getElementById("opponentCardCount");
+        const winnerMsgDiv = document.getElementById("winnerMessage");
+        const nextBtn = document.getElementById("nextRoundBtn");
+        const dragHint = document.getElementById("dragHint");
+        const playerBattleImg = document.querySelector("#playerBattleCard img");
+        const opponentBattleImg = document.querySelector("#opponentBattleCard img");
+        const playerBattleLabel = document.querySelector("#playerBattleCard div");
+        const opponentBattleLabel = document.querySelector("#opponentBattleCard div");
+        const dropZone = document.querySelector(".vs-col");
 
-    // DOM elements
-    const playerHandDiv = document.getElementById("playerHandContainer");
-    const opponentHandDiv = document.getElementById("opponentHandVisual");
-    const playerWinsSpan = document.getElementById("playerWinsDisplay");
-    const opponentWinsSpan = document.getElementById("opponentWinsDisplay");
-    const playerCardCountSpan = document.getElementById("playerCardCount");
-    const opponentCardCountSpan = document.getElementById("opponentCardCount");
-    const winnerMsgDiv = document.getElementById("winnerMessage");
-    const nextBtn = document.getElementById("nextRoundBtn");
-    const dragHint = document.getElementById("dragHint");
-    const playerBattleImg = document.querySelector("#playerBattleCard img");
-    const opponentBattleImg = document.querySelector("#opponentBattleCard img");
-    const playerBattleLabel = document.querySelector("#playerBattleCard div");
-    const opponentBattleLabel = document.querySelector("#opponentBattleCard div");
-    const dropZone = document.querySelector(".vs-col");
-
-    // Update UI: hands, scores, win condition
-    function updateUI() {
-        // Player hand (draggable cards)
-        playerHandDiv.innerHTML = "";
-        game.playerHand.forEach((card, idx) => {
-            const div = document.createElement("div");
-            div.className = "playable-card";
-            div.setAttribute("draggable", "true");
-            div.setAttribute("data-index", idx);
-            div.innerHTML = `<img src="${getCardImage(card)}" onerror="this.src='https://placehold.co/150x210?text=card'">`;
-            div.addEventListener("dragstart", (e) => {
-                if (!game.active || game.roundInProgress) {
-                    e.preventDefault();
-                    return false;
-                }
-                game.draggedCardIndex = idx;
-                e.dataTransfer.setData("text/plain", idx);
-                e.dataTransfer.effectAllowed = "move";
-                div.style.opacity = "0.5";
-                dragHint.textContent = "✨ release to fight ✨";
+        // Update UI: hands, scores, win condition
+        function updateUI() {
+            // Player hand (draggable cards)
+            playerHandDiv.innerHTML = "";
+            game.playerHand.forEach((card, idx) => {
+                const div = document.createElement("div");
+                div.className = "playable-card";
+                div.setAttribute("draggable", "true");
+                div.setAttribute("data-index", idx);
+                div.innerHTML = `<img src="${getCardImage(card)}" onerror="this.src='https://placehold.co/120x168?text=card'">`;
+                div.addEventListener("dragstart", (e) => {
+                    if (!game.active || game.roundInProgress) {
+                        e.preventDefault();
+                        return false;
+                    }
+                    game.draggedCardIndex = idx;
+                    e.dataTransfer.setData("text/plain", idx);
+                    e.dataTransfer.effectAllowed = "move";
+                    div.style.opacity = "0.5";
+                    dragHint.textContent = "✨ release to fight ✨";
+                });
+                div.addEventListener("dragend", (e) => {
+                    div.style.opacity = "1";
+                    game.draggedCardIndex = null;
+                    dragHint.textContent = "✨ drag a mate here ✨";
+                });
+                playerHandDiv.appendChild(div);
             });
-            div.addEventListener("dragend", (e) => {
-                div.style.opacity = "1";
-                game.draggedCardIndex = null;
-                dragHint.textContent = "✨ drag a mate here ✨";
-            });
-            playerHandDiv.appendChild(div);
-        });
 
-        // Opponent hand (backs)
-        opponentHandDiv.innerHTML = "";
-        for (let i = 0; i < game.opponentHand.length; i++) {
-            const backDiv = document.createElement("div");
-            backDiv.className = "card-back";
-            backDiv.innerHTML = `<img src="images/mates/back.jpg" onerror="this.src='https://placehold.co/150x210?text=??'">`;
-            opponentHandDiv.appendChild(backDiv);
-        }
+            // Opponent hand (backs)
+            opponentHandDiv.innerHTML = "";
+            for (let i = 0; i < game.opponentHand.length; i++) {
+                const backDiv = document.createElement("div");
+                backDiv.className = "card-back";
+                backDiv.innerHTML = `<img src="images/mates/back.jpg" onerror="this.src='https://placehold.co/120x168?text=??'">`;
+                opponentHandDiv.appendChild(backDiv);
+            }
 
-        playerWinsSpan.innerText = `${game.playerScore} win${game.playerScore !== 1 ? 's' : ''}`;
-        opponentWinsSpan.innerText = `${game.opponentScore} win${game.opponentScore !== 1 ? 's' : ''}`;
-        playerCardCountSpan.innerText = `${game.playerHand.length} card${game.playerHand.length !== 1 ? 's' : ''} left`;
-        opponentCardCountSpan.innerText = `${game.opponentHand.length} card${game.opponentHand.length !== 1 ? 's' : ''} left`;
+            playerWinsSpan.innerText = `${game.playerScore} win${game.playerScore !== 1 ? 's' : ''}`;
+            opponentWinsSpan.innerText = `${game.opponentScore} win${game.opponentScore !== 1 ? 's' : ''}`;
+            playerCardCountSpan.innerText = `${game.playerHand.length} card${game.playerHand.length !== 1 ? 's' : ''} left`;
+            opponentCardCountSpan.innerText = `${game.opponentHand.length} card${game.opponentHand.length !== 1 ? 's' : ''} left`;
 
-        // Win condition
-        if (game.active) {
-            if (game.playerScore >= 4) {
-                game.active = false;
-                game.roundInProgress = true;
-                winnerMsgDiv.innerText = "🏆 VICTORY! You reached 4 wins!";
-                nextBtn.disabled = true;
-                dragHint.textContent = "🏆 GAME OVER";
-            } else if (game.opponentScore >= 4) {
-                game.active = false;
-                game.roundInProgress = true;
-                winnerMsgDiv.innerText = "💀 Opponent reached 4 wins first.";
-                nextBtn.disabled = true;
-                dragHint.textContent = "💀 GAME OVER";
-            } else if (game.playerHand.length === 0 && game.opponentHand.length === 0) {
-                if (game.playerScore > game.opponentScore) {
-                    winnerMsgDiv.innerText = "🏆 You win! (more wins)";
-                } else if (game.opponentScore > game.playerScore) {
-                    winnerMsgDiv.innerText = "💀 Opponent wins (more wins)";
-                } else {
-                    winnerMsgDiv.innerText = "🤝 3‑3 tie – no winner";
+            // Win condition: best of 7 (first to 4 wins) or tie after all cards
+            if (game.active) {
+                if (game.playerScore >= 4) {
+                    game.active = false;
+                    game.roundInProgress = true;
+                    winnerMsgDiv.innerText = "🏆 VICTORY! You reached 4 wins!";
+                    nextBtn.disabled = true;
+                    dragHint.textContent = "🏆 GAME OVER";
+                } else if (game.opponentScore >= 4) {
+                    game.active = false;
+                    game.roundInProgress = true;
+                    winnerMsgDiv.innerText = "💀 Opponent reached 4 wins first.";
+                    nextBtn.disabled = true;
+                    dragHint.textContent = "💀 GAME OVER";
+                } else if (game.playerHand.length === 0 && game.opponentHand.length === 0) {
+                    if (game.playerScore > game.opponentScore) {
+                        winnerMsgDiv.innerText = "🏆 You win! (more wins)";
+                    } else if (game.opponentScore > game.playerScore) {
+                        winnerMsgDiv.innerText = "💀 Opponent wins (more wins)";
+                    } else {
+                        winnerMsgDiv.innerText = "🤝 Tie – no winner";
+                    }
+                    game.active = false;
+                    game.roundInProgress = true;
+                    nextBtn.disabled = true;
+                    dragHint.textContent = "⚡ GAME OVER";
                 }
-                game.active = false;
-                game.roundInProgress = true;
-                nextBtn.disabled = true;
-                dragHint.textContent = "⚡ GAME OVER";
             }
         }
-    }
 
-    // Perform battle after drop
-    async function performBattle(playerIdx) {
-        if (!game.active || game.roundInProgress) return;
-        if (game.playerHand.length === 0 || game.opponentHand.length === 0) return;
+        // Perform battle after drop
+        async function performBattle(playerIdx) {
+            if (!game.active || game.roundInProgress) return;
+            if (game.playerHand.length === 0 || game.opponentHand.length === 0) return;
 
-        const playerCard = game.playerHand[playerIdx];
-        const oppIdx = Math.floor(Math.random() * game.opponentHand.length);
-        const opponentCard = game.opponentHand[oppIdx];
+            const playerCard = game.playerHand[playerIdx];
+            const oppIdx = Math.floor(Math.random() * game.opponentHand.length);
+            const opponentCard = game.opponentHand[oppIdx];
 
-        // Show cards in arena
-        playerBattleImg.src = getCardImage(playerCard);
-        playerBattleLabel.textContent = `${playerCard.energy}`;
-        opponentBattleImg.src = getCardImage(opponentCard);
-        opponentBattleLabel.textContent = `${opponentCard.energy}`;
+            // Show cards in arena
+            playerBattleImg.src = getCardImage(playerCard);
+            playerBattleLabel.textContent = `${playerCard.energy}`;
+            opponentBattleImg.src = getCardImage(opponentCard);
+            opponentBattleLabel.textContent = `${opponentCard.energy}`;
 
-        // Remove both cards from hands
-        game.playerHand.splice(playerIdx, 1);
-        game.opponentHand.splice(oppIdx, 1);
+            // Remove both cards from hands
+            game.playerHand.splice(playerIdx, 1);
+            game.opponentHand.splice(oppIdx, 1);
 
-        const result = getWinner(playerCard.energy, opponentCard.energy);
-        let message = "";
-        if (result === "player") {
-            game.playerScore++;
-            message = `✅ YOU WIN! +1 point (${game.playerScore}‑${game.opponentScore})`;
-        } else if (result === "opponent") {
-            game.opponentScore++;
-            message = `💀 OPPONENT WINS! (${game.playerScore}‑${game.opponentScore})`;
-        } else {
-            message = `⚖️ TIE! No points. (${game.playerScore}‑${game.opponentScore})`;
+            const result = getWinner(playerCard.energy, opponentCard.energy);
+            let message = "";
+            if (result === "player") {
+                game.playerScore++;
+                message = `✅ YOU WIN! +1 point (${game.playerScore}‑${game.opponentScore})`;
+            } else if (result === "opponent") {
+                game.opponentScore++;
+                message = `💀 OPPONENT WINS! (${game.playerScore}‑${game.opponentScore})`;
+            } else {
+                message = `⚖️ TIE! No points. (${game.playerScore}‑${game.opponentScore})`;
+            }
+            winnerMsgDiv.innerText = message;
+
+            updateUI();
+
+            if (!game.active) {
+                nextBtn.disabled = true;
+                return;
+            }
+
+            game.roundInProgress = true;
+            nextBtn.disabled = false;
         }
-        winnerMsgDiv.innerText = message;
 
-        updateUI();
+        // Drop handler
+        function onDrop(e) {
+            e.preventDefault();
+            if (!game.active || game.roundInProgress) return;
+            if (game.draggedCardIndex === null) return;
+            const playerIdx = game.draggedCardIndex;
+            if (playerIdx >= 0 && playerIdx < game.playerHand.length) {
+                performBattle(playerIdx);
+            }
+            game.draggedCardIndex = null;
+            dragHint.textContent = "✨ drag a mate here ✨";
+        }
 
-        if (!game.active) {
+        function allowDrop(e) {
+            e.preventDefault();
+        }
+
+        // Next round
+        function nextRound() {
+            if (!game.active) return;
+            if (!game.roundInProgress) return;
+            game.roundInProgress = false;
+            winnerMsgDiv.innerHTML = "";
+            dragHint.textContent = "✨ drag a mate here ✨";
             nextBtn.disabled = true;
-            return;
+            playerBattleImg.src = "images/mates/back.jpg";
+            playerBattleLabel.textContent = "Your mate";
+            opponentBattleImg.src = "images/mates/back.jpg";
+            opponentBattleLabel.textContent = "Opponent's mate";
+            updateUI();
         }
 
-        game.roundInProgress = true;
-        nextBtn.disabled = false;
-    }
+        // Reset game
+        function initNewGame() {
+            const fullDeck = buildFullDeck();
+            game.playerHand = [];
+            game.opponentHand = [];
+            for (let i = 0; i < 6; i++) {
+                if (fullDeck.length) game.playerHand.push(fullDeck.pop());
+                if (fullDeck.length) game.opponentHand.push(fullDeck.pop());
+            }
+            game.playerScore = 0;
+            game.opponentScore = 0;
+            game.active = true;
+            game.roundInProgress = false;
+            game.draggedCardIndex = null;
 
-    // Drop handler
-    function onDrop(e) {
-        e.preventDefault();
-        if (!game.active || game.roundInProgress) return;
-        if (game.draggedCardIndex === null) return;
-        const playerIdx = game.draggedCardIndex;
-        if (playerIdx >= 0 && playerIdx < game.playerHand.length) {
-            performBattle(playerIdx);
+            playerBattleImg.src = "images/mates/back.jpg";
+            playerBattleLabel.textContent = "Your mate";
+            opponentBattleImg.src = "images/mates/back.jpg";
+            opponentBattleLabel.textContent = "Opponent's mate";
+            winnerMsgDiv.innerHTML = "";
+            dragHint.textContent = "✨ drag a mate here ✨";
+            nextBtn.disabled = true;
+
+            updateUI();
         }
-        game.draggedCardIndex = null;
-        dragHint.textContent = "✨ drag a mate here ✨";
-    }
 
-    function allowDrop(e) {
-        e.preventDefault();
-    }
+        // Event listeners
+        dropZone.addEventListener("dragover", allowDrop);
+        dropZone.addEventListener("drop", onDrop);
+        document.getElementById("resetGameBtn").addEventListener("click", initNewGame);
+        nextBtn.addEventListener("click", nextRound);
 
-    // Next round
-    function nextRound() {
-        if (!game.active) return;
-        if (!game.roundInProgress) return;
-        game.roundInProgress = false;
-        winnerMsgDiv.innerHTML = "";
-        dragHint.textContent = "✨ drag a mate here ✨";
-        nextBtn.disabled = true;
-        playerBattleImg.src = "images/mates/back.jpg";
-        playerBattleLabel.textContent = "Your mate";
-        opponentBattleImg.src = "images/mates/back.jpg";
-        opponentBattleLabel.textContent = "Opponent's mate";
-        updateUI();
-    }
-
-    // Reset game
-    function initNewGame() {
-        const fullDeck = buildFullDeck();
-        game.playerHand = [];
-        game.opponentHand = [];
-        for (let i = 0; i < 6; i++) {
-            if (fullDeck.length) game.playerHand.push(fullDeck.pop());
-            if (fullDeck.length) game.opponentHand.push(fullDeck.pop());
-        }
-        game.playerScore = 0;
-        game.opponentScore = 0;
-        game.active = true;
-        game.roundInProgress = false;
-        game.draggedCardIndex = null;
-
-        playerBattleImg.src = "images/mates/back.jpg";
-        playerBattleLabel.textContent = "Your mate";
-        opponentBattleImg.src = "images/mates/back.jpg";
-        opponentBattleLabel.textContent = "Opponent's mate";
-        winnerMsgDiv.innerHTML = "";
-        dragHint.textContent = "✨ drag a mate here ✨";
-        nextBtn.disabled = true;
-
-        updateUI();
-    }
-
-    // Event listeners
-    dropZone.addEventListener("dragover", allowDrop);
-    dropZone.addEventListener("drop", onDrop);
-    document.getElementById("resetGameBtn").addEventListener("click", initNewGame);
-    nextBtn.addEventListener("click", nextRound);
-
-    initNewGame();
-</script>
+        initNewGame();
+    </script>
 </body>
 </html>
