@@ -3,299 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>MicroMates™ Duel</title>
+    <title>Oceanic Mate Duel · Capo Lab</title>
     <style>
-        /* ========== GLOBAL STYLES (from your original site) ========== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            user-select: none;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
+            font-family: 'Segoe UI', 'Poppins', system-ui, sans-serif;
+            background: radial-gradient(circle at 20% 30%, #043b47, #01161f);
+            min-height: 100vh;
+            padding: 20px;
             color: white;
-            background-image: url('../images/back.jpg');
-            background-size: cover;
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            position: relative;
         }
 
-        body::before {
-            display: none;
-        }
-
-        .container {
-            max-width: 1200px;
+        /* main game container */
+        .game-container {
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 2rem;
-            background-color: transparent;
-            backdrop-filter: none;
-            border-radius: 0;
-            box-shadow: none;
-            margin-top: 2rem;
-            margin-bottom: 2rem;
+            background: rgba(0, 20, 30, 0.75);
+            backdrop-filter: blur(6px);
+            border-radius: 2rem;
+            padding: 1.5rem;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.5);
         }
 
-        nav {
-            position: relative;
-            background-image: url('../images/back.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        nav::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.4);
-            z-index: 0;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem 2rem;
+        /* header with back link */
+        .game-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: relative;
-            z-index: 1;
-            background-color: transparent;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #3a9fc5;
         }
-
-        .logo {
+        .logo a {
             color: white;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: bold;
             text-decoration: none;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            text-shadow: 2px 2px 4px black;
         }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1.2rem;
-            transition: color 0.3s ease;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
+        .back-link a {
             color: #6ab0d6;
-            border-bottom: 2px solid #6ab0d6;
-        }
-
-        footer {
-            text-align: center;
-            padding: 2rem;
-            background-image: url('../images/back.jpg');
-            background-size: cover;
-            background-position: center;
-            position: relative;
-            margin-top: 2rem;
-            border-radius: 8px;
-        }
-
-        footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.4);
-            border-radius: 8px;
-            z-index: 0;
-        }
-
-        footer>* {
-            position: relative;
-            z-index: 1;
-        }
-
-        .footer-content {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .footer-logo img {
-            height: 60px;
-            width: auto;
-            max-width: 150px;
-            object-fit: contain;
-        }
-
-        .footer-info a {
-            color: #6ab0d6;
-        }
-
-        /* Micromates page existing styles (carousel, detail panel) */
-        .micromates-wrapper {
-            width: 100%;
-        }
-
-        .game-header {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            margin: 2rem 0;
-            background: rgba(0, 0, 0, 0.45);
-            border-radius: 24px;
-            padding: 1.5rem;
-        }
-
-        .game-text-box {
-            flex: 2;
-        }
-
-        .game-right-img {
-            flex: 1;
-            text-align: center;
-        }
-
-        .game-right-img img {
-            max-width: 100%;
-            border-radius: 20px;
-        }
-
-        .carousel-box {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 28px;
-            padding: 1rem;
-            margin: 2rem 0;
-        }
-
-        .carousel-title {
-            font-size: 1.6rem;
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-
-        .carousel-container {
-            overflow: hidden;
-        }
-
-        .carousel-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .cards-scroll {
-            flex: 1;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-
-        .cards-track {
-            display: flex;
-            gap: 16px;
-            transition: transform 0.3s ease-out;
-            will-change: transform;
-        }
-
-        .card-item {
-            width: 150px;
-            flex-shrink: 0;
-            cursor: pointer;
-            transition: transform 0.2s, filter 0.2s;
-            border-radius: 16px;
-            overflow: hidden;
-        }
-
-        .card-item.selected {
-            transform: scale(1.02);
-            filter: drop-shadow(0 0 10px #ffd966);
-            border: 2px solid gold;
-        }
-
-        .card-img {
-            width: 100%;
-            border-radius: 16px;
-            display: block;
-        }
-
-        .carousel-btn {
-            background: #2c6b90;
-            border: none;
-            font-size: 2rem;
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            color: white;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .detail-panel {
-            display: flex;
-            gap: 2rem;
-            background: rgba(0, 0, 0, 0.45);
-            border-radius: 20px;
-            padding: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        /* ========== NEW DUEL GAME STYLES ========== */
-        .duel-game-section {
-            margin: 3rem 0 2rem;
-            background: rgba(0, 20, 30, 0.85);
+            background: #00000066;
+            padding: 0.4rem 1rem;
             border-radius: 2rem;
-            padding: 1.5rem;
-            backdrop-filter: blur(6px);
-            border: 1px solid #3a9fc5;
+            text-decoration: none;
         }
 
+        /* rule panel */
+        .rule-panel {
+            background: #00000066;
+            padding: 0.8rem 1.2rem;
+            border-radius: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        /* score & status bar */
         .duel-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 1rem;
-            margin-bottom: 1.5rem;
             background: #021f2ccc;
             border-radius: 3rem;
-            padding: 0.8rem 1.5rem;
+            padding: 0.6rem 1.5rem;
+            margin-bottom: 1.5rem;
         }
-
-        .duel-score {
-            font-size: 1.4rem;
+        .score-card {
+            font-size: 1.3rem;
             font-weight: bold;
             background: #00000099;
-            padding: 0.3rem 1.2rem;
+            padding: 0.3rem 1rem;
             border-radius: 2rem;
         }
-
-        .duel-status {
+        .game-status {
             background: #0a2e3b;
             padding: 0.4rem 1.2rem;
             border-radius: 2rem;
             font-weight: bold;
         }
-
-        .new-duel-btn {
+        .new-game-btn {
             background: #ffb347;
             border: none;
             font-weight: bold;
@@ -305,50 +101,86 @@
             transition: 0.2s;
         }
 
-        .machine-zone {
+        /* battle arena (middle) */
+        .battle-arena {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin: 1.5rem 0;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 2rem;
+            padding: 1.5rem;
+            min-height: 260px;
+        }
+        .battle-card {
+            width: 160px;
+            text-align: center;
+            background: #02212ecc;
+            border-radius: 1rem;
+            padding: 0.8rem;
+            transition: 0.2s;
+        }
+        .battle-card img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px black;
+        }
+        .battle-label {
+            margin-top: 0.5rem;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        .vs {
+            font-size: 2rem;
+            font-weight: bold;
+            background: #ffb34766;
+            padding: 0.5rem 1rem;
+            border-radius: 50%;
+        }
+
+        /* opponent area (left) */
+        .opponent-zone {
             background: #02212eaa;
             border-radius: 1.5rem;
             padding: 1rem;
             margin-bottom: 2rem;
-            text-align: center;
         }
-
-        .machine-cards-area {
+        .opponent-hand {
             display: flex;
             justify-content: center;
             gap: 1rem;
             flex-wrap: wrap;
             margin-top: 0.8rem;
         }
-
-        .card-back-img {
+        .card-back {
             width: 100px;
             background: #1c5f6e;
             border-radius: 1rem;
-            box-shadow: 0 6px 12px black;
-            text-align: center;
             padding: 0.5rem;
+            text-align: center;
+            box-shadow: 0 6px 12px black;
+            cursor: default;
         }
-
-        .card-back-img img {
+        .card-back img {
             width: 100%;
             border-radius: 0.8rem;
         }
 
-        .player-hand-area {
+        /* player area (right) */
+        .player-zone {
             background: #02212eaa;
             border-radius: 1.5rem;
             padding: 1rem;
+            margin-top: 0.5rem;
         }
-
-        .player-cards {
+        .player-hand {
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
             gap: 1rem;
+            flex-wrap: wrap;
             margin-top: 0.8rem;
         }
-
         .playable-card {
             width: 100px;
             background: #fff2df;
@@ -358,479 +190,380 @@
             border: 2px solid #ffcf9a;
             text-align: center;
             padding: 0.4rem;
+            color: #1f2e2e;
         }
-
         .playable-card:hover {
             transform: translateY(-6px);
             border-color: #f5b042;
         }
-
-        .card-energy {
-            font-size: 1.2rem;
+        .playable-card img {
+            width: 100%;
+            border-radius: 8px;
+        }
+        .card-energy-text {
+            font-size: 0.8rem;
             font-weight: bold;
-            text-transform: uppercase;
             background: #1f5e6e;
             display: inline-block;
-            padding: 0.2rem 0.6rem;
-            border-radius: 2rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 1rem;
             color: white;
-            margin: 6px 0;
+            margin-top: 4px;
         }
 
+        /* log panel */
         .duel-log {
             background: #03171fcc;
             border-radius: 1rem;
             margin-top: 1.5rem;
             padding: 0.6rem;
-            max-height: 130px;
+            max-height: 140px;
             overflow-y: auto;
-            font-size: 0.8rem;
-        }
-
-        .rule-panel {
-            background: #00000066;
-            padding: 0.8rem 1.2rem;
-            border-radius: 1.5rem;
-            margin-bottom: 1.2rem;
             font-size: 0.85rem;
-            display: inline-block;
-            width: 100%;
         }
 
-        @media (max-width: 700px) {
-            .playable-card, .card-back-img { width: 75px; }
-            .card-energy { font-size: 0.9rem; }
+        @media (max-width: 750px) {
+            .battle-card { width: 120px; }
+            .card-back, .playable-card { width: 75px; }
+            .vs { font-size: 1.2rem; padding: 0.2rem 0.6rem; }
         }
     </style>
 </head>
 <body>
-    <div id="app"></div>
+<div class="game-container">
+    <div class="game-header">
+        <div class="logo"><a href="/">🌊 Capo Lab</a></div>
+        <div class="back-link"><a href="/">← Back to main site</a></div>
+    </div>
 
-    <script>
-        // *********************************************
-        //  FULL SITE DATA + NAVIGATION (your original main.js integrated)
-        // *********************************************
-        const siteData = {
-            currentPage: 'micromates',   // start directly on Micromates page
-            activePhoto: null,
-            pageContent: {},
-            newsItems: []
-        };
+    <div class="rule-panel">
+        <strong>⚡ OCEANIC MATE DUEL – RULES</strong><br>
+        • You & opponent start with <strong>6 random cards</strong> (front face shown).<br>
+        • Click your card → it moves to center, opponent reveals a random card.<br>
+        • Compare energies: <strong>Win</strong> = steal 1 random card from opponent.<br>
+        • <strong>Tie</strong> = both discarded, each draws 1 from deck.<br>
+        • <strong>First to 10 cards wins!</strong>
+    </div>
 
-        function navigateTo(page) {
-            siteData.currentPage = page;
-            render();
-            updateActiveNav();
-        }
+    <div class="duel-header">
+        <div class="score-card">🐚 YOU: <span id="playerScore">6</span> cards</div>
+        <div class="game-status" id="gameStatus">🌊 Click your card</div>
+        <div class="score-card">👤 OPPONENT: <span id="opponentScore">6</span> cards</div>
+        <button class="new-game-btn" id="resetGameBtn">⟳ NEW GAME</button>
+    </div>
 
-        function updateActiveNav() {
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                const pageName = link.getAttribute('data-page');
-                if (pageName === siteData.currentPage) {
-                    link.classList.add('active');
-                } else {
-                    link.classList.remove('active');
-                }
-            });
-        }
+    <!-- Battle arena (middle) -->
+    <div class="battle-arena" id="battleArena">
+        <div class="battle-card" id="playerBattleCard">
+            <img src="images/mates/back.jpg" alt="your card" style="opacity:0.6;">
+            <div class="battle-label">Your mate</div>
+        </div>
+        <div class="vs">VS</div>
+        <div class="battle-card" id="opponentBattleCard">
+            <img src="images/mates/back.jpg" alt="opponent card" style="opacity:0.6;">
+            <div class="battle-label">Opponent's mate</div>
+        </div>
+    </div>
 
-        function escapeHtml(text) { const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
+    <!-- Opponent area (left side visually, but we place it first) -->
+    <div class="opponent-zone">
+        <div>🌙 OPPONENT'S HAND (face down)</div>
+        <div class="opponent-hand" id="opponentHandVisual"></div>
+    </div>
 
-        // Minimal news & page loader (keeping original structure)
-        async function loadPageContent(page) {
-            if (siteData.pageContent[page]) return siteData.pageContent[page];
-            try {
-                const response = await fetch(`${page}.html`);
-                if (!response.ok) throw new Error();
-                const content = await response.text();
-                siteData.pageContent[page] = content;
-                return content;
-            } catch {
-                return `<h1 class="section-title">${page}</h1><p>Content coming soon...</p>`;
-            }
-        }
+    <!-- Player area (right side) -->
+    <div class="player-zone">
+        <div>🐟 YOUR MATES (click any card)</div>
+        <div class="player-hand" id="playerHandContainer"></div>
+    </div>
 
-        // ========== MICROMATES CAROUSEL (kept functional) ==========
-        let micromatesInitialized = false;
-        let currentCarouselOffset = 0;
-        let TOTAL_CARDS = 55;
-        let selectedCardIndex = 0;
-        let cardsData = [];
-        let realCardWidth = 0, realGap = 0;
-        const MOVE_STEP = 2;
-        let CLONE_COUNT = 3;
+    <div class="duel-log" id="logPanel">
+        <div>✨ New duel! First to 10 cards wins. Steal on victory, tie = discard & redraw.</div>
+    </div>
+</div>
 
-        function getCardImagePath(cardNumber) {
-            const padded = String(cardNumber).padStart(2, '0');
-            return `images/mates/mates${padded}.jpg`;
-        }
+<script>
+    // --------------------------------------------------------------
+    //  CARD DATA & DECK BUILDING (with correct image mapping)
+    // --------------------------------------------------------------
+    const REALMS = [
+        "Abyssal Trench", "Coral Citadel", "Kelp Kingdom", "Sulfur Vents", "Frozen Depths",
+        "Sunken Atoll", "Pearl Expanse", "Magma Rift", "Azure Abyss", "Tidal Throne", "Whirlpool Maw"
+    ];
+    const ENERGIES = ["Light", "Nitrogen", "Sulfur", "Carbon", "Special"];
 
-        function buildMicromatesHTML() {
-            return `
-            <div class="micromates-wrapper">
-                <h1 class="section-title">MicroMates<sup>™</sup> Card Game</h1>
-                <div class="game-header">
-                    <div class="game-text-box">
-                        <h2 style="color:white;">MicroMates<sup>™</sup> Oceanic Realms</h2>
-                        <p><strong>What is MicroMates™?</strong> You collect little creatures called mates, each living in a unique ecosystem and powered by one of five energy sources.</p>
-                        <p><strong>How to play (2–6 players):</strong> Shuffle and deal 7 cards each. Ask any player for a mate from a specific realm using one energy type. Collect all five energies of a realm to score. First to 3 realms wins!</p>
-                        <p>Energy types: ⚡ Light, 💨 Nitrogen, 🔥 Sulfur, 🌿 Carbon, ✨ Special</p>
-                    </div>
-                    <div class="game-right-img"><img src="images/mates/micromates.jpg" alt="logo"></div>
-                </div>
-                <div class="carousel-box">
-                    <h3 class="carousel-title">Oceanic Realms Collection</h3>
-                    <div class="carousel-container">
-                        <div class="carousel-wrapper">
-                            <button class="carousel-btn" id="carouselPrev">‹</button>
-                            <div class="cards-scroll"><div class="cards-track" id="cardsTrack"></div></div>
-                            <button class="carousel-btn" id="carouselNext">›</button>
-                        </div>
-                    </div>
-                </div>
-                <div id="detailPanel" class="detail-panel"><div class="empty-detail">✨ Click on any card above ✨</div></div>
-                <div class="game-header history-section">
-                    <div class="game-text-box"><h2>The Story Behind MicroMates™</h2><p>Developed by Eric Capo & Meifang Zhong (Umeå University) and artist Thomas Cerigny. Each card links to real microorganisms.</p><a href="https://www.umu.se/en/news/researchers-card-game-teaches-children-about-microorganisms_12144957/" target="_blank">Umeå news spotlight</a></div>
-                    <div class="game-right-img"><img src="images/mates/history.jpg" alt="history"></div>
-                </div>
-                
-                <!-- ========== NEW DUEL GAME SECTION ========== -->
-                <div class="duel-game-section" id="duelGameRoot">
-                    <div class="rule-panel">
-                        <strong>⚡ OCEANIC MATE DUEL – RULES</strong><br>
-                        • You & machine start with <strong>6 random cards</strong>.<br>
-                        • Each round: pick a card → machine picks random → compare ENERGY (see chart).<br>
-                        • <strong>Win:</strong> steal 1 random card from opponent.<br>
-                        • <strong>Tie:</strong> both cards discarded, each draws 1 from deck.<br>
-                        • <strong>First to 10 cards wins!</strong>
-                    </div>
-                    <div class="duel-header">
-                        <div class="duel-score">🐚 YOU: <span id="duelPlayerCards">0</span> cards</div>
-                        <div class="duel-status" id="duelGameStatus">🌊 Choose a card</div>
-                        <div class="duel-score">🤖 MACHINE: <span id="duelMachineCards">0</span> cards</div>
-                        <button class="new-duel-btn" id="resetDuelBtn">⟳ NEW DUEL</button>
-                    </div>
-                    <div class="machine-zone">
-                        <div>🌙 MACHINE HAND (face down)</div>
-                        <div class="machine-cards-area" id="machineHandVisual"></div>
-                    </div>
-                    <div class="player-hand-area">
-                        <div>🐟 YOUR MATES (click to play)</div>
-                        <div class="player-cards" id="playerHandContainer"></div>
-                    </div>
-                    <div class="duel-log" id="duelLogPanel">
-                        <div>✨ New duel! First to 10 cards wins. Steal on victory, tie = discard & redraw.</div>
-                    </div>
-                </div>
-            </div>`;
-        }
-
-        // carousel functions (simplified stubs to keep existing look)
-        function renderCarouselTrack() {
-            const track = document.getElementById('cardsTrack');
-            if (!track) return;
-            let html = '';
-            for (let copy = 0; copy < CLONE_COUNT; copy++) {
-                for (let i = 0; i < TOTAL_CARDS; i++) {
-                    const imgPath = getCardImagePath(i+1);
-                    const selectedClass = (selectedCardIndex === i && copy === 1) ? 'selected' : '';
-                    html += `<div class="card-item ${selectedClass}" data-card-index="${i}" data-copy="${copy}"><img src="${imgPath}" class="card-img" onerror="this.src='https://placehold.co/160x240?text=Card'"></div>`;
-                }
-            }
-            track.innerHTML = html;
-            attachCardClickEvents();
-            const first = track.querySelector('.card-item');
-            if(first) { realCardWidth = first.offsetWidth; const style=getComputedStyle(track); realGap=parseFloat(style.gap)||0; }
-            currentCarouselOffset = TOTAL_CARDS;
-            updateCarouselPosition(true);
-        }
-        function attachCardClickEvents() {
-            document.querySelectorAll('.card-item').forEach(card=>{
-                const newCard = card.cloneNode(true);
-                card.parentNode.replaceChild(newCard,card);
-                const idx = parseInt(newCard.dataset.cardIndex);
-                newCard.addEventListener('click',()=>{
-                    selectedCardIndex = idx;
-                    document.querySelectorAll('.card-item').forEach(c=>{
-                        const ci=parseInt(c.dataset.cardIndex), cp=parseInt(c.dataset.copy);
-                        if(ci===selectedCardIndex && cp===1) c.classList.add('selected');
-                        else c.classList.remove('selected');
-                    });
-                    centerOnCard(selectedCardIndex);
-                    updateDetailPanel(selectedCardIndex);
-                });
-            });
-        }
-        function updateCarouselPosition(skip=false) {
-            const track=document.getElementById('cardsTrack');
-            if(!track||realCardWidth===0) return;
-            const full=realCardWidth+realGap;
-            if(skip) track.style.transition='none';
-            track.style.transform=`translateX(-${currentCarouselOffset*full}px)`;
-            if(skip) track.offsetHeight, track.style.transition='';
-            if(currentCarouselOffset>=TOTAL_CARDS*(CLONE_COUNT-1)) { currentCarouselOffset-=TOTAL_CARDS; track.style.transition='none'; track.style.transform=`translateX(-${currentCarouselOffset*full}px)`; track.offsetHeight; track.style.transition=''; }
-            else if(currentCarouselOffset<TOTAL_CARDS) { currentCarouselOffset+=TOTAL_CARDS; track.style.transition='none'; track.style.transform=`translateX(-${currentCarouselOffset*full}px)`; track.offsetHeight; track.style.transition=''; }
-        }
-        function moveCarousel(dir) { if(realCardWidth){ const step = realCardWidth+realGap; currentCarouselOffset += (dir==='prev' ? -MOVE_STEP : MOVE_STEP); updateCarouselPosition(false); } }
-        function centerOnCard(idx) { if(realCardWidth){ const full=realCardWidth+realGap; const target=TOTAL_CARDS+idx; const container=document.querySelector('.cards-scroll'); const containerWidth=container?container.clientWidth:0; const cardsPerView=Math.floor(containerWidth/full); const desired=Math.max(0, target-Math.floor(cardsPerView/2)); currentCarouselOffset=desired; updateCarouselPosition(false); } }
-        function updateDetailPanel(idx) { 
-            const panel=document.getElementById('detailPanel');
-            if(!panel) return;
-            const imgSrc=getCardImagePath(idx+1);
-            panel.innerHTML=`<div class="detail-image"><img src="${imgSrc}" style="width:100%;border-radius:16px;"></div><div class="detail-text"><h3>Oceanic Mate #${idx+1}</h3><div class="mate-location">Explore the collection</div><div class="detail-description">Part of the 55-card MicroMates set.</div></div>`;
-        }
-        function initMicromatesPage() {
-            TOTAL_CARDS=55;
-            renderCarouselTrack();
-            const prevBtn=document.getElementById('carouselPrev'), nextBtn=document.getElementById('carouselNext');
-            if(prevBtn){ const newPrev=prevBtn.cloneNode(true); prevBtn.parentNode.replaceChild(newPrev,prevBtn); newPrev.addEventListener('click',()=>moveCarousel('prev')); }
-            if(nextBtn){ const newNext=nextBtn.cloneNode(true); nextBtn.parentNode.replaceChild(newNext,nextBtn); newNext.addEventListener('click',()=>moveCarousel('next')); }
-            updateDetailPanel(0);
-        }
-
-        // *********************************************
-        //  OCEANIC MATE DUEL GAME (Steal to 10)
-        // *********************************************
-        const REALMS_LIST = ["Abyss","Coral","Kelp","SulfurVent","Frozen","Atoll","Pearl","Magma","Azure","Tidal","Whirlpool"];
-        function buildDeck() {
-            let deck = [];
-            let cardId = 1;
-            for(let r of REALMS_LIST) {
-                for(let e of ["Light","Nitrogen","Sulfur","Carbon","Special"]) {
-                    deck.push({ realm: r, energy: e, id: cardId++ });
-                }
-            }
-            return shuffleArray(deck);
-        }
-        function shuffleArray(arr) { for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; } return arr; }
-
-        // Energy rules (fixed)
-        function duelWinner(playerEnergy, machineEnergy) {
-            if(playerEnergy===machineEnergy) return "tie";
-            const winMap = {
-                "Sulfur": ["Special","Light"],
-                "Carbon": ["Sulfur","Light"],
-                "Nitrogen": ["Sulfur","Carbon"],
-                "Light": ["Nitrogen","Special"],
-                "Special": ["Carbon","Nitrogen"]
-            };
-            if(winMap[playerEnergy]?.includes(machineEnergy)) return "player";
-            if(winMap[machineEnergy]?.includes(playerEnergy)) return "machine";
-            return "tie";
-        }
-
-        let gameState = {
-            playerHand: [],
-            machineHand: [],
-            drawDeck: [],
-            discardPile: [],
-            gameActive: true,
-            waiting: false
-        };
-
-        function addDuelLog(msg) {
-            const logDiv = document.getElementById("duelLogPanel");
-            if(logDiv) {
-                const entry = document.createElement("div");
-                entry.className = "log-entry";
-                entry.textContent = msg;
-                logDiv.appendChild(entry);
-                entry.scrollIntoView({ behavior: "smooth", block: "nearest" });
-                while(logDiv.children.length > 25) logDiv.removeChild(logDiv.firstChild);
-            }
-        }
-
-        function drawFromDeck() {
-            if(gameState.drawDeck.length === 0) {
-                if(gameState.discardPile.length === 0) return null;
-                gameState.drawDeck = shuffleArray([...gameState.discardPile]);
-                gameState.discardPile = [];
-                addDuelLog("📜 Deck reshuffled from discard pile.");
-            }
-            return gameState.drawDeck.pop();
-        }
-
-        function updateDuelUI() {
-            const playerSpan = document.getElementById("duelPlayerCards");
-            const machineSpan = document.getElementById("duelMachineCards");
-            const playerContainer = document.getElementById("playerHandContainer");
-            const machineVisual = document.getElementById("machineHandVisual");
-            if(playerSpan) playerSpan.innerText = gameState.playerHand.length;
-            if(machineSpan) machineSpan.innerText = gameState.machineHand.length;
-            if(playerContainer) {
-                playerContainer.innerHTML = "";
-                gameState.playerHand.forEach((card, idx) => {
-                    const cardDiv = document.createElement("div");
-                    cardDiv.className = "playable-card";
-                    cardDiv.innerHTML = `<div style="font-size:0.7rem;">${card.realm}</div><div class="card-energy">⚡ ${card.energy}</div>`;
-                    if(gameState.gameActive && !gameState.waiting) {
-                        cardDiv.style.cursor = "pointer";
-                        cardDiv.onclick = () => playRound(idx);
-                    } else cardDiv.style.cursor = "default";
-                    playerContainer.appendChild(cardDiv);
+    // Build full 55-card deck, each card has realm, energy, and imageNumber (1-55)
+    function buildFullDeck() {
+        let deck = [];
+        let imageId = 1;
+        for (let rIdx = 0; rIdx < REALMS.length; rIdx++) {
+            for (let eIdx = 0; eIdx < ENERGIES.length; eIdx++) {
+                deck.push({
+                    realm: REALMS[rIdx],
+                    energy: ENERGIES[eIdx],
+                    imageNumber: imageId++
                 });
             }
-            if(machineVisual) {
-                machineVisual.innerHTML = "";
-                for(let i=0;i<gameState.machineHand.length;i++) {
-                    const backDiv = document.createElement("div");
-                    backDiv.className = "card-back-img";
-                    backDiv.innerHTML = `<img src="images/mates/back.jpg" alt="back" style="width:100%;border-radius:8px;"><div style="font-size:0.7rem;">???</div>`;
-                    machineVisual.appendChild(backDiv);
-                }
-            }
-            // check win condition
-            if(gameState.gameActive) {
-                if(gameState.playerHand.length >= 10) {
-                    gameState.gameActive = false;
-                    document.getElementById("duelGameStatus").innerText = "🏆 YOU WIN! 10 cards! 🏆";
-                    addDuelLog("✨ VICTORY! You reached 10 cards!");
-                } else if(gameState.machineHand.length >= 10) {
-                    gameState.gameActive = false;
-                    document.getElementById("duelGameStatus").innerText = "💀 MACHINE WINS (10 cards)";
-                    addDuelLog("❌ Machine reached 10 cards first.");
-                } else if(gameState.playerHand.length===0) {
-                    gameState.gameActive = false;
-                    document.getElementById("duelGameStatus").innerText = "💀 No cards left - Machine wins";
-                } else if(gameState.machineHand.length===0) {
-                    gameState.gameActive = false;
-                    document.getElementById("duelGameStatus").innerText = "🏆 Machine out of cards - You win!";
-                }
-            }
+        }
+        return shuffle(deck);
+    }
+
+    function shuffle(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
+
+    // Helper: get image path for a card
+    function getCardImagePath(card) {
+        const padded = String(card.imageNumber).padStart(2, '0');
+        return `images/mates/mates${padded}.jpg`;
+    }
+
+    // Energy win rules (fixed)
+    function getWinner(playerEnergy, opponentEnergy) {
+        if (playerEnergy === opponentEnergy) return "tie";
+        const winMap = {
+            "Sulfur": ["Special", "Light"],
+            "Carbon": ["Sulfur", "Light"],
+            "Nitrogen": ["Sulfur", "Carbon"],
+            "Light": ["Nitrogen", "Special"],
+            "Special": ["Carbon", "Nitrogen"]
+        };
+        if (winMap[playerEnergy]?.includes(opponentEnergy)) return "player";
+        if (winMap[opponentEnergy]?.includes(playerEnergy)) return "opponent";
+        return "tie";
+    }
+
+    // --------------------------------------------------------------
+    //  GAME STATE
+    // --------------------------------------------------------------
+    let game = {
+        playerHand: [],      // array of card objects
+        opponentHand: [],
+        drawDeck: [],
+        discardPile: [],
+        active: true,
+        waiting: false,
+        currentBattle: null   // { playerCard, opponentCard }
+    };
+
+    // DOM elements
+    const playerContainer = document.getElementById("playerHandContainer");
+    const opponentVisual = document.getElementById("opponentHandVisual");
+    const playerScoreSpan = document.getElementById("playerScore");
+    const opponentScoreSpan = document.getElementById("opponentScore");
+    const gameStatusDiv = document.getElementById("gameStatus");
+    const logPanel = document.getElementById("logPanel");
+    const playerBattleImg = document.querySelector("#playerBattleCard img");
+    const opponentBattleImg = document.querySelector("#opponentBattleCard img");
+    const playerBattleLabel = document.querySelector("#playerBattleCard .battle-label");
+    const opponentBattleLabel = document.querySelector("#opponentBattleCard .battle-label");
+
+    function addLog(msg) {
+        const entry = document.createElement("div");
+        entry.textContent = msg;
+        logPanel.appendChild(entry);
+        entry.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        while (logPanel.children.length > 25) logPanel.removeChild(logPanel.firstChild);
+    }
+
+    // Draw from deck (reshuffle discard if needed)
+    function drawCard() {
+        if (game.drawDeck.length === 0) {
+            if (game.discardPile.length === 0) return null;
+            game.drawDeck = shuffle([...game.discardPile]);
+            game.discardPile = [];
+            addLog("📜 Deck reshuffled from discard pile.");
+        }
+        return game.drawDeck.pop();
+    }
+
+    // Steal random card from loser to winner
+    function stealCard(winnerHand, loserHand) {
+        if (loserHand.length === 0) return false;
+        const idx = Math.floor(Math.random() * loserHand.length);
+        const stolen = loserHand.splice(idx, 1)[0];
+        winnerHand.push(stolen);
+        return true;
+    }
+
+    // Resolve tie: both to discard, each draws 1
+    function resolveTie(playerCard, opponentCard) {
+        addLog(`⚖️ TIE! ${playerCard.energy} vs ${opponentCard.energy} → both discarded, each draws 1.`);
+        game.discardPile.push(playerCard, opponentCard);
+        const newPlayer = drawCard();
+        const newOpponent = drawCard();
+        if (newPlayer) game.playerHand.push(newPlayer);
+        else addLog("⚠️ No card to draw for you.");
+        if (newOpponent) game.opponentHand.push(newOpponent);
+        else addLog("⚠️ No card to draw for opponent.");
+    }
+
+    // Clear battle arena (reset to placeholder)
+    function resetBattleDisplay() {
+        playerBattleImg.src = "images/mates/back.jpg";
+        playerBattleImg.style.opacity = "0.6";
+        playerBattleLabel.textContent = "Your mate";
+        opponentBattleImg.src = "images/mates/back.jpg";
+        opponentBattleImg.style.opacity = "0.6";
+        opponentBattleLabel.textContent = "Opponent's mate";
+    }
+
+    // Show both cards in battle arena
+    function showBattleCards(playerCard, opponentCard) {
+        playerBattleImg.src = getCardImagePath(playerCard);
+        playerBattleImg.style.opacity = "1";
+        playerBattleLabel.textContent = `${playerCard.energy} · ${playerCard.realm.substring(0,12)}`;
+        opponentBattleImg.src = getCardImagePath(opponentCard);
+        opponentBattleImg.style.opacity = "1";
+        opponentBattleLabel.textContent = `${opponentCard.energy} · ${opponentCard.realm.substring(0,12)}`;
+    }
+
+    // Play a round
+    async function playRound(playerIndex) {
+        if (!game.active || game.waiting) return;
+        game.waiting = true;
+        updateUI();
+
+        const playerCard = game.playerHand[playerIndex];
+        // Opponent picks random card from its hand
+        const opponentIdx = Math.floor(Math.random() * game.opponentHand.length);
+        const opponentCard = game.opponentHand[opponentIdx];
+
+        // Show both cards in the middle
+        showBattleCards(playerCard, opponentCard);
+        addLog(`🌊 You play ${playerCard.energy}  vs  👤 Opponent plays ${opponentCard.energy}`);
+
+        // Remove both cards from hands
+        game.playerHand.splice(playerIndex, 1);
+        game.opponentHand.splice(opponentIdx, 1);
+
+        const result = getWinner(playerCard.energy, opponentCard.energy);
+        if (result === "player") {
+            addLog(`✅ YOU WIN! Steal 1 card from opponent.`);
+            const stolen = stealCard(game.playerHand, game.opponentHand);
+            if (stolen) addLog(`🔁 You gained a card.`);
+            else addLog(`⚠️ Opponent had no cards to steal.`);
+            gameStatusDiv.innerText = "✅ You won the duel! +1 card";
+        } 
+        else if (result === "opponent") {
+            addLog(`💀 OPPONENT WINS! Steals 1 card from you.`);
+            const stolen = stealCard(game.opponentHand, game.playerHand);
+            if (stolen) addLog(`🔁 Opponent stole one of your cards.`);
+            else addLog(`⚠️ You had no cards to steal.`);
+            gameStatusDiv.innerText = "❌ Opponent wins the duel!";
+        }
+        else { // tie
+            resolveTie(playerCard, opponentCard);
+            gameStatusDiv.innerText = "⚡ Tie! Cards replaced.";
         }
 
-        async function playRound(playerIdx) {
-            if(!gameState.gameActive || gameState.waiting) return;
-            gameState.waiting = true;
-            updateDuelUI();
-            const playerCard = gameState.playerHand[playerIdx];
-            const machineIdx = Math.floor(Math.random() * gameState.machineHand.length);
-            const machineCard = gameState.machineHand[machineIdx];
-            addDuelLog(`🌊 You: ${playerCard.energy}  vs  🤖 Machine: ${machineCard.energy}`);
-            // remove both cards
-            gameState.playerHand.splice(playerIdx,1);
-            gameState.machineHand.splice(machineIdx,1);
-            const result = duelWinner(playerCard.energy, machineCard.energy);
-            if(result === "player") {
-                addDuelLog(`✅ YOU WIN! Steal 1 card from machine.`);
-                if(gameState.machineHand.length > 0) {
-                    const stolenIdx = Math.floor(Math.random() * gameState.machineHand.length);
-                    const stolen = gameState.machineHand.splice(stolenIdx,1)[0];
-                    gameState.playerHand.push(stolen);
-                    addDuelLog(`🔁 Stolen: ${stolen.realm} (${stolen.energy})`);
-                } else addDuelLog(`⚠️ Machine had no cards to steal.`);
-                document.getElementById("duelGameStatus").innerText = "✅ You won the duel! +1 card";
-            } 
-            else if(result === "machine") {
-                addDuelLog(`💀 MACHINE WINS! Steals 1 card from you.`);
-                if(gameState.playerHand.length > 0) {
-                    const stolenIdx = Math.floor(Math.random() * gameState.playerHand.length);
-                    const stolen = gameState.playerHand.splice(stolenIdx,1)[0];
-                    gameState.machineHand.push(stolen);
-                    addDuelLog(`🔁 Machine stole: ${stolen.realm} (${stolen.energy})`);
-                } else addDuelLog(`⚠️ You had no cards to steal.`);
-                document.getElementById("duelGameStatus").innerText = "❌ Machine wins the duel!";
-            }
-            else { // tie
-                addDuelLog(`⚖️ TIE! Both cards discarded. Each draws 1 card.`);
-                gameState.discardPile.push(playerCard, machineCard);
-                const newPlayer = drawFromDeck();
-                const newMachine = drawFromDeck();
-                if(newPlayer) gameState.playerHand.push(newPlayer);
-                else addDuelLog("⚠️ No card to draw for you.");
-                if(newMachine) gameState.machineHand.push(newMachine);
-                else addDuelLog("⚠️ No card to draw for machine.");
-                document.getElementById("duelGameStatus").innerText = "⚡ Tie! Cards replaced.";
-            }
-            updateDuelUI();
-            if(!gameState.gameActive) {
-                gameState.waiting = false;
-                return;
-            }
-            if(gameState.playerHand.length===0 || gameState.machineHand.length===0 || gameState.playerHand.length>=10 || gameState.machineHand.length>=10) {
-                gameState.gameActive = false;
-                updateDuelUI();
-                gameState.waiting = false;
-                return;
-            }
-            gameState.waiting = false;
-            document.getElementById("duelGameStatus").innerText = "🌊 Select a card";
-            updateDuelUI();
+        updateUI();
+
+        // Win condition checks (first to 10)
+        if (game.playerHand.length >= 10) {
+            game.active = false;
+            gameStatusDiv.innerText = "🏆 YOU WIN! First to 10 cards! 🏆";
+            addLog("✨✨ VICTORY! You reached 10 cards! ✨✨");
+            resetBattleDisplay();
+        } else if (game.opponentHand.length >= 10) {
+            game.active = false;
+            gameStatusDiv.innerText = "💀 OPPONENT WINS (10 cards)";
+            addLog("❌ Opponent reached 10 cards first.");
+            resetBattleDisplay();
+        } else if (game.playerHand.length === 0) {
+            game.active = false;
+            gameStatusDiv.innerText = "💀 No cards left – Opponent wins";
+            addLog("💀 You lost all cards.");
+            resetBattleDisplay();
+        } else if (game.opponentHand.length === 0) {
+            game.active = false;
+            gameStatusDiv.innerText = "🏆 Opponent has no cards – You win!";
+            addLog("🏆 Opponent ran out of cards.");
+            resetBattleDisplay();
         }
 
-        function initNewDuel() {
-            const fullDeck = buildDeck();  // 55 shuffled
-            gameState.playerHand = [];
-            gameState.machineHand = [];
-            for(let i=0;i<6;i++) {
-                if(fullDeck.length) gameState.playerHand.push(fullDeck.pop());
-                if(fullDeck.length) gameState.machineHand.push(fullDeck.pop());
-            }
-            gameState.drawDeck = fullDeck;
-            gameState.discardPile = [];
-            gameState.gameActive = true;
-            gameState.waiting = false;
-            addDuelLog("🔄 NEW DUEL! Each has 6 cards. First to 10 wins (steal mechanic).");
-            document.getElementById("duelGameStatus").innerText = "🌊 Choose a card";
-            updateDuelUI();
+        if (!game.active) {
+            game.waiting = false;
+            updateUI();
+            return;
         }
 
-        function attachDuelEvents() {
-            const resetBtn = document.getElementById("resetDuelBtn");
-            if(resetBtn) resetBtn.addEventListener("click", ()=>{ initNewDuel(); });
-        }
+        // Reset battle arena after a short delay (keep cards visible for 1.5s)
+        setTimeout(() => {
+            if (game.active && !game.waiting) resetBattleDisplay();
+            else if (!game.active) resetBattleDisplay();
+        }, 1500);
 
-        // *********************************************
-        // MAIN RENDER (integrates everything)
-        // *********************************************
-        async function render() {
-            const app = document.getElementById('app');
-            if (!app) return;
-            const navigation = `
-                <nav>
-                    <div class="nav-container">
-                        <a href="#" onclick="navigateTo('home'); return false;" class="logo">Capo Lab</a>
-                        <ul class="nav-links">
-                            <li><a href="#" data-page="home" onclick="navigateTo('home'); return false;">Home</a></li>
-                            <li><a href="#" data-page="research" onclick="navigateTo('research'); return false;">Research</a></li>
-                            <li><a href="#" data-page="team" onclick="navigateTo('team'); return false;">Team</a></li>
-                            <li><a href="#" data-page="news" onclick="navigateTo('news'); return false;">News</a></li>
-                            <li><a href="#" data-page="micromates" onclick="navigateTo('micromates'); return false;">MicroMates<sup>™</sup></a></li>
-                            <li><a href="#" data-page="publications" onclick="navigateTo('publications'); return false;">Publications</a></li>
-                        </ul>
-                    </div>
-                </nav>
-                <div class="container" id="page-container"></div>
-                <footer>
-                    <div class="footer-content">
-                        <div class="footer-logo"><img src="images/others/umu.png" alt="UMU"></div>
-                        <div class="footer-info"><p>Contact: <a href="mailto:eric.capo@umu.se">eric.capo@umu.se</a></p><p>Department of Ecology, Environment and Geoscience, Umeå University</p></div>
-                    </div>
-                </footer>
-                <div id="modal" class="modal"><div id="modal-content"></div></div>
+        game.waiting = false;
+        gameStatusDiv.innerText = "🌊 Select a card";
+        updateUI();
+    }
+
+    // Refresh UI: player hand (with images), opponent hand (backs), scores
+    function updateUI() {
+        playerScoreSpan.innerText = game.playerHand.length;
+        opponentScoreSpan.innerText = game.opponentHand.length;
+
+        // Player hand (right side) – show card fronts
+        playerContainer.innerHTML = "";
+        game.playerHand.forEach((card, idx) => {
+            const cardDiv = document.createElement("div");
+            cardDiv.className = "playable-card";
+            const imgSrc = getCardImagePath(card);
+            cardDiv.innerHTML = `
+                <img src="${imgSrc}" alt="${card.energy}" onerror="this.src='https://placehold.co/100x140?text=${card.energy}'">
+                <div class="card-energy-text">⚡ ${card.energy}</div>
             `;
-            app.innerHTML = navigation;
-            const pageContainer = document.getElementById('page-container');
-            if (siteData.currentPage === 'micromates') {
-                pageContainer.innerHTML = buildMicromatesHTML();
-                initMicromatesPage();
-                initNewDuel();      // start duel game
-                attachDuelEvents();
+            if (game.active && !game.waiting) {
+                cardDiv.style.cursor = "pointer";
+                cardDiv.onclick = () => playRound(idx);
             } else {
-                let content = await loadPageContent(siteData.currentPage);
-                pageContainer.innerHTML = content;
+                cardDiv.style.cursor = "default";
             }
-            updateActiveNav();
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            render();
-            document.addEventListener('click', (e) => { if (e.target === document.getElementById('modal')) closeModal(); });
-            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+            playerContainer.appendChild(cardDiv);
         });
-        window.navigateTo = navigateTo;
-        window.closeModal = () => { document.getElementById('modal')?.classList.remove('active'); };
-        window.openModal = (photo) => { /* dummy */ };
-    </script>
+
+        // Opponent hand (left side) – show card backs
+        opponentVisual.innerHTML = "";
+        for (let i = 0; i < game.opponentHand.length; i++) {
+            const backDiv = document.createElement("div");
+            backDiv.className = "card-back";
+            backDiv.innerHTML = `<img src="images/mates/back.jpg" alt="card back" onerror="this.src='https://placehold.co/100x140?text=??'"><div style="font-size:0.7rem;">???</div>`;
+            opponentVisual.appendChild(backDiv);
+        }
+    }
+
+    // Initialize new game
+    function initNewGame() {
+        const fullDeck = buildFullDeck();  // 55 shuffled cards
+        game.playerHand = [];
+        game.opponentHand = [];
+        // deal 6 cards each
+        for (let i = 0; i < 6; i++) {
+            if (fullDeck.length) game.playerHand.push(fullDeck.pop());
+            if (fullDeck.length) game.opponentHand.push(fullDeck.pop());
+        }
+        game.drawDeck = fullDeck;
+        game.discardPile = [];
+        game.active = true;
+        game.waiting = false;
+        resetBattleDisplay();
+        addLog("🔄 NEW GAME! Each has 6 cards. First to 10 wins (steal mechanic).");
+        gameStatusDiv.innerText = "🌊 Click your card";
+        updateUI();
+    }
+
+    // Attach reset button event
+    document.getElementById("resetGameBtn").addEventListener("click", () => {
+        initNewGame();
+    });
+
+    // Start the game
+    initNewGame();
+</script>
 </body>
 </html>
