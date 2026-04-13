@@ -14,24 +14,27 @@
 
         body {
             font-family: 'Segoe UI', 'Poppins', system-ui, sans-serif;
-            background: radial-gradient(circle at 20% 30%, #043b47, #01161f);
+            background-image: url('../images/back.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
             min-height: 100vh;
             padding: 20px;
             color: white;
         }
 
-        /* main game container */
+        /* main container with transparency */
         .game-container {
-            max-width: 1400px;
+            max-width: 1500px;
             margin: 0 auto;
-            background: rgba(0, 20, 30, 0.75);
-            backdrop-filter: blur(6px);
+            background: rgba(0, 20, 30, 0.7);
+            backdrop-filter: blur(5px);
             border-radius: 2rem;
             padding: 1.5rem;
             box-shadow: 0 20px 35px rgba(0,0,0,0.5);
         }
 
-        /* header with back link */
+        /* header */
         .game-header {
             display: flex;
             justify-content: space-between;
@@ -56,17 +59,35 @@
             text-decoration: none;
         }
 
-        /* rule panel */
-        .rule-panel {
-            background: #00000066;
-            padding: 0.8rem 1.2rem;
+        /* rules panel with image */
+        .rules-panel {
+            background: rgba(0, 0, 0, 0.65);
             border-radius: 1.5rem;
-            margin-bottom: 1.5rem;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .rules-text {
+            flex: 3;
             font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        .rules-img {
+            flex: 1;
             text-align: center;
         }
+        .rules-img img {
+            max-width: 100px;
+            border-radius: 12px;
+            border: 2px solid #ffcf9a;
+            box-shadow: 0 4px 12px black;
+        }
 
-        /* score & status bar */
+        /* score bar */
         .duel-header {
             display: flex;
             justify-content: space-between;
@@ -101,107 +122,72 @@
             transition: 0.2s;
         }
 
-        /* battle arena (middle) */
-        .battle-arena {
+        /* main battle row: left (player), center (VS), right (opponent) */
+        .battle-row {
             display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .player-side {
+            flex: 2;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 1.5rem;
+            padding: 1rem;
+        }
+        .center-arena {
+            flex: 1.5;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 2rem;
+            padding: 1rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 2rem;
-            margin: 1.5rem 0;
+            gap: 1rem;
+        }
+        .opponent-side {
+            flex: 2;
             background: rgba(0, 0, 0, 0.4);
-            border-radius: 2rem;
-            padding: 1.5rem;
-            min-height: 260px;
-        }
-        .battle-card {
-            width: 160px;
-            text-align: center;
-            background: #02212ecc;
-            border-radius: 1rem;
-            padding: 0.8rem;
-            transition: 0.2s;
-        }
-        .battle-card img {
-            width: 100%;
-            border-radius: 12px;
-            box-shadow: 0 8px 16px black;
-        }
-        .battle-label {
-            margin-top: 0.5rem;
-            font-weight: bold;
-            font-size: 0.9rem;
-        }
-        .vs {
-            font-size: 2rem;
-            font-weight: bold;
-            background: #ffb34766;
-            padding: 0.5rem 1rem;
-            border-radius: 50%;
-        }
-
-        /* opponent area (left) */
-        .opponent-zone {
-            background: #02212eaa;
             border-radius: 1.5rem;
             padding: 1rem;
-            margin-bottom: 2rem;
-        }
-        .opponent-hand {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-top: 0.8rem;
-        }
-        .card-back {
-            width: 100px;
-            background: #1c5f6e;
-            border-radius: 1rem;
-            padding: 0.5rem;
-            text-align: center;
-            box-shadow: 0 6px 12px black;
-            cursor: default;
-        }
-        .card-back img {
-            width: 100%;
-            border-radius: 0.8rem;
         }
 
-        /* player area (right) */
-        .player-zone {
-            background: #02212eaa;
-            border-radius: 1.5rem;
-            padding: 1rem;
-            margin-top: 0.5rem;
+        /* hand cards */
+        .hand-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-align: center;
         }
-        .player-hand {
+        .cards-grid {
             display: flex;
-            justify-content: center;
-            gap: 1rem;
             flex-wrap: wrap;
-            margin-top: 0.8rem;
+            justify-content: center;
+            gap: 0.8rem;
+            min-height: 160px;
         }
         .playable-card {
-            width: 100px;
+            width: 90px;
             background: #fff2df;
             border-radius: 1rem;
             cursor: pointer;
-            transition: 0.1s linear;
+            transition: 0.1s;
             border: 2px solid #ffcf9a;
             text-align: center;
-            padding: 0.4rem;
+            padding: 0.3rem;
             color: #1f2e2e;
         }
         .playable-card:hover {
-            transform: translateY(-6px);
+            transform: translateY(-5px);
             border-color: #f5b042;
         }
         .playable-card img {
             width: 100%;
             border-radius: 8px;
         }
-        .card-energy-text {
-            font-size: 0.8rem;
+        .card-energy {
+            font-size: 0.7rem;
             font-weight: bold;
             background: #1f5e6e;
             display: inline-block;
@@ -210,22 +196,104 @@
             color: white;
             margin-top: 4px;
         }
-
-        /* log panel */
-        .duel-log {
-            background: #03171fcc;
+        .card-back {
+            width: 90px;
+            background: #1c5f6e;
             border-radius: 1rem;
-            margin-top: 1.5rem;
-            padding: 0.6rem;
-            max-height: 140px;
-            overflow-y: auto;
-            font-size: 0.85rem;
+            padding: 0.3rem;
+            text-align: center;
+            box-shadow: 0 4px 8px black;
+        }
+        .card-back img {
+            width: 100%;
+            border-radius: 8px;
         }
 
-        @media (max-width: 750px) {
-            .battle-card { width: 120px; }
-            .card-back, .playable-card { width: 75px; }
-            .vs { font-size: 1.2rem; padding: 0.2rem 0.6rem; }
+        /* pot slots */
+        .pot-area {
+            margin-top: 1rem;
+        }
+        .pot-title {
+            font-size: 0.8rem;
+            text-align: center;
+            margin-bottom: 0.3rem;
+        }
+        .pot-slots {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 5px;
+        }
+        .pot-slot {
+            width: 45px;
+            height: 60px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 8px;
+            border: 1px solid #ffcf9a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            overflow: hidden;
+        }
+        .pot-slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* battle cards in center */
+        .battle-cards {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .battle-card {
+            width: 110px;
+            text-align: center;
+            background: #02212ecc;
+            border-radius: 1rem;
+            padding: 0.5rem;
+        }
+        .battle-card img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .vs-text {
+            font-size: 2rem;
+            font-weight: bold;
+            background: #ffb34766;
+            padding: 0.2rem 0.8rem;
+            border-radius: 50%;
+        }
+        .winner-msg {
+            font-weight: bold;
+            margin: 0.5rem 0;
+            padding: 0.3rem;
+            background: #000000aa;
+            border-radius: 2rem;
+        }
+        .next-btn {
+            background: #2c7da0;
+            border: none;
+            color: white;
+            padding: 0.4rem 1.2rem;
+            border-radius: 2rem;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+        .next-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 1000px) {
+            .playable-card, .card-back { width: 70px; }
+            .battle-card { width: 90px; }
+            .pot-slot { width: 35px; height: 50px; }
         }
     </style>
 </head>
@@ -236,78 +304,93 @@
         <div class="back-link"><a href="/">← Back to main site</a></div>
     </div>
 
-    <div class="rule-panel">
-        <strong>⚡ OCEANIC MATE DUEL – RULES</strong><br>
-        • You & opponent start with <strong>6 random cards</strong> (front face shown).<br>
-        • Click your card → it moves to center, opponent reveals a random card.<br>
-        • Compare energies: <strong>Win</strong> = steal 1 random card from opponent.<br>
-        • <strong>Tie</strong> = both discarded, each draws 1 from deck.<br>
-        • <strong>First to 10 cards wins!</strong>
+    <!-- Rules panel with back.jpg -->
+    <div class="rules-panel">
+        <div class="rules-text">
+            <strong>⚡ OCEANIC MATE DUEL – RULES</strong><br>
+            • You and opponent start with <strong>6 random cards</strong> (face up).<br>
+            • Click a card → it fights a random opponent card in the center.<br>
+            • <strong>Win</strong>: you steal 1 random card from opponent's hand → add to your <strong>collection pot</strong>.<br>
+            • <strong>Lose</strong>: opponent steals 1 random card from your hand → adds to their pot.<br>
+            • <strong>Tie</strong>: both cards discarded, each draws 1 from deck (no steal).<br>
+            • After each fight, click <strong>“Next round”</strong> to continue.<br>
+            • <strong>First to collect 10 cards in your pot wins the duel!</strong>
+        </div>
+        <div class="rules-img">
+            <img src="images/mates/back.jpg" alt="card back" onerror="this.src='https://placehold.co/100x140?text=Back'">
+            <div style="font-size:0.7rem;">card back</div>
+        </div>
     </div>
 
+    <!-- Score & new game -->
     <div class="duel-header">
-        <div class="score-card">🐚 YOU: <span id="playerScore">6</span> cards</div>
-        <div class="game-status" id="gameStatus">🌊 Click your card</div>
-        <div class="score-card">👤 OPPONENT: <span id="opponentScore">6</span> cards</div>
+        <div class="score-card">🏆 YOUR POT: <span id="playerPotCount">0</span> / 10</div>
+        <div class="game-status" id="gameStatus">🌊 Choose a card</div>
+        <div class="score-card">🏆 OPPONENT POT: <span id="opponentPotCount">0</span> / 10</div>
         <button class="new-game-btn" id="resetGameBtn">⟳ NEW GAME</button>
     </div>
 
-    <!-- Battle arena (middle) -->
-    <div class="battle-arena" id="battleArena">
-        <div class="battle-card" id="playerBattleCard">
-            <img src="images/mates/back.jpg" alt="your card" style="opacity:0.6;">
-            <div class="battle-label">Your mate</div>
+    <!-- Main battle row: LEFT (player), CENTER, RIGHT (opponent) -->
+    <div class="battle-row">
+        <!-- PLAYER SIDE (left) -->
+        <div class="player-side">
+            <div class="hand-title">🐟 YOUR HAND (click a card)</div>
+            <div class="cards-grid" id="playerHandContainer"></div>
+            <div class="pot-area">
+                <div class="pot-title">📦 YOUR COLLECTION (won cards)</div>
+                <div class="pot-slots" id="playerPotSlots"></div>
+            </div>
         </div>
-        <div class="vs">VS</div>
-        <div class="battle-card" id="opponentBattleCard">
-            <img src="images/mates/back.jpg" alt="opponent card" style="opacity:0.6;">
-            <div class="battle-label">Opponent's mate</div>
+
+        <!-- CENTER ARENA -->
+        <div class="center-arena">
+            <div class="battle-cards" id="battleArea">
+                <div class="battle-card" id="playerBattleCard">
+                    <img src="images/mates/back.jpg" alt="your card">
+                    <div>Your mate</div>
+                </div>
+                <div class="vs-text">VS</div>
+                <div class="battle-card" id="opponentBattleCard">
+                    <img src="images/mates/back.jpg" alt="opponent card">
+                    <div>Opponent's mate</div>
+                </div>
+            </div>
+            <div id="winnerMessage" class="winner-msg"></div>
+            <button id="nextRoundBtn" class="next-btn" disabled>➡ NEXT ROUND</button>
         </div>
-    </div>
 
-    <!-- Opponent area (left side visually, but we place it first) -->
-    <div class="opponent-zone">
-        <div>🌙 OPPONENT'S HAND (face down)</div>
-        <div class="opponent-hand" id="opponentHandVisual"></div>
-    </div>
-
-    <!-- Player area (right side) -->
-    <div class="player-zone">
-        <div>🐟 YOUR MATES (click any card)</div>
-        <div class="player-hand" id="playerHandContainer"></div>
-    </div>
-
-    <div class="duel-log" id="logPanel">
-        <div>✨ New duel! First to 10 cards wins. Steal on victory, tie = discard & redraw.</div>
+        <!-- OPPONENT SIDE (right) -->
+        <div class="opponent-side">
+            <div class="hand-title">🌙 OPPONENT'S HAND (face down)</div>
+            <div class="cards-grid" id="opponentHandVisual"></div>
+            <div class="pot-area">
+                <div class="pot-title">📦 OPPONENT'S COLLECTION</div>
+                <div class="pot-slots" id="opponentPotSlots"></div>
+            </div>
+        </div>
     </div>
 </div>
 
 <script>
     // --------------------------------------------------------------
-    //  CARD DATA & DECK BUILDING (with correct image mapping)
+    //  CARD DATA & DECK (55 cards, 11 realms x 5 energies)
     // --------------------------------------------------------------
     const REALMS = [
-        "Abyssal Trench", "Coral Citadel", "Kelp Kingdom", "Sulfur Vents", "Frozen Depths",
+        "Abyss Trench", "Coral Citadel", "Kelp Kingdom", "Sulfur Vents", "Frozen Depths",
         "Sunken Atoll", "Pearl Expanse", "Magma Rift", "Azure Abyss", "Tidal Throne", "Whirlpool Maw"
     ];
     const ENERGIES = ["Light", "Nitrogen", "Sulfur", "Carbon", "Special"];
 
-    // Build full 55-card deck, each card has realm, energy, and imageNumber (1-55)
     function buildFullDeck() {
         let deck = [];
-        let imageId = 1;
-        for (let rIdx = 0; rIdx < REALMS.length; rIdx++) {
-            for (let eIdx = 0; eIdx < ENERGIES.length; eIdx++) {
-                deck.push({
-                    realm: REALMS[rIdx],
-                    energy: ENERGIES[eIdx],
-                    imageNumber: imageId++
-                });
+        let id = 1;
+        for (let r of REALMS) {
+            for (let e of ENERGIES) {
+                deck.push({ realm: r, energy: e, imageNumber: id++ });
             }
         }
         return shuffle(deck);
     }
-
     function shuffle(arr) {
         for (let i = arr.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -315,25 +398,23 @@
         }
         return arr;
     }
-
-    // Helper: get image path for a card
-    function getCardImagePath(card) {
+    function getCardImage(card) {
         const padded = String(card.imageNumber).padStart(2, '0');
         return `images/mates/mates${padded}.jpg`;
     }
 
-    // Energy win rules (fixed)
-    function getWinner(playerEnergy, opponentEnergy) {
-        if (playerEnergy === opponentEnergy) return "tie";
+    // Energy rules (fixed)
+    function getWinner(energyA, energyB) {
+        if (energyA === energyB) return "tie";
         const winMap = {
-            "Sulfur": ["Special", "Light"],
-            "Carbon": ["Sulfur", "Light"],
-            "Nitrogen": ["Sulfur", "Carbon"],
-            "Light": ["Nitrogen", "Special"],
-            "Special": ["Carbon", "Nitrogen"]
+            "Sulfur": ["Special","Light"],
+            "Carbon": ["Sulfur","Light"],
+            "Nitrogen": ["Sulfur","Carbon"],
+            "Light": ["Nitrogen","Special"],
+            "Special": ["Carbon","Nitrogen"]
         };
-        if (winMap[playerEnergy]?.includes(opponentEnergy)) return "player";
-        if (winMap[opponentEnergy]?.includes(playerEnergy)) return "opponent";
+        if (winMap[energyA]?.includes(energyB)) return "player";
+        if (winMap[energyB]?.includes(energyA)) return "opponent";
         return "tie";
     }
 
@@ -341,227 +422,265 @@
     //  GAME STATE
     // --------------------------------------------------------------
     let game = {
-        playerHand: [],      // array of card objects
+        playerHand: [],      // cards in hand (playable)
         opponentHand: [],
+        playerPot: [],       // collected cards (max 10)
+        opponentPot: [],
         drawDeck: [],
         discardPile: [],
         active: true,
-        waiting: false,
-        currentBattle: null   // { playerCard, opponentCard }
+        roundInProgress: false,   // waiting for next round?
+        pendingBattle: null,
+        winnerText: ""
     };
 
     // DOM elements
-    const playerContainer = document.getElementById("playerHandContainer");
-    const opponentVisual = document.getElementById("opponentHandVisual");
-    const playerScoreSpan = document.getElementById("playerScore");
-    const opponentScoreSpan = document.getElementById("opponentScore");
-    const gameStatusDiv = document.getElementById("gameStatus");
-    const logPanel = document.getElementById("logPanel");
+    const playerHandDiv = document.getElementById("playerHandContainer");
+    const opponentHandDiv = document.getElementById("opponentHandVisual");
+    const playerPotSlots = document.getElementById("playerPotSlots");
+    const opponentPotSlots = document.getElementById("opponentPotSlots");
+    const playerPotCountSpan = document.getElementById("playerPotCount");
+    const opponentPotCountSpan = document.getElementById("opponentPotCount");
+    const gameStatusSpan = document.getElementById("gameStatus");
+    const winnerMsgDiv = document.getElementById("winnerMessage");
+    const nextBtn = document.getElementById("nextRoundBtn");
     const playerBattleImg = document.querySelector("#playerBattleCard img");
     const opponentBattleImg = document.querySelector("#opponentBattleCard img");
-    const playerBattleLabel = document.querySelector("#playerBattleCard .battle-label");
-    const opponentBattleLabel = document.querySelector("#opponentBattleCard .battle-label");
+    const playerBattleLabel = document.querySelector("#playerBattleCard div");
+    const opponentBattleLabel = document.querySelector("#opponentBattleCard div");
 
-    function addLog(msg) {
-        const entry = document.createElement("div");
-        entry.textContent = msg;
-        logPanel.appendChild(entry);
-        entry.scrollIntoView({ behavior: "smooth", block: "nearest" });
-        while (logPanel.children.length > 25) logPanel.removeChild(logPanel.firstChild);
-    }
-
-    // Draw from deck (reshuffle discard if needed)
+    // Helper: draw card from deck (reshuffle discard if needed)
     function drawCard() {
         if (game.drawDeck.length === 0) {
             if (game.discardPile.length === 0) return null;
             game.drawDeck = shuffle([...game.discardPile]);
             game.discardPile = [];
-            addLog("📜 Deck reshuffled from discard pile.");
         }
         return game.drawDeck.pop();
     }
 
-    // Steal random card from loser to winner
-    function stealCard(winnerHand, loserHand) {
+    // Refill hands to 6 cards each (from draw deck)
+    function refillHands() {
+        while (game.playerHand.length < 6 && game.drawDeck.length > 0) {
+            const card = drawCard();
+            if (card) game.playerHand.push(card);
+            else break;
+        }
+        while (game.opponentHand.length < 6 && game.drawDeck.length > 0) {
+            const card = drawCard();
+            if (card) game.opponentHand.push(card);
+            else break;
+        }
+    }
+
+    // Update all UI: hands, pots, buttons, win condition
+    function updateUI() {
+        // Player hand (faces)
+        playerHandDiv.innerHTML = "";
+        game.playerHand.forEach((card, idx) => {
+            const div = document.createElement("div");
+            div.className = "playable-card";
+            div.innerHTML = `<img src="${getCardImage(card)}" onerror="this.src='https://placehold.co/90x120?text=${card.energy}'">
+                             <div class="card-energy">⚡ ${card.energy}</div>`;
+            if (game.active && !game.roundInProgress) {
+                div.style.cursor = "pointer";
+                div.onclick = () => selectCardForBattle(idx);
+            } else {
+                div.style.cursor = "default";
+                div.onclick = null;
+            }
+            playerHandDiv.appendChild(div);
+        });
+
+        // Opponent hand (backs)
+        opponentHandDiv.innerHTML = "";
+        for (let i = 0; i < game.opponentHand.length; i++) {
+            const backDiv = document.createElement("div");
+            backDiv.className = "card-back";
+            backDiv.innerHTML = `<img src="images/mates/back.jpg" onerror="this.src='https://placehold.co/90x120?text=??'"><div style="font-size:0.7rem;">???</div>`;
+            opponentHandDiv.appendChild(backDiv);
+        }
+
+        // Pots display (slots up to 10)
+        function renderPot(container, potArray) {
+            container.innerHTML = "";
+            for (let i = 0; i < 10; i++) {
+                const slot = document.createElement("div");
+                slot.className = "pot-slot";
+                if (i < potArray.length) {
+                    const card = potArray[i];
+                    const img = document.createElement("img");
+                    img.src = getCardImage(card);
+                    img.onerror = () => { img.src = "https://placehold.co/45x60?text=card"; };
+                    slot.appendChild(img);
+                } else {
+                    slot.textContent = "⬚";
+                }
+                container.appendChild(slot);
+            }
+        }
+        renderPot(playerPotSlots, game.playerPot);
+        renderPot(opponentPotSlots, game.opponentPot);
+        playerPotCountSpan.innerText = game.playerPot.length;
+        opponentPotCountSpan.innerText = game.opponentPot.length;
+
+        // Win check: first to 10 pot cards
+        if (game.active) {
+            if (game.playerPot.length >= 10) {
+                game.active = false;
+                game.roundInProgress = true;
+                gameStatusSpan.innerText = "🏆 YOU WIN! Collected 10 cards! 🏆";
+                winnerMsgDiv.innerText = "🏆 VICTORY! You reached 10 cards!";
+                nextBtn.disabled = true;
+            } else if (game.opponentPot.length >= 10) {
+                game.active = false;
+                game.roundInProgress = true;
+                gameStatusSpan.innerText = "💀 OPPONENT WINS (10 cards)";
+                winnerMsgDiv.innerText = "💀 Opponent collected 10 cards first.";
+                nextBtn.disabled = true;
+            }
+        }
+    }
+
+    // Steal a random card from loser's hand and add to winner's pot
+    function stealAndAddToPot(winnerPot, loserHand) {
         if (loserHand.length === 0) return false;
         const idx = Math.floor(Math.random() * loserHand.length);
         const stolen = loserHand.splice(idx, 1)[0];
-        winnerHand.push(stolen);
+        winnerPot.push(stolen);
         return true;
     }
 
-    // Resolve tie: both to discard, each draws 1
+    // Resolve tie: both played cards go to discard, each draws one
     function resolveTie(playerCard, opponentCard) {
-        addLog(`⚖️ TIE! ${playerCard.energy} vs ${opponentCard.energy} → both discarded, each draws 1.`);
         game.discardPile.push(playerCard, opponentCard);
         const newPlayer = drawCard();
         const newOpponent = drawCard();
         if (newPlayer) game.playerHand.push(newPlayer);
-        else addLog("⚠️ No card to draw for you.");
         if (newOpponent) game.opponentHand.push(newOpponent);
-        else addLog("⚠️ No card to draw for opponent.");
     }
 
-    // Clear battle arena (reset to placeholder)
-    function resetBattleDisplay() {
-        playerBattleImg.src = "images/mates/back.jpg";
-        playerBattleImg.style.opacity = "0.6";
-        playerBattleLabel.textContent = "Your mate";
-        opponentBattleImg.src = "images/mates/back.jpg";
-        opponentBattleImg.style.opacity = "0.6";
-        opponentBattleLabel.textContent = "Opponent's mate";
-    }
-
-    // Show both cards in battle arena
-    function showBattleCards(playerCard, opponentCard) {
-        playerBattleImg.src = getCardImagePath(playerCard);
-        playerBattleImg.style.opacity = "1";
-        playerBattleLabel.textContent = `${playerCard.energy} · ${playerCard.realm.substring(0,12)}`;
-        opponentBattleImg.src = getCardImagePath(opponentCard);
-        opponentBattleImg.style.opacity = "1";
-        opponentBattleLabel.textContent = `${opponentCard.energy} · ${opponentCard.realm.substring(0,12)}`;
-    }
-
-    // Play a round
-    async function playRound(playerIndex) {
-        if (!game.active || game.waiting) return;
-        game.waiting = true;
-        updateUI();
-
-        const playerCard = game.playerHand[playerIndex];
-        // Opponent picks random card from its hand
-        const opponentIdx = Math.floor(Math.random() * game.opponentHand.length);
-        const opponentCard = game.opponentHand[opponentIdx];
-
-        // Show both cards in the middle
-        showBattleCards(playerCard, opponentCard);
-        addLog(`🌊 You play ${playerCard.energy}  vs  👤 Opponent plays ${opponentCard.energy}`);
-
-        // Remove both cards from hands
-        game.playerHand.splice(playerIndex, 1);
-        game.opponentHand.splice(opponentIdx, 1);
-
-        const result = getWinner(playerCard.energy, opponentCard.energy);
-        if (result === "player") {
-            addLog(`✅ YOU WIN! Steal 1 card from opponent.`);
-            const stolen = stealCard(game.playerHand, game.opponentHand);
-            if (stolen) addLog(`🔁 You gained a card.`);
-            else addLog(`⚠️ Opponent had no cards to steal.`);
-            gameStatusDiv.innerText = "✅ You won the duel! +1 card";
-        } 
-        else if (result === "opponent") {
-            addLog(`💀 OPPONENT WINS! Steals 1 card from you.`);
-            const stolen = stealCard(game.opponentHand, game.playerHand);
-            if (stolen) addLog(`🔁 Opponent stole one of your cards.`);
-            else addLog(`⚠️ You had no cards to steal.`);
-            gameStatusDiv.innerText = "❌ Opponent wins the duel!";
-        }
-        else { // tie
+    // Called after a fight is resolved, before next round
+    async function finishRound(winner, playerCard, opponentCard) {
+        let message = "";
+        if (winner === "player") {
+            message = "✅ YOU WIN! Steal 1 card from opponent → added to your collection.";
+            const stolen = stealAndAddToPot(game.playerPot, game.opponentHand);
+            if (!stolen) message += " (opponent had no card to steal)";
+            gameStatusSpan.innerText = "✅ You won the duel!";
+        } else if (winner === "opponent") {
+            message = "💀 OPPONENT WINS! Steals 1 card from you → added to opponent's collection.";
+            const stolen = stealAndAddToPot(game.opponentPot, game.playerHand);
+            if (!stolen) message += " (you had no card to steal)";
+            gameStatusSpan.innerText = "❌ Opponent wins the duel!";
+        } else { // tie
+            message = "⚖️ TIE! Both cards discarded. Each draws 1 card from deck.";
             resolveTie(playerCard, opponentCard);
-            gameStatusDiv.innerText = "⚡ Tie! Cards replaced.";
+            gameStatusSpan.innerText = "⚡ Tie! Cards replaced.";
         }
-
+        winnerMsgDiv.innerText = message;
+        
+        // Refill hands to 6 cards each
+        refillHands();
+        
         updateUI();
-
-        // Win condition checks (first to 10)
-        if (game.playerHand.length >= 10) {
-            game.active = false;
-            gameStatusDiv.innerText = "🏆 YOU WIN! First to 10 cards! 🏆";
-            addLog("✨✨ VICTORY! You reached 10 cards! ✨✨");
-            resetBattleDisplay();
-        } else if (game.opponentHand.length >= 10) {
-            game.active = false;
-            gameStatusDiv.innerText = "💀 OPPONENT WINS (10 cards)";
-            addLog("❌ Opponent reached 10 cards first.");
-            resetBattleDisplay();
-        } else if (game.playerHand.length === 0) {
-            game.active = false;
-            gameStatusDiv.innerText = "💀 No cards left – Opponent wins";
-            addLog("💀 You lost all cards.");
-            resetBattleDisplay();
-        } else if (game.opponentHand.length === 0) {
-            game.active = false;
-            gameStatusDiv.innerText = "🏆 Opponent has no cards – You win!";
-            addLog("🏆 Opponent ran out of cards.");
-            resetBattleDisplay();
-        }
-
+        
+        // If game ended after update, disable next button permanently
         if (!game.active) {
-            game.waiting = false;
-            updateUI();
+            nextBtn.disabled = true;
             return;
         }
-
-        // Reset battle arena after a short delay (keep cards visible for 1.5s)
-        setTimeout(() => {
-            if (game.active && !game.waiting) resetBattleDisplay();
-            else if (!game.active) resetBattleDisplay();
-        }, 1500);
-
-        game.waiting = false;
-        gameStatusDiv.innerText = "🌊 Select a card";
-        updateUI();
+        
+        // Enable next round button
+        game.roundInProgress = true;
+        nextBtn.disabled = false;
+        nextBtn.style.cursor = "pointer";
     }
 
-    // Refresh UI: player hand (with images), opponent hand (backs), scores
-    function updateUI() {
-        playerScoreSpan.innerText = game.playerHand.length;
-        opponentScoreSpan.innerText = game.opponentHand.length;
-
-        // Player hand (right side) – show card fronts
-        playerContainer.innerHTML = "";
-        game.playerHand.forEach((card, idx) => {
-            const cardDiv = document.createElement("div");
-            cardDiv.className = "playable-card";
-            const imgSrc = getCardImagePath(card);
-            cardDiv.innerHTML = `
-                <img src="${imgSrc}" alt="${card.energy}" onerror="this.src='https://placehold.co/100x140?text=${card.energy}'">
-                <div class="card-energy-text">⚡ ${card.energy}</div>
-            `;
-            if (game.active && !game.waiting) {
-                cardDiv.style.cursor = "pointer";
-                cardDiv.onclick = () => playRound(idx);
-            } else {
-                cardDiv.style.cursor = "default";
-            }
-            playerContainer.appendChild(cardDiv);
-        });
-
-        // Opponent hand (left side) – show card backs
-        opponentVisual.innerHTML = "";
-        for (let i = 0; i < game.opponentHand.length; i++) {
-            const backDiv = document.createElement("div");
-            backDiv.className = "card-back";
-            backDiv.innerHTML = `<img src="images/mates/back.jpg" alt="card back" onerror="this.src='https://placehold.co/100x140?text=??'"><div style="font-size:0.7rem;">???</div>`;
-            opponentVisual.appendChild(backDiv);
-        }
+    // Called when player clicks a card
+    async function selectCardForBattle(playerIdx) {
+        if (!game.active || game.roundInProgress) return;
+        if (game.playerHand.length === 0 || game.opponentHand.length === 0) return;
+        
+        const playerCard = game.playerHand[playerIdx];
+        // opponent randomly selects a card from its hand
+        const oppIdx = Math.floor(Math.random() * game.opponentHand.length);
+        const opponentCard = game.opponentHand[oppIdx];
+        
+        // Show battle cards in center
+        playerBattleImg.src = getCardImage(playerCard);
+        playerBattleLabel.textContent = `${playerCard.energy}`;
+        opponentBattleImg.src = getCardImage(opponentCard);
+        opponentBattleLabel.textContent = `${opponentCard.energy}`;
+        
+        // Remove both from hands
+        game.playerHand.splice(playerIdx, 1);
+        game.opponentHand.splice(oppIdx, 1);
+        
+        const result = getWinner(playerCard.energy, opponentCard.energy);
+        let winner = null;
+        if (result === "player") winner = "player";
+        else if (result === "opponent") winner = "opponent";
+        else winner = "tie";
+        
+        // Disable card clicks until next round
+        game.roundInProgress = true;
+        updateUI(); // refresh hands (cards removed)
+        
+        await finishRound(winner, playerCard, opponentCard);
     }
 
-    // Initialize new game
+    // Reset the entire game
     function initNewGame() {
-        const fullDeck = buildFullDeck();  // 55 shuffled cards
+        const fullDeck = buildFullDeck(); // 55 shuffled
         game.playerHand = [];
         game.opponentHand = [];
+        game.playerPot = [];
+        game.opponentPot = [];
+        game.discardPile = [];
         // deal 6 cards each
         for (let i = 0; i < 6; i++) {
             if (fullDeck.length) game.playerHand.push(fullDeck.pop());
             if (fullDeck.length) game.opponentHand.push(fullDeck.pop());
         }
         game.drawDeck = fullDeck;
-        game.discardPile = [];
         game.active = true;
-        game.waiting = false;
-        resetBattleDisplay();
-        addLog("🔄 NEW GAME! Each has 6 cards. First to 10 wins (steal mechanic).");
-        gameStatusDiv.innerText = "🌊 Click your card";
+        game.roundInProgress = false;
+        
+        // Reset battle display
+        playerBattleImg.src = "images/mates/back.jpg";
+        playerBattleLabel.textContent = "Your mate";
+        opponentBattleImg.src = "images/mates/back.jpg";
+        opponentBattleLabel.textContent = "Opponent's mate";
+        winnerMsgDiv.innerHTML = "";
+        gameStatusSpan.innerText = "🌊 Choose a card";
+        nextBtn.disabled = true;
+        
         updateUI();
     }
 
-    // Attach reset button event
+    // Next round button: resets battle area and enables new fights
+    function nextRound() {
+        if (!game.active) return;
+        if (!game.roundInProgress) return;
+        game.roundInProgress = false;
+        winnerMsgDiv.innerHTML = "";
+        gameStatusSpan.innerText = "🌊 Select a card";
+        nextBtn.disabled = true;
+        // reset battle images to backs
+        playerBattleImg.src = "images/mates/back.jpg";
+        playerBattleLabel.textContent = "Your mate";
+        opponentBattleImg.src = "images/mates/back.jpg";
+        opponentBattleLabel.textContent = "Opponent's mate";
+        updateUI();
+    }
+
+    // Event binding
     document.getElementById("resetGameBtn").addEventListener("click", () => {
         initNewGame();
     });
-
+    nextBtn.addEventListener("click", nextRound);
+    
     // Start the game
     initNewGame();
 </script>
