@@ -71,7 +71,12 @@ nav {
     z-index: 1;
     background-color: transparent;
 }
-
+.nav-links a sup {
+    vertical-align: baseline;
+    font-size: 0.7em;
+    top: -0.2em;
+    position: relative;
+}
 .logo {
     color: white;
     font-size: 1.5rem;
