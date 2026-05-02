@@ -719,9 +719,9 @@ async function render() {
         <footer>
             <div class="footer-content">
                 <div class="footer-logo">
-                    <img src="images/others/umu.png" alt="UmU Logo" style="height: 50px; width: auto;" onerror="this.src='https://placehold.co/150x60?text=UmU'">
                     <img src="images/others/capolab_logo.png" alt="Capo Lab Logo" style="height: 50px; width: auto;" onerror="this.src='https://placehold.co/150x60?text=Capo+Lab'">
-                </div>
+                    <img src="images/others/umu.png" alt="UmU Logo" style="height: 50px; width: auto;" onerror="this.src='https://placehold.co/150x60?text=UmU'">
+                            </div>
             <div class="footer-info">
                 <p>Contact: <a href="mailto:eric.capo@umu.se">eric.capo@umu.se</a></p>
                 <p style="margin-top: 0.5rem; font-size: 0.85rem;">Department of Ecology, Environment and Geoscience, Umeå University, Sweden</p>
