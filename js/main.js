@@ -328,7 +328,22 @@ function buildMicromatesHTML() {
     return `
         <div class="micromates-wrapper">
             ${responsiveCSS}
-            <h1 class="section-title">MicroMates<sup>™</sup> Card Game</h1>
+            <h1 class="section-title" style="display:flex; align-items:center; justify-content:center; gap:12px;">
+    MicroMates<sup>™</sup> Card Game
+    <a href="https://instagram.com/micromatesgame"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="MicroMates Instagram"
+       style="display:inline-flex; align-items:center; color:inherit; text-decoration:none;">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             width="30"
+             height="30"
+             viewBox="0 0 24 24"
+             fill="currentColor">
+            <path d="M7.75 2C4.57 2 2 4.57 2 7.75v8.5C2 19.43 4.57 22 7.75 22h8.5C19.43 22 22 19.43 22 16.25v-8.5C22 4.57 19.43 2 16.25 2h-8.5zm0 2h8.5A3.75 3.75 0 0 1 20 7.75v8.5A3.75 3.75 0 0 1 16.25 20h-8.5A3.75 3.75 0 0 1 4 16.25v-8.5A3.75 3.75 0 0 1 7.75 4zm9.5 1a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5zM12 6.5A5.5 5.5 0 1 0 17.5 12 5.51 5.51 0 0 0 12 6.5zm0 2A3.5 3.5 0 1 1 8.5 12 3.5 3.5 0 0 1 12 8.5z"/>
+        </svg>
+    </a>
+</h1>
             <div class="game-header">
                 <div class="game-text-box" style="padding-top: 0;">
                     <h2 style="color: white; font-size: 1.6rem; font-weight: 600; margin: 0; padding: 0.5rem 2rem 0.5rem 2rem; border-bottom: 2px solid rgba(106,176,214,0.3); text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">MicroMates<sup>™</sup> Oceanic Realms</h2>                    
